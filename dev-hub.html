@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BenihKode — Seed of Code</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0A0A0A;
+            --white: #F5F5F0;
+            --accent: #FF6B00;
+            --gray: #8A8A8A;
+            --grid-line: #E0E0E0;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background-color: var(--white);
+            color: var(--black);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            z-index: 1000;
+        }
+
+        /* Grid background */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .grid-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+
+        /* Header */
+        header {
+            border-bottom: 3px solid var(--black);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            z-index: 100;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            color: var(--black);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .logo-subtitle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-top: 0.25rem;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--black);
+            text-decoration: none;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 2rem;
+            border-bottom: 3px solid var(--black);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            animation: fadeSlideUp 0.8s ease-out 0.2s backwards;
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero h1 .line {
+            display: block;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease-out backwards;
+        }
+
+        .hero h1 .line:nth-child(1) { animation-delay: 0.3s; }
+        .hero h1 .line:nth-child(2) { animation-delay: 0.4s; }
+        .hero h1 .line:nth-child(3) { animation-delay: 0.5s; }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin-bottom: 2rem;
+            animation: fadeSlideUp 0.8s ease-out 0.6s backwards;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            animation: fadeSlideUp 0.8s ease-out 0.7s backwards;
+        }
+
+        .hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-meta .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        /* Section Styling */
+        section {
+            border-bottom: 3px solid var(--black);
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .section-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            font-weight: 900;
+            color: var(--black);
+            opacity: 0.15;
+            line-height: 1;
+            position: absolute;
+            left: 2rem;
+            top: 2rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* PRD Cards */
+        .prd-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .prd-card {
+            border: 2px solid var(--black);
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        .prd-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .prd-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0 var(--black);
+        }
+
+        .prd-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .prd-status {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.3rem 0.6rem;
+            border: 1px solid var(--black);
+            margin-bottom: 1rem;
+        }
+
+        .prd-status.idea {
+            background: var(--accent);
+            color: var(--white);
+            border-color: var(--accent);
+        }
+
+        .prd-status.in-progress {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .prd-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .prd-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .prd-card .meta {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--black);
+        }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border: 2px solid var(--black);
+            overflow: hidden;
+            background: var(--black);
+            cursor: pointer;
+        }
+
+        .portfolio-item::after {
+            content: '→';
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            color: var(--white);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:hover::after {
+            opacity: 1;
+            transform: translate(-4px, -4px);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--black) 0%, #2A2A2A 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--white);
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-image {
+            opacity: 0.4;
+            transform: scale(1.05);
+        }
+
+        .portfolio-info {
+            padding: 1.5rem;
+            background: var(--white);
+            position: relative;
+            z-index: 1;
+        }
+
+        .portfolio-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-info p {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* Blog Timeline */
+        .blog-timeline {
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .blog-timeline::before {
+            content: '';
+            position: absolute;
+            left: 2rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--black);
+        }
+
+        .blog-post {
+            position: relative;
+            padding-left: 5rem;
+            padding-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .blog-post.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .blog-post::before {
+            content: '';
+            position: absolute;
+            left: 1.35rem;
+            top: 0.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: var(--white);
+            border: 2px solid var(--black);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .blog-post:hover::before {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: scale(1.3);
+        }
+
+        .blog-date {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .blog-post p {
+            font-size: 0.95rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .blog-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .blog-tags span {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.3rem 0.6rem;
+            background: var(--black);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 3px solid var(--black);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        footer .email {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--black);
+            text-decoration: none;
+            display: block;
+            margin: 1.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        footer .email:hover {
+            color: var(--accent);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-number {
+                font-size: 4rem;
+                opacity: 0.1;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .prd-grid,
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations for scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+
+    <header>
+        <a href="#" class="logo">
+            Benih<span>Kode</span>
+            <span class="logo-subtitle">Seed of Code</span>
+        </a>
+        <nav>
+            <a href="#prd">PRDs</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#blog">Blog</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>
+                <span class="line">Every Great App</span>
+                <span class="line">Starts as a Seed.</span>
+                <span class="line">This is My Garden.</span>
+            </h1>
+            <p>BenihKode — where ideas are planted, code is cultivated, and growth is documented. A developer's journey from seed to harvest.</p>
+            <div class="hero-meta">
+                <span><span class="dot"></span> Currently building</span>
+                <span>Open for collabs</span>
+                <span>Learning in public</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="prd">
+        <span class="section-number">01</span>
+        <div class="section-header">
+            <h2 class="section-title">Product Ideas (PRDs)</h2>
+        </div>
+        <p style="color: var(--gray); margin-bottom: 2rem;">Every project starts as an idea. Here are the seeds waiting to be planted, with specs and dreams attached.</p>
+
+        <div class="prd-grid">
+            <article class="prd-card">
+                <span class="prd-status idea">Idea</span>
+                <h3>DevMetrics Dashboard</h3>
+                <p>A personal analytics dashboard for developers. Track coding hours, languages used, commits, and side project progress with beautiful visualizations.</p>
+                <div class="meta">Last updated: 2 days ago</div>
+            </article>
+
+            <article class="prd-card">
+                <span class="prd-status in-progress">In Progress</span>
+                <h3>FocusFlow Timer</h3>
+                <p>Pomodoro timer for developers with GitHub integration. Automatically commit focus sessions as "work logs" and track productivity patterns.</p>
+                <div class="meta">MVP in development</div>
+            </article>
+
+            <article class="prd-card">
+                <span class="prd-status idea">Idea</span>
+                <h3>API Playground</h3>
+                <p>Visual API testing tool for beginners. No coding required—just click, configure, and see responses in real-time with explanations.</p>
+                <div class="meta">Research phase</div>
+            </article>
+
+            <article class="prd-card">
+                <span class="prd-status idea">Idea</span>
+                <h3>CodeReview Buddy</h3>
+                <p>AI-assisted code review companion that explains problems in plain English and suggests fixes with reasoning.</p>
+                <div class="meta">Last updated: 1 week ago</div>
+            </article>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <span class="section-number">02</span>
+        <div class="section-header">
+            <h2 class="section-title">Shipped Projects</h2>
+        </div>
+        <p style="color: var(--gray); margin-bottom: 2rem;">Seeds that sprouted, grew, and bore fruit. These projects made it from idea to reality.</p>
+
+        <div class="portfolio-grid">
+            <article class="portfolio-item">
+                <div class="portfolio-image">📝</div>
+                <div class="portfolio-info">
+                    <h3>TaskMaster CLI</h3>
+                    <p>Terminal-based task management with local storage. Built with Node.js.</p>
+                </div>
+            </article>
+
+            <article class="portfolio-item">
+                <div class="portfolio-image">🌤</div>
+                <div class="portfolio-info">
+                    <h3>WeatherNow</h3>
+                    <p>Minimal weather app with geolocation. React + OpenWeather API.</p>
+                </div>
+            </article>
+
+            <article class="portfolio-item">
+                <div class="portfolio-image">💬</div>
+                <div class="portfolio-info">
+                    <h3>ChatMini</h3>
+                    <p>Real-time chat app with rooms. Socket.io + Express.</p>
+                </div>
+            </article>
+
+            <article class="portfolio-item">
+                <div class="portfolio-image">📊</div>
+                <div class="portfolio-info">
+                    <h3>HabitTracker</h3>
+                    <p>Progressive Web App for daily habit tracking. Vue.js + PWA.</p>
+                </div>
+            </article>
+
+            <article class="portfolio-item">
+                <div class="portfolio-image">🎨</div>
+                <div class="portfolio-info">
+                    <h3>ColorPalette Pro</h3>
+                    <p>Generate and export color palettes. Vanilla JS + localStorage.</p>
+                </div>
+            </article>
+
+            <article class="portfolio-item">
+                <div class="portfolio-image">⌨️</div>
+                <div class="portfolio-info">
+                    <h3>TypingSpeed</h3>
+                    <p>Typing speed test with statistics. Pure frontend app.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section id="blog">
+        <span class="section-number">03</span>
+        <div class="section-header">
+            <h2 class="section-title">Dev Journal</h2>
+        </div>
+        <p style="color: var(--gray); margin-bottom: 2rem;">The garden journal. Documenting growth, setbacks, breakthroughs, and everything in between.</p>
+
+        <div class="blog-timeline">
+            <article class="blog-post">
+                <div class="blog-date">March 15, 2026</div>
+                <h3>Finally Async/Await Without Fear</h3>
+                <p>After months of avoiding promises, I finally understand async/await. Built a weather app that fetches data without blocking the UI. The key: treat async code like a parallel timeline.</p>
+                <div class="blog-tags">
+                    <span>JavaScript</span>
+                    <span>Async</span>
+                    <span>Breakthrough</span>
+                </div>
+            </article>
+
+            <article class="blog-post">
+                <div class="blog-date">March 12, 2026</div>
+                <h3>CSS Grid Finally Clicked</h3>
+                <p>The mental model: CSS Grid is like a table on steroids. Once I stopped thinking in flexbox for everything, layouts became 10x easier. Built a responsive dashboard without a single media query.</p>
+                <div class="blog-tags">
+                    <span>CSS</span>
+                    <span>Grid</span>
+                    <span>Layout</span>
+                </div>
+            </article>
+
+            <article class="blog-post">
+                <div class="blog-date">March 8, 2026</div>
+                <h3>The Bug That Took 3 Days to Fix</h3>
+                <p>Missing an await keyword. Three days of debugging, console.log everywhere, and questioning my career choice. Lesson: always read error messages. Always.</p>
+                <div class="blog-tags">
+                    <span>Debugging</span>
+                    <span>Mistakes</span>
+                    <span>Learning</span>
+                </div>
+            </article>
+
+            <article class="blog-post">
+                <div class="blog-date">March 5, 2026</div>
+                <h3>Shipped My First Package to NPM</h3>
+                <p>It's a tiny utility function (5 lines), but it's on NPM and people actually downloaded it (12 times, probably me testing). The feeling: indescribable.</p>
+                <div class="blog-tags">
+                    <span>NPM</span>
+                    <span>Package</span>
+                    <span>Milestone</span>
+                </div>
+            </article>
+
+            <article class="blog-post">
+                <div class="blog-date">March 1, 2026</div>
+                <h3>Planting BenihKode</h3>
+                <p>Tired of losing track of ideas and progress. Starting BenihKode to document everything—the seeds (ideas), the sprouts (WIP), and the harvest (shipped projects). The goal: one year from now, look back at a thriving garden.</p>
+                <div class="blog-tags">
+                    <span>Meta</span>
+                    <span>Beginnings</span>
+                    <span>BenihKode</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <footer>
+        <p>Plant ideas. Cultivate code. Harvest experience.</p>
+        <a href="mailto:hello@benihkode.dev" class="email">hello@benihkode.dev</a>
+        <p>© 2026 BenihKode — Every line of code is a seed.</p>
+    </footer>
+
+    <script>
+        // Scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe blog posts
+        document.querySelectorAll('.blog-post').forEach(post => {
+            observer.observe(post);
+        });
+
+        // Observe cards with animation class
+        document.querySelectorAll('.prd-card, .portfolio-item').forEach(el => {
+            el.classList.add('animate-on-scroll');
+            observer.observe(el);
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Add random accent color positions for variety
+        document.querySelectorAll('.prd-card, .portfolio-item').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.borderColor = '#FF6B00';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.borderColor = '#0A0A0A';
+            });
+        });
+    </script>
+</body>
+</html>
