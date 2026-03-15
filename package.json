@@ -1,0 +1,29 @@
+{
+	"name": "bkastro",
+	"type": "module",
+	"version": "0.0.1",
+	"engines": {
+		"node": ">=22.12.0"
+	},
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro build && wrangler dev",
+		"astro": "astro",
+		"generate-types": "wrangler types",
+		"deploy": "astro build && wrangler deploy",
+		"cf-typegen": "wrangler types"
+	},
+	"dependencies": {
+		"@astrojs/cloudflare": "^13.1.1",
+		"@astrojs/mdx": "^5.0.0",
+		"@astrojs/rss": "^4.0.17",
+		"@astrojs/sitemap": "^3.7.1",
+		"astro": "^6.0.4",
+		"sharp": "^0.34.3"
+	},
+	"devDependencies": {
+		"@types/node": "^25.5.0",
+		"wrangler": "^4.73.0"
+	}
+}
