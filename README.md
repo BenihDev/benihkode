@@ -1,62 +1,67 @@
-# Astro Starter Kit: Blog
+# BenihKode — Seed of Code 🌱
 
-```sh
-pnpm create astro@latest -- --template blog
+A developer's garden where ideas are planted as PRDs, cultivated through development, and harvested as shipped products. Built with [Astro](https://astro.build) and deployed on [Cloudflare](https://www.cloudflare.com).
+
+> **Benih** (Indonesian) = Seed · **Kode** = Code
+
+## 🌿 What's Inside
+
+- **Product Ideas** — Full PRDs for apps that are in ideation or development
+- **Shipped Projects** — A portfolio of completed projects with tech stacks
+- **Dev Journal** — Blog posts documenting the journey of building in public
+
+## 🛠 Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | [Astro 6](https://astro.build) with MDX |
+| Hosting | [Cloudflare Pages](https://pages.cloudflare.com) via Workers |
+| Styling | Vanilla CSS with custom design system |
+| Fonts | Inter, Playfair Display, JetBrains Mono |
+| Features | RSS feed, sitemap, dark/light theme, scroll animations |
+
+## 🚀 Getting Started
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start dev server at localhost:4321
+pnpm dev
+
+# Build for production
+pnpm build
+
+# Preview production build locally
+pnpm preview
+
+# Deploy to Cloudflare
+pnpm deploy
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 📁 Project Structure
 
-Features:
-
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-├── public/
-├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+```
+src/
+├── components/     # Astro UI components (Header, Footer, Hero, Cards)
+├── content/
+│   ├── blog/       # Dev journal posts (Markdown)
+│   ├── ideas/      # Product idea PRDs (Markdown/MDX)
+│   └── projects/   # Shipped project entries (Markdown)
+├── layouts/        # Base page layout
+├── pages/          # Route pages (index, about, blog, ideas, projects)
+└── styles/         # Global CSS design system
+public/
+├── favicon.svg     # BenihKode seed icon
+├── og-default.png  # Default Open Graph preview image
+└── robots.txt      # Crawler permissions
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🌏 Links
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- **Live site**: [benihkode.web.id](https://benihkode.web.id)
+- **RSS Feed**: [benihkode.web.id/rss.xml](https://benihkode.web.id/rss.xml)
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+## 📄 License
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+Personal project. All content © BenihKode.
