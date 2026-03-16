@@ -8,7 +8,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://benihkode.dev',
   integrations: [mdx(), sitemap()],
   adapter: cloudflare({
     platformProxy: {
@@ -17,4 +17,9 @@ export default defineConfig({
 
     imageService: "cloudflare"
   }),
+  vite: {
+    build: {
+      minify: false,
+    },
+  },
 });
