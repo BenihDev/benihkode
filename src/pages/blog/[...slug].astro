@@ -1,6 +1,6 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -13,8 +13,53 @@ type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
 const { Content } = await render(post);
+
+const formattedDate = post.data.pubDate.toLocaleDateString('en-US', {
+	year: 'numeric', month: 'long', day: 'numeric'
+});
 ---
 
-<BlogPost {...post.data}>
-	<Content />
-</BlogPost>
+<BaseLayout title={`${post.data.title} — BenihKode`} description={post.data.description}>
+	<article class="blog-article">
+		<div class="container">
+			<div class="blog-header animate-on-scroll">
+				<a href="/blog" class="back-link">← Back to Journal</a>
+				<div class="blog-meta">{formattedDate}</div>
+				<h1>{post.data.title}</h1>
+				{post.data.tags && post.data.tags.length > 0 && (
+					<div class="blog-tags">
+						{post.data.tags.map((tag: string) => <span class="tag">{tag}</span>)}
+					</div>
+				)}
+				<hr />
+			</div>
+			<div class="blog-body prose">
+				<Content />
+			</div>
+		</div>
+	</article>
+</BaseLayout>
+
+<style>
+	.blog-article { padding-top: 4rem; }
+	.blog-header { margin-bottom: 2rem; max-width: 680px; }
+	.back-link {
+		display: inline-block; font-size: 0.85rem; color: var(--text-muted);
+		text-decoration: none; margin-bottom: 2rem; transition: color 0.2s;
+	}
+	.back-link:hover { color: var(--accent); }
+	.blog-meta {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+		color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;
+		margin-bottom: 0.75rem;
+	}
+	h1 { margin-bottom: 1rem; }
+	.blog-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+	.tag {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 500;
+		text-transform: uppercase; letter-spacing: 0.04em;
+		padding: 0.25rem 0.6rem; background: var(--glass);
+		border: 1px solid var(--glass-border); color: var(--text-secondary); border-radius: 4px;
+	}
+	.blog-body { max-width: 680px; }
+</style>

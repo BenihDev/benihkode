@@ -1,0 +1,100 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { SITE_EMAIL } from '../../../consts';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	return projects
+		.filter(p => p.data.hasPrivacyPolicy)
+		.map((project) => ({
+			params: { slug: project.id },
+			props: project,
+		}));
+}
+type Props = CollectionEntry<'projects'>;
+
+const project = Astro.props;
+const appName = project.data.appName || project.data.title;
+const lastUpdated = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title={`Privacy Policy — ${appName}`} description={`Privacy policy for ${appName} application.`}>
+	<section style="padding-top: 4rem;">
+		<div class="container">
+			<div class="privacy-content">
+				<a href="/" class="back-link">← Back to Home</a>
+				<h1>Privacy Policy</h1>
+				<p class="app-name">for <strong>{appName}</strong></p>
+				<p class="last-updated">Last updated: {lastUpdated}</p>
+
+				<h2>Introduction</h2>
+				<p>
+					This Privacy Policy describes how {appName} ("we", "us", or "our") handles your information when you use our mobile application (the "App"). We are committed to protecting your privacy and being transparent about the data we collect.
+				</p>
+
+				<h2>Information Collection and Use</h2>
+				<p>
+					{appName} is designed with privacy in mind. We collect the minimum amount of data necessary to provide you with a functional, high-quality experience.
+				</p>
+				<ul>
+					<li><strong>Usage Data:</strong> We may collect anonymized usage statistics to improve the app experience. This data cannot be used to identify you personally.</li>
+					<li><strong>Local Storage:</strong> The app stores your preferences and data locally on your device. This data is not transmitted to our servers unless explicitly required for the app's core functionality.</li>
+				</ul>
+
+				<h2>Data Storage</h2>
+				<p>
+					Your data is primarily stored locally on your device. We do not sell, trade, or otherwise transfer your personal information to outside parties.
+				</p>
+
+				<h2>Third-Party Services</h2>
+				<p>
+					The app may use third-party services that may collect information used to identify you. Links to the privacy policies of third-party service providers used by the app:
+				</p>
+				<ul>
+					<li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Play Services</a></li>
+				</ul>
+
+				<h2>Children's Privacy</h2>
+				<p>
+					We do not knowingly collect personally identifiable information from children under 13. If we discover that a child under 13 has provided us with personal information, we will immediately delete it from our records.
+				</p>
+
+				<h2>Changes to This Privacy Policy</h2>
+				<p>
+					We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.
+				</p>
+
+				<h2>Contact Us</h2>
+				<p>
+					If you have any questions or suggestions about this Privacy Policy, do not hesitate to contact us at <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.
+				</p>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.privacy-content {
+		max-width: 680px;
+		line-height: 1.8;
+	}
+	.back-link {
+		display: inline-block; font-size: 0.85rem; color: var(--text-muted);
+		text-decoration: none; margin-bottom: 2rem; transition: color 0.2s;
+	}
+	.back-link:hover { color: var(--accent); }
+	h1 { margin-bottom: 0.25rem; }
+	.app-name { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+	.last-updated {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+		color: var(--text-muted); margin-bottom: 2rem;
+	}
+	h2 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.3rem; }
+	p { margin-bottom: 1rem; color: var(--text-secondary); }
+	ul {
+		list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;
+	}
+	li { margin-bottom: 0.5rem; color: var(--text-secondary); }
+	a { color: var(--accent); }
+</style>
