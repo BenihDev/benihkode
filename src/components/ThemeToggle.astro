@@ -1,0 +1,54 @@
+---
+const currentTheme = 'dark'; // default, overridden by client-side JS
+---
+
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+
+<style>
+	.theme-toggle {
+		background: none;
+		border: none;
+		color: var(--text-secondary);
+		cursor: pointer;
+		padding: 0.5rem;
+		font-size: 1.1rem;
+		border-radius: var(--radius-xs);
+		transition: all 0.25s ease;
+		display: inline-flex;
+		align-items: center;
+	}
+	.theme-toggle:hover {
+		color: var(--accent);
+		background: var(--bg-card-hover);
+	}
+</style>
+
+<script>
+	const btn = document.getElementById('themeToggle')!;
+	const root = document.documentElement;
+
+	function getTheme(): string {
+		const saved = localStorage.getItem('theme');
+		if (saved) return saved;
+		return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+	}
+
+	function applyTheme(theme: string) {
+		if (theme === 'light') {
+			root.setAttribute('data-theme', 'light');
+			btn.textContent = '🌙';
+		} else {
+			root.removeAttribute('data-theme');
+			btn.textContent = '☀️';
+		}
+	}
+
+	let currentTheme = getTheme();
+	applyTheme(currentTheme);
+
+	btn.addEventListener('click', () => {
+		currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+		localStorage.setItem('theme', currentTheme);
+		applyTheme(currentTheme);
+	});
+</script>

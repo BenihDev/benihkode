@@ -1,0 +1,71 @@
+---
+interface Props {
+	title: string;
+	description: string;
+	status: 'idea' | 'in-progress' | 'completed';
+	meta?: string;
+}
+const { title, description, status, meta } = Astro.props;
+---
+
+<article class="prd-card animate-on-scroll">
+	<span class:list={['prd-status', status]}>{status === 'in-progress' ? 'In Progress' : status === 'completed' ? 'Completed' : 'Idea'}</span>
+	<h3>{title}</h3>
+	<p>{description}</p>
+	{meta && <div class="meta">{meta}</div>}
+</article>
+
+<style>
+	.prd-card {
+		background: var(--bg-card); border: 1px solid var(--border);
+		border-radius: var(--radius); padding: 1.75rem;
+		transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+		cursor: pointer; position: relative; overflow: hidden; z-index: 1;
+	}
+	.prd-card::before {
+		content: ''; position: absolute; top: 0; left: 0; right: 0; height: 100%;
+		background: linear-gradient(180deg, rgba(255, 107, 44, 0.05) 0%, transparent 100%);
+		opacity: 0; transition: opacity 0.4s ease; z-index: -1;
+	}
+	.prd-card::after {
+		content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+		background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end), #6C63FF, var(--gradient-start));
+		background-size: 300% 100%;
+		opacity: 0; transition: opacity 0.4s ease; animation: gradientShift 3s linear infinite;
+	}
+	.prd-card:hover {
+		background: var(--bg-card-hover); border-color: transparent;
+		transform: translateY(-8px) scale(1.02);
+		box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow);
+	}
+	.prd-card:hover::before, .prd-card:hover::after { opacity: 1; }
+
+	.prd-status {
+		display: inline-flex; align-items: center; gap: 0.35rem;
+		font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 600;
+		text-transform: uppercase; letter-spacing: 0.08em;
+		padding: 0.3rem 0.7rem; border-radius: 100px; margin-bottom: 1.25rem;
+	}
+	.prd-status.idea {
+		background: var(--accent-glow); color: var(--accent);
+		border: 1px solid rgba(255, 107, 44, 0.2);
+	}
+	.prd-status.idea::before { content: '💡'; font-size: 0.7rem; }
+	.prd-status.in-progress {
+		background: rgba(46, 204, 113, 0.1); color: #2ECC71;
+		border: 1px solid rgba(46, 204, 113, 0.2);
+	}
+	.prd-status.in-progress::before { content: '⚡'; font-size: 0.7rem; }
+	.prd-status.completed {
+		background: rgba(52, 152, 219, 0.1); color: #3498DB;
+		border: 1px solid rgba(52, 152, 219, 0.2);
+	}
+	.prd-status.completed::before { content: '✅'; font-size: 0.7rem; }
+
+	h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-primary); }
+	p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.25rem; }
+	.meta {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+		color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;
+	}
+</style>

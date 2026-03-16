@@ -1,0 +1,172 @@
+---
+// Hero section for the BenihKode landing page
+---
+
+<section class="hero">
+	<div class="hero-inner">
+		<div class="hero-content">
+			<div class="hero-badge">
+				<span class="pulse-dot"></span>
+				Currently building
+			</div>
+			<h1>
+				<span class="line">Every Great App</span>
+				<span class="line">Starts as a <span class="highlight">Seed.</span></span>
+				<span class="line">This is My Garden.</span>
+			</h1>
+			<p>Where ideas are planted, code is cultivated, and growth is documented. A developer's journey from seed to harvest.</p>
+			<div class="hero-meta">
+				<div class="hero-meta-item"><span class="icon">🌱</span> Open for Collabs</div>
+				<div class="hero-meta-item"><span class="icon">📖</span> Learning in Public</div>
+				<div class="hero-meta-item"><span class="icon">🚀</span> Shipping Weekly</div>
+			</div>
+		</div>
+		<div class="hero-visual">
+			<div class="code-window">
+				<div class="code-titlebar">
+					<span class="code-dot red"></span>
+					<span class="code-dot yellow"></span>
+					<span class="code-dot green"></span>
+					<span>garden.ts</span>
+				</div>
+				<div class="code-body">
+					<div class="code-line"><span class="kw">const</span> <span class="fn">garden</span> <span class="op">=</span> <span class="br">{</span></div>
+					<div class="code-line">&nbsp;&nbsp;name<span class="op">:</span> <span class="str">"BenihKode"</span><span class="br">,</span></div>
+					<div class="code-line">&nbsp;&nbsp;seeds<span class="op">:</span> <span class="num">4</span><span class="br">,</span></div>
+					<div class="code-line">&nbsp;&nbsp;shipped<span class="op">:</span> <span class="num">6</span><span class="br">,</span></div>
+					<div class="code-line">&nbsp;&nbsp;status<span class="op">:</span> <span class="str">"growing"</span><span class="br">,</span></div>
+					<div class="code-line"><span class="br">}</span><span class="br">;</span></div>
+					<div class="code-line">&nbsp;</div>
+					<div class="code-line"><span class="cm">// Plant ideas. Cultivate code.</span></div>
+					<div class="code-line"><span class="kw">await</span> garden.<span class="fn">grow</span><span class="br">()</span><span class="br">;</span></div>
+				</div>
+			</div>
+			<div class="floating-accent top-right">✨ <span style="color: var(--accent);">4</span> ideas planted</div>
+			<div class="floating-accent bottom-left">🚀 <span style="color: #2ECC71;">6</span> shipped</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero {
+		min-height: 85vh; display: flex; align-items: center;
+		padding: 6rem 2rem 4rem; position: relative; overflow: hidden;
+	}
+	.hero-inner {
+		max-width: 1200px; margin: 0 auto; width: 100%;
+		display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+	}
+	.hero-content { position: relative; z-index: 1; }
+
+	.hero-badge {
+		display: inline-flex; align-items: center; gap: 0.5rem;
+		font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 500;
+		letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+		background: var(--accent-glow); border: 1px solid rgba(255, 107, 44, 0.2);
+		padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 2rem;
+		opacity: 0; animation: slideUpF 0.8s ease forwards 0.1s;
+	}
+	.pulse-dot {
+		width: 6px; height: 6px; background: var(--accent); border-radius: 50%;
+		animation: pulseDot 2s ease-in-out infinite;
+	}
+
+	.hero h1 {
+		font-family: 'Playfair Display', serif;
+		font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+		font-weight: 900; line-height: 1.08; letter-spacing: -0.03em;
+		margin-bottom: 1.5rem; color: var(--text-primary);
+	}
+	.hero h1 .line {
+		display: block;
+		opacity: 0; animation: slideUpF 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+	}
+	.hero h1 .line:nth-child(1) { animation-delay: 0.1s; }
+	.hero h1 .line:nth-child(2) { animation-delay: 0.3s; }
+	.hero h1 .line:nth-child(3) { animation-delay: 0.5s; }
+	.highlight {
+		background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+		-webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+	}
+	.hero p {
+		font-size: 1.1rem; color: var(--text-secondary); max-width: 480px;
+		line-height: 1.7; margin-bottom: 2.5rem;
+		opacity: 0; animation: slideUpF 0.8s ease forwards 0.7s;
+	}
+	.hero-meta {
+		display: flex; gap: 1.5rem; flex-wrap: wrap;
+		opacity: 0; animation: slideUpF 0.8s ease forwards 0.9s;
+	}
+	.hero-meta-item {
+		display: flex; align-items: center; gap: 0.5rem;
+		font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 500;
+		text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);
+		padding: 0.5rem 0.75rem; background: var(--glass);
+		border: 1px solid var(--glass-border); border-radius: var(--radius-xs);
+	}
+
+	/* Code window */
+	.hero-visual {
+		position: relative;
+		opacity: 0; animation: slideRightF 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.6s;
+	}
+	.code-window {
+		background: var(--bg-secondary); border: 1px solid var(--border);
+		border-radius: var(--radius); overflow: hidden;
+		box-shadow: 0 24px 48px rgba(0,0,0,0.4), 0 0 0 1px var(--border);
+	}
+	.code-titlebar {
+		display: flex; align-items: center; gap: 0.5rem;
+		padding: 0.75rem 1rem; background: rgba(255,255,255,0.02);
+		border-bottom: 1px solid var(--border);
+	}
+	.code-dot { width: 10px; height: 10px; border-radius: 50%; }
+	.code-dot.red { background: #FF5F57; }
+	.code-dot.yellow { background: #FEBC2E; }
+	.code-dot.green { background: #28C840; }
+	.code-titlebar span {
+		margin-left: 0.5rem; font-family: 'JetBrains Mono', monospace;
+		font-size: 0.7rem; color: var(--text-muted);
+	}
+	.code-body {
+		padding: 1.5rem; font-family: 'JetBrains Mono', monospace;
+		font-size: 0.82rem; line-height: 1.9; color: var(--text-secondary);
+	}
+	.code-line { opacity: 0; animation: fadeIn 0.1s forwards; }
+	.code-line:nth-child(1) { animation-delay: 1.2s; }
+	.code-line:nth-child(2) { animation-delay: 1.3s; }
+	.code-line:nth-child(3) { animation-delay: 1.4s; }
+	.code-line:nth-child(4) { animation-delay: 1.5s; }
+	.code-line:nth-child(5) { animation-delay: 1.6s; }
+	.code-line:nth-child(6) { animation-delay: 1.7s; }
+	.code-line:nth-child(7) { animation-delay: 1.8s; }
+	.code-line:nth-child(8) { animation-delay: 1.9s; }
+	.code-line:nth-child(9) { animation-delay: 2.0s; }
+	.kw { color: #C678DD; }
+	.fn { color: #61AFEF; }
+	.str { color: #98C379; }
+	.cm { color: #5C6370; font-style: italic; }
+	.op { color: #56B6C2; }
+	.num { color: #D19A66; }
+	.br { color: #ABB2BF; }
+
+	.floating-accent {
+		position: absolute; border-radius: var(--radius-sm);
+		backdrop-filter: blur(12px); border: 1px solid var(--glass-border);
+		padding: 0.6rem 1rem; font-family: 'JetBrains Mono', monospace;
+		font-size: 0.7rem; color: var(--text-secondary);
+		background: var(--glass); box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+		animation: floatCard 6s ease-in-out infinite;
+	}
+	.floating-accent.top-right { top: -20px; right: -20px; }
+	.floating-accent.bottom-left { bottom: -15px; left: -25px; animation-delay: 2s; }
+
+	@media (max-width: 900px) {
+		.hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+		.hero-visual { order: -1; }
+		.hero { min-height: auto; padding: 4rem 2rem 3rem; }
+	}
+	@media (max-width: 768px) {
+		.hero-meta { flex-direction: column; gap: 0.75rem; }
+	}
+</style>

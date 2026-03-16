@@ -1,0 +1,67 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<div class="scroll-progress-container"><div class="scroll-progress" id="scrollProgress"></div></div>
+		<div class="ambient-glow glow-1"></div>
+		<div class="ambient-glow glow-2"></div>
+		<div class="ambient-glow glow-3"></div>
+		<div class="dot-pattern"></div>
+
+		<Header />
+		<main>
+			<slot />
+		</main>
+		<Footer />
+
+		<script>
+			// Scroll progress bar
+			window.addEventListener('scroll', () => {
+				const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+				const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+				const scrolled = (winScroll / height) * 100;
+				const bar = document.getElementById('scrollProgress');
+				if (bar) bar.style.width = scrolled + '%';
+			});
+
+			// Scroll-reveal animations
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) entry.target.classList.add('visible');
+				});
+			}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+			document.querySelectorAll('.animate-on-scroll, .blog-post').forEach(el => observer.observe(el));
+
+			// Smooth scroll for anchor links
+			document.querySelectorAll('a[href^="#"], a[href^="/#"]').forEach(link => {
+				link.addEventListener('click', (e) => {
+					const href = (link as HTMLAnchorElement).getAttribute('href') || '';
+					const hash = href.startsWith('/#') ? href.slice(1) : href;
+					if (hash === '#') return;
+					const target = document.querySelector(hash);
+					if (target) {
+						e.preventDefault();
+						const headerH = document.querySelector('header')?.offsetHeight || 0;
+						window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - headerH - 20, behavior: 'smooth' });
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

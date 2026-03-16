@@ -1,0 +1,85 @@
+---
+interface Props {
+	title: string;
+	description: string;
+	emoji: string;
+	techStack: string[];
+	slug?: string;
+	index?: number;
+}
+const { title, description, emoji, techStack, slug, index = 0 } = Astro.props;
+
+const gradients = [
+	'linear-gradient(135deg, #1a1a2e, #16213e)',
+	'linear-gradient(135deg, #0f3460, #1a1a2e)',
+	'linear-gradient(135deg, #1a1a2e, #0d1b2a)',
+	'linear-gradient(135deg, #2d1b4e, #1a1a2e)',
+	'linear-gradient(135deg, #1a1a2e, #162447)',
+	'linear-gradient(135deg, #0d1b2a, #1a1a2e)',
+];
+const bg = gradients[index % gradients.length];
+---
+
+<article class="portfolio-item animate-on-scroll">
+	<div class="portfolio-image" style={`background: ${bg};`}>
+		<span class="portfolio-emoji">{emoji}</span>
+		<div class="portfolio-tech">
+			{techStack.map(t => <span class="tech-badge">{t}</span>)}
+		</div>
+	</div>
+	<div class="portfolio-info">
+		<h3>{title} <span class="arrow">→</span></h3>
+		<p>{description}</p>
+	</div>
+</article>
+
+<style>
+	.portfolio-item {
+		background: var(--bg-card); border: 1px solid var(--border);
+		border-radius: var(--radius); overflow: hidden;
+		transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+		cursor: pointer; position: relative;
+	}
+	.portfolio-item::after {
+		content: ''; position: absolute; inset: 0; border-radius: var(--radius);
+		box-shadow: inset 0 0 0 2px var(--accent); opacity: 0; transition: opacity 0.3s ease;
+		pointer-events: none;
+	}
+	.portfolio-item:hover {
+		border-color: transparent; transform: translateY(-8px);
+		box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 10px 20px var(--accent-glow);
+	}
+	.portfolio-item:hover::after { opacity: 0.5; }
+
+	.portfolio-image {
+		height: 200px; display: flex; align-items: center; justify-content: center;
+		position: relative; overflow: hidden;
+	}
+	.portfolio-emoji {
+		font-size: 3.5rem; position: relative; z-index: 1;
+		transition: transform 0.4s ease; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+	}
+	.portfolio-item:hover .portfolio-emoji { transform: scale(1.15) translateY(-4px); }
+
+	.portfolio-tech {
+		position: absolute; bottom: 0.75rem; right: 0.75rem;
+		display: flex; gap: 0.35rem; z-index: 1;
+	}
+	.tech-badge {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 500;
+		padding: 0.2rem 0.5rem; background: rgba(0,0,0,0.5);
+		backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1);
+		border-radius: 4px; color: var(--text-secondary);
+		text-transform: uppercase; letter-spacing: 0.04em;
+	}
+
+	.portfolio-info { padding: 1.5rem; }
+	.portfolio-info h3 {
+		font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem;
+		display: flex; align-items: center; justify-content: space-between;
+		color: var(--text-primary);
+	}
+	.arrow { color: var(--text-muted); transition: all 0.3s ease; font-size: 1.2rem; }
+	.portfolio-item:hover .arrow { color: var(--accent); transform: translateX(4px); }
+	.portfolio-info p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin: 0; }
+</style>

@@ -1,0 +1,63 @@
+---
+interface Props {
+	date: Date;
+	title: string;
+	excerpt: string;
+	tags: string[];
+	slug: string;
+}
+const { date, title, excerpt, tags, slug } = Astro.props;
+
+const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<article class="blog-post">
+	<a href={`/blog/${slug}/`} class="blog-link">
+		<div class="blog-date">{formattedDate}</div>
+		<h3>{title}</h3>
+		<p>{excerpt}</p>
+		<div class="blog-tags">
+			{tags.map(tag => <span>{tag}</span>)}
+		</div>
+	</a>
+</article>
+
+<style>
+	.blog-post {
+		position: relative; padding-left: 2.5rem; padding-bottom: 3rem;
+		opacity: 0; transform: translateY(20px);
+		transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	}
+	.blog-post.visible { opacity: 1; transform: translateY(0); }
+	.blog-post::before {
+		content: ''; position: absolute; left: -4px; top: 6px;
+		width: 9px; height: 9px; background: var(--bg-primary);
+		border: 2px solid var(--text-muted); border-radius: 50%;
+		transition: all 0.3s ease; z-index: 1;
+	}
+	.blog-post:hover::before {
+		background: var(--accent); border-color: var(--accent);
+		box-shadow: 0 0 0 4px var(--accent-glow);
+	}
+	.blog-link { text-decoration: none; display: block; }
+	.blog-date {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 500;
+		text-transform: uppercase; letter-spacing: 0.05em;
+		color: var(--text-muted); margin-bottom: 0.4rem;
+	}
+	h3 {
+		font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem;
+		transition: color 0.3s ease; color: var(--text-primary);
+	}
+	.blog-post:hover h3 { color: var(--accent); }
+	p {
+		font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 1rem;
+	}
+	.blog-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+	.blog-tags span {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 500;
+		text-transform: uppercase; letter-spacing: 0.04em;
+		padding: 0.25rem 0.6rem; background: var(--glass);
+		border: 1px solid var(--glass-border); color: var(--text-secondary); border-radius: 4px;
+	}
+</style>
