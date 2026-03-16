@@ -13,7 +13,19 @@ const navLinks = [
 <header>
 	<div class="header-inner">
 		<a href="/" class="logo">
-			<div class="logo-icon">BK</div>
+			<div class="logo-icon">
+				<svg width="36" height="36" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<defs>
+						<linearGradient id="seedGrad" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse">
+							<stop stop-color="#FF6B2C"/>
+							<stop offset="1" stop-color="#FF4B2B"/>
+						</linearGradient>
+					</defs>
+					<path d="M 12 52 C 12 24, 24 12, 52 12 C 52 40, 40 52, 12 52 Z" fill="url(#seedGrad)"/>
+					<polyline points="22,26 28,32 22,38" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+					<line x1="32" y1="38" x2="42" y2="38" stroke="white" stroke-width="4" stroke-linecap="round"/>
+				</svg>
+			</div>
 			<div class="logo-text">
 				<span class="logo-name">Benih<span class="accent">Kode</span></span>
 				<span class="logo-subtitle">Seed of Code</span>
@@ -49,11 +61,8 @@ const navLinks = [
 	}
 	.logo-icon {
 		width: 36px; height: 36px;
-		background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-		border-radius: 10px; display: flex; align-items: center; justify-content: center;
-		font-size: 0.75rem; font-weight: 700; color: white;
-		box-shadow: 0 4px 12px var(--accent-glow);
-		font-family: 'Inter', sans-serif;
+		display: flex; align-items: center; justify-content: center;
+		filter: drop-shadow(0 4px 8px var(--accent-glow));
 	}
 	.logo-name {
 		font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 800;
