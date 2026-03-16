@@ -3,18 +3,39 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 const blog = defineCollection({
-	// Load Markdown and MDX files in the `src/content/blog/` directory.
 	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
-	// Type-check frontmatter using a schema
-	schema: ({ image }) =>
-		z.object({
-			title: z.string(),
-			description: z.string(),
-			// Transform string to Date object
-			pubDate: z.coerce.date(),
-			updatedDate: z.coerce.date().optional(),
-			heroImage: z.optional(image()),
-		}),
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		pubDate: z.coerce.date(),
+		updatedDate: z.coerce.date().optional(),
+		tags: z.array(z.string()).default([]),
+	}),
 });
 
-export const collections = { blog };
+const projects = defineCollection({
+	loader: glob({ base: './src/content/projects', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		emoji: z.string(),
+		techStack: z.array(z.string()),
+		url: z.string().optional(),
+		order: z.number().default(0),
+		hasPrivacyPolicy: z.boolean().default(false),
+		appName: z.string().optional(),
+	}),
+});
+
+const ideas = defineCollection({
+	loader: glob({ base: './src/content/ideas', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		status: z.enum(['idea', 'in-progress', 'completed']),
+		meta: z.string().optional(),
+		order: z.number().default(0),
+	}),
+});
+
+export const collections = { blog, projects, ideas };
