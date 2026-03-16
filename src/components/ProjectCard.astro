@@ -4,18 +4,22 @@ interface Props {
 	description: string;
 	status: 'idea' | 'in-progress' | 'completed';
 	meta?: string;
+	slug: string;
 }
-const { title, description, status, meta } = Astro.props;
+const { title, description, status, meta, slug } = Astro.props;
 ---
 
-<article class="prd-card animate-on-scroll">
-	<span class:list={['prd-status', status]}>{status === 'in-progress' ? 'In Progress' : status === 'completed' ? 'Completed' : 'Idea'}</span>
-	<h3>{title}</h3>
-	<p>{description}</p>
-	{meta && <div class="meta">{meta}</div>}
-</article>
+<a href={`/ideas/${slug}`} class="prd-link">
+	<article class="prd-card animate-on-scroll">
+		<span class:list={['prd-status', status]}>{status === 'in-progress' ? 'In Progress' : status === 'completed' ? 'Completed' : 'Idea'}</span>
+		<h3>{title}</h3>
+		<p>{description}</p>
+		{meta && <div class="meta">{meta}</div>}
+	</article>
+</a>
 
 <style>
+	.prd-link { text-decoration: none; display: block; color: inherit; }
 	.prd-card {
 		background: var(--bg-card); border: 1px solid var(--border);
 		border-radius: var(--radius); padding: 1.75rem;

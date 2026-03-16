@@ -30,6 +30,7 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
 						description={idea.data.description}
 						status={idea.data.status}
 						meta={idea.data.meta}
+						slug={idea.id}
 					/>
 				))}
 			</div>

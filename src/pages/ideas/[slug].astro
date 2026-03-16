@@ -1,0 +1,119 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const ideas = await getCollection('ideas');
+	return ideas.map((idea) => ({
+		params: { slug: idea.id },
+		props: idea,
+	}));
+}
+type Props = CollectionEntry<'ideas'>;
+
+const idea = Astro.props;
+const { Content } = await render(idea);
+---
+
+<BaseLayout title={`Idea: ${idea.data.title} — BenihKode`} description={idea.data.description}>
+	<article class="prd-article">
+		<div class="container">
+			<div class="prd-header animate-on-scroll">
+				<a href="/#prd" class="back-link">← Back to Ideas</a>
+				
+				<div class="prd-meta-top">
+					<span class:list={['prd-status-badge', idea.data.status]}>
+						{idea.data.status === 'in-progress' ? 'In Progress' : idea.data.status === 'completed' ? 'Completed' : 'Idea Stage'}
+					</span>
+					{idea.data.meta && <span class="prd-timestamp">{idea.data.meta}</span>}
+				</div>
+
+				<h1>{idea.data.title}</h1>
+				<p class="prd-description">{idea.data.description}</p>
+				<hr />
+			</div>
+			
+			<div class="prd-body prose animate-on-scroll" style="animation-delay: 0.2s">
+				<div class="prd-document-label">PRODUCT REQUIREMENT DOCUMENT (PRD)</div>
+				<Content />
+			</div>
+		</div>
+	</article>
+</BaseLayout>
+
+<style>
+	.prd-article { padding-top: 4rem; padding-bottom: 6rem; }
+	.prd-header { margin-bottom: 3rem; max-width: 720px; margin-inline: auto; }
+	.back-link {
+		display: inline-flex; align-items: center; gap: 0.5rem;
+		font-size: 0.85rem; color: var(--text-muted);
+		text-decoration: none; margin-bottom: 2rem; transition: color 0.2s;
+	}
+	.back-link:hover { color: var(--accent); }
+	
+	.prd-meta-top {
+		display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;
+	}
+	.prd-status-badge {
+		display: inline-flex; align-items: center; gap: 0.35rem;
+		font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 600;
+		text-transform: uppercase; letter-spacing: 0.08em;
+		padding: 0.3rem 0.7rem; border-radius: 100px;
+	}
+	.prd-status-badge.idea {
+		background: var(--accent-glow); color: var(--accent);
+		border: 1px solid rgba(255, 107, 44, 0.2);
+	}
+	.prd-status-badge.idea::before { content: '💡'; font-size: 0.7rem; }
+	.prd-status-badge.in-progress {
+		background: rgba(46, 204, 113, 0.1); color: #2ECC71;
+		border: 1px solid rgba(46, 204, 113, 0.2);
+	}
+	.prd-status-badge.in-progress::before { content: '⚡'; font-size: 0.7rem; }
+	.prd-status-badge.completed {
+		background: rgba(52, 152, 219, 0.1); color: #3498DB;
+		border: 1px solid rgba(52, 152, 219, 0.2);
+	}
+	.prd-status-badge.completed::before { content: '✅'; font-size: 0.7rem; }
+	
+	.prd-timestamp {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+		color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;
+	}
+
+	h1 { margin-bottom: 1rem; font-size: clamp(2rem, 4vw, 3rem); }
+	.prd-description { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 2rem; }
+	
+	.prd-document-label {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 600;
+		color: var(--accent); letter-spacing: 0.1em; margin-bottom: 2rem;
+		border-bottom: 1px dashed var(--border); padding-bottom: 0.5rem;
+	}
+
+	/* PRD Specific Markdown Styling inside .prose */
+	.prd-body :global(h2) {
+		font-family: 'Inter', sans-serif; font-size: 1.25rem; font-weight: 700;
+		margin-top: 2.5rem; margin-bottom: 1rem; color: var(--text-primary);
+		display: flex; align-items: center; gap: 0.5rem;
+	}
+	.prd-body :global(h2::before) {
+		content: ''; display: block; width: 12px; height: 12px;
+		background: var(--accent); border-radius: 2px;
+	}
+	.prd-body :global(ul) {
+		list-style: none; padding-left: 0; margin-bottom: 1.5rem;
+	}
+	.prd-body :global(ul li) {
+		position: relative; padding-left: 1.5rem; margin-bottom: 0.75rem; color: var(--text-secondary);
+	}
+	.prd-body :global(ul li::before) {
+		content: '→'; position: absolute; left: 0; color: var(--accent); font-family: monospace;
+	}
+	.prd-body :global(strong) { color: var(--text-primary); }
+	
+	.prd-body :global(.callout) {
+		background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--accent);
+		padding: 1.25rem; border-radius: var(--radius-sm); margin: 1.5rem 0;
+	}
+	.prd-body :global(.callout p:last-child) { margin-bottom: 0; }
+</style>
