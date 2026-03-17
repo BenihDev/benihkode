@@ -1,13 +1,11 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { mapIdeasToStaticPaths } from '../../utils/ideas';
 
 export async function getStaticPaths() {
 	const ideas = await getCollection('ideas');
-	return ideas.map((idea) => ({
-		params: { slug: idea.id },
-		props: idea,
-	}));
+	return mapIdeasToStaticPaths(ideas);
 }
 type Props = CollectionEntry<'ideas'>;
 
