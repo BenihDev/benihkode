@@ -13,7 +13,8 @@
 		"astro": "astro",
 		"generate-types": "wrangler types",
 		"deploy": "astro build && wrangler deploy",
-		"cf-typegen": "wrangler types"
+		"cf-typegen": "wrangler types",
+		"test": "node --experimental-strip-types --test src/**/*.test.js"
 	},
 	"dependencies": {
 		"@astrojs/cloudflare": "^13.1.1",
