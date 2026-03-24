@@ -1,16 +1,12 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { SITE_EMAIL } from '../../../consts';
+import { getPrivacyPolicyStaticPaths } from '../../../utils/projects';
 
 export async function getStaticPaths() {
 	const projects = await getCollection('projects');
-	return projects
-		.filter(p => p.data.hasPrivacyPolicy)
-		.map((project) => ({
-			params: { slug: project.id },
-			props: project,
-		}));
+	return getPrivacyPolicyStaticPaths(projects);
 }
 type Props = CollectionEntry<'projects'>;
 
