@@ -137,6 +137,20 @@ table { width: 100%; }
     letter-spacing: 0.08em;
 }
 
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-bottom: 2rem;
+    transition: color 0.2s;
+}
+.back-link:hover {
+    color: var(--accent);
+}
+
 /* ===== Section Styling ===== */
 section { padding: 6rem 0; position: relative; }
 
