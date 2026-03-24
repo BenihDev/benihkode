@@ -9,6 +9,8 @@
 		"dev": "astro dev",
 		"build": "astro build",
 		"preview": "astro build && wrangler dev",
+		"test": "node --experimental-strip-types --test src/**/*.test.ts",
+		"test:e2e": "playwright test",
 		"astro": "astro",
 		"generate-types": "wrangler types",
 		"deploy": "astro build && wrangler deploy",
@@ -23,6 +25,7 @@
 		"sharp": "^0.34.3"
 	},
 	"devDependencies": {
+		"@playwright/test": "^1.58.2",
 		"@types/node": "^25.5.0",
 		"wrangler": "^4.73.0"
 	}
