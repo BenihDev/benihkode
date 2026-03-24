@@ -7,9 +7,17 @@ import PortfolioCard from '../components/PortfolioCard.astro';
 import JournalEntry from '../components/JournalEntry.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
-const ideas = (await getCollection('ideas')).sort((a, b) => a.data.order - b.data.order);
-const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
-const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 5);
+const [ideasRaw, projectsRaw, postsRaw] = await Promise.all([
+	getCollection('ideas'),
+	getCollection('projects'),
+	getCollection('blog'),
+]);
+
+const ideas = ideasRaw.sort((a, b) => a.data.order - b.data.order);
+const projects = projectsRaw.sort((a, b) => a.data.order - b.data.order);
+const posts = postsRaw
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 5);
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
