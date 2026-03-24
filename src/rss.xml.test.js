@@ -4,7 +4,7 @@ import { mock } from 'node:test';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import * as consts from '../consts.ts';
+import * as consts from './consts.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -36,7 +36,7 @@ test('GET function generates correct RSS feed', async (t) => {
   });
 
   // Read the file content
-  const filePath = join(__dirname, 'rss.xml.js');
+  const filePath = join(__dirname, 'pages/rss.xml.js');
   let content = await readFile(filePath, 'utf8');
 
   // Strip all imports using a more robust regex

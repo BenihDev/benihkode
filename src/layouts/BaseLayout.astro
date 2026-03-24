@@ -31,13 +31,22 @@ const { title, description } = Astro.props;
 
 		<script>
 			// Scroll progress bar
+			// ⚡ Bolt Optimization: Use requestAnimationFrame and { passive: true }
+			// to throttle scroll events and prevent main thread blocking, ensuring smooth 60fps scrolling.
+			let ticking = false;
 			window.addEventListener('scroll', () => {
-				const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-				const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-				const scrolled = (winScroll / height) * 100;
-				const bar = document.getElementById('scrollProgress');
-				if (bar) bar.style.width = scrolled + '%';
-			});
+				if (!ticking) {
+					window.requestAnimationFrame(() => {
+						const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+						const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+						const scrolled = (winScroll / height) * 100;
+						const bar = document.getElementById('scrollProgress');
+						if (bar) bar.style.width = scrolled + '%';
+						ticking = false;
+					});
+					ticking = true;
+				}
+			}, { passive: true });
 
 			// Scroll-reveal animations
 			const observer = new IntersectionObserver((entries) => {
