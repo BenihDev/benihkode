@@ -2,7 +2,7 @@
 const currentTheme = 'dark'; // default, overridden by client-side JS
 ---
 
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">☀️</button>
 
 <style>
 	.theme-toggle {
@@ -37,9 +37,13 @@ const currentTheme = 'dark'; // default, overridden by client-side JS
 		if (theme === 'light') {
 			root.setAttribute('data-theme', 'light');
 			btn.textContent = '🌙';
+			btn.setAttribute('aria-label', 'Switch to dark theme');
+			btn.setAttribute('title', 'Switch to dark theme');
 		} else {
 			root.removeAttribute('data-theme');
 			btn.textContent = '☀️';
+			btn.setAttribute('aria-label', 'Switch to light theme');
+			btn.setAttribute('title', 'Switch to light theme');
 		}
 	}
 
