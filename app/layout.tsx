@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
+import { appConfig } from "@/config/app.config";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Edu Tech Blog",
-  description: "Insights on education technology",
+  title: `${appConfig.appTitle} ${appConfig.seo.titleSuffix}`,
+  description: appConfig.appDescription,
 };
 
 export default function RootLayout({

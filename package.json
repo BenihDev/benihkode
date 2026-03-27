@@ -1,8 +1,9 @@
 {
-  "name": "d551f29e-62f0-41e4-b658-2a02acc5a5ea",
+  "name": "starter-template",
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "setup": "tsx scripts/setup-wizard.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "tsx": "^4.19.2",
     "@testing-library/jest-dom": "^6.6.5",
     "@testing-library/react": "^16.2.0",
     "@types/node": "^20",
