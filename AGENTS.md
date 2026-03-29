@@ -8,9 +8,8 @@ pnpm dev                    # Start dev server at localhost:4321
 
 # Building & Deployment
 pnpm build                  # Build for production
-pnpm preview                # Preview production build locally with Wrangler
-pnpm deploy                 # Deploy to Cloudflare Pages
-pnpm cf-typegen             # Generate Cloudflare Workers TypeScript types
+pnpm preview                # Preview production build locally
+pnpm deploy                 # Deploy to Vercel (Production)
 
 # Testing
 pnpm test                   # Run unit tests (Node.js native test runner)
