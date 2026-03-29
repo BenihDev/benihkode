@@ -36,7 +36,7 @@ pnpm build
 pnpm preview
 
 # Deploy to Vercel
-pnpm deploy
+pnpm run deploy
 ```
 
 ## 📁 Project Structure
