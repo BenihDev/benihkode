@@ -9,7 +9,7 @@ pnpm dev                    # Start dev server at localhost:4321
 # Building & Deployment
 pnpm build                  # Build for production
 pnpm preview                # Preview production build locally
-pnpm deploy                 # Deploy to Vercel (Production)
+pnpm run deploy             # Deploy to Vercel (Production)
 
 # Testing
 pnpm test                   # Run unit tests (Node.js native test runner)
