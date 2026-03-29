@@ -21,16 +21,18 @@ const bg = gradients[index % gradients.length];
 ---
 
 <article class="portfolio-item animate-on-scroll">
-	<div class="portfolio-image" style={`background: ${bg};`}>
-		<span class="portfolio-emoji">{emoji}</span>
-		<div class="portfolio-tech">
-			{techStack.map(t => <span class="tech-badge">{t}</span>)}
+	<a href={`/projects/${slug}`} class="portfolio-link">
+		<div class="portfolio-image" style={`background: ${bg};`}>
+			<span class="portfolio-emoji">{emoji}</span>
+			<div class="portfolio-tech">
+				{techStack.map(t => <span class="tech-badge">{t}</span>)}
+			</div>
 		</div>
-	</div>
-	<div class="portfolio-info">
-		<h3>{title} <span class="arrow">→</span></h3>
-		<p>{description}</p>
-	</div>
+		<div class="portfolio-info">
+			<h3>{title} <span class="arrow">→</span></h3>
+			<p>{description}</p>
+		</div>
+	</a>
 </article>
 
 <style>
@@ -38,7 +40,12 @@ const bg = gradients[index % gradients.length];
 		background: var(--bg-card); border: 1px solid var(--border);
 		border-radius: var(--radius); overflow: hidden;
 		transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-		cursor: pointer; position: relative;
+		position: relative;
+	}
+	.portfolio-link {
+		display: block;
+		color: inherit;
+		text-decoration: none;
 	}
 	.portfolio-item::after {
 		content: ''; position: absolute; inset: 0; border-radius: var(--radius);

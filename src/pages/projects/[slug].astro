@@ -1,0 +1,140 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	return projects.map(project => ({
+		params: { slug: project.id },
+		props: project,
+	}));
+}
+
+type Props = CollectionEntry<'projects'>;
+
+const project = Astro.props;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={`${project.data.title} — Projects`} description={project.data.description}>
+	<article style="padding-top: 4rem;">
+		<div class="container">
+			<a href="/#portfolio" class="back-link">← Back to Portfolio</a>
+
+			<div class="project-header">
+				<div class="project-meta">
+					<div class="project-emoji">{project.data.emoji}</div>
+					<div class="tech-stack">
+						{project.data.techStack.map(tech => (
+							<span class="tech-badge">{tech}</span>
+						))}
+					</div>
+				</div>
+				<h1>{project.data.title}</h1>
+				<p class="project-description">{project.data.description}</p>
+				{project.data.url && (
+					<a href={project.data.url} class="project-link" target="_blank" rel="noopener noreferrer">
+						View Project →
+					</a>
+				)}
+			</div>
+
+			<div class="project-content">
+				<Content />
+			</div>
+
+			{project.data.hasPrivacyPolicy && (
+				<a href={`/projects/${project.id}/privacy-policy`} class="privacy-link">
+					Privacy Policy
+				</a>
+			)}
+		</div>
+	</article>
+</BaseLayout>
+
+<style>
+	.back-link {
+		display: inline-block; margin-bottom: 2rem; color: var(--text-secondary);
+		text-decoration: none; transition: color 0.3s ease;
+	}
+	.back-link:hover { color: var(--accent); }
+
+	.project-header {
+		margin-bottom: 3rem;
+	}
+	.project-meta {
+		display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+	}
+	.project-emoji {
+		font-size: 4rem;
+	}
+	.tech-stack {
+		display: flex; gap: 0.5rem; flex-wrap: wrap;
+	}
+	.tech-badge {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+		padding: 0.25rem 0.6rem; background: var(--bg-card);
+		border: 1px solid var(--border); border-radius: 4px;
+		color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.04em;
+	}
+	h1 {
+		font-size: 2.5rem; font-weight: 800; margin-bottom: 0.75rem;
+		line-height: 1.2; color: var(--text-primary);
+	}
+	.project-description {
+		font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 1.5rem;
+		line-height: 1.6;
+	}
+	.project-link {
+		display: inline-block; padding: 0.75rem 1.5rem;
+		background: var(--accent); color: var(--bg-primary);
+		text-decoration: none; border-radius: var(--radius);
+		font-weight: 600; transition: all 0.3s ease;
+	}
+	.project-link:hover {
+		transform: translateY(-2px); box-shadow: 0 8px 16px var(--accent-glow);
+	}
+
+	.project-content {
+		max-width: 720px; line-height: 1.8;
+	}
+	.project-content :global(h2) {
+		margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.8rem;
+		color: var(--text-primary);
+	}
+	.project-content :global(h3) {
+		margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.4rem;
+		color: var(--text-primary);
+	}
+	.project-content :global(p) {
+		margin-bottom: 1.25rem; color: var(--text-secondary);
+	}
+	.project-content :global(ul) {
+		list-style: disc; padding-left: 1.5rem; margin-bottom: 1.25rem;
+	}
+	.project-content :global(li) {
+		margin-bottom: 0.5rem; color: var(--text-secondary);
+	}
+	.project-content :global(a) {
+		color: var(--accent); text-decoration: none;
+	}
+	.project-content :global(a:hover) {
+		text-decoration: underline;
+	}
+
+	.privacy-link {
+		display: inline-block; margin-top: 2rem; padding: 0.5rem 1rem;
+		background: var(--bg-card); border: 1px solid var(--border);
+		border-radius: var(--radius); color: var(--text-secondary);
+		text-decoration: none; font-size: 0.9rem; transition: all 0.3s ease;
+	}
+	.privacy-link:hover {
+		color: var(--accent); border-color: var(--accent);
+	}
+
+	@media (max-width: 768px) {
+		h1 { font-size: 2rem; }
+		.project-emoji { font-size: 3rem; }
+		.project-content { font-size: 0.95rem; }
+	}
+</style>

@@ -1,6 +1,6 @@
 # BenihKode — Seed of Code 🌱
 
-A developer's garden where ideas are planted as PRDs, cultivated through development, and harvested as shipped products. Built with [Astro](https://astro.build) and deployed on [Cloudflare](https://www.cloudflare.com).
+A developer's garden where ideas are planted as PRDs, cultivated through development, and harvested as shipped products. Built with [Astro](https://astro.build) and deployed on [Vercel](https://vercel.com).
 
 > **Benih** (Indonesian) = Seed · **Kode** = Code
 
@@ -15,7 +15,7 @@ A developer's garden where ideas are planted as PRDs, cultivated through develop
 | Layer | Technology |
 |---|---|
 | Framework | [Astro 6](https://astro.build) with MDX |
-| Hosting | [Cloudflare Pages](https://pages.cloudflare.com) via Workers |
+| Hosting | [Vercel](https://vercel.com) |
 | Styling | Vanilla CSS with custom design system |
 | Fonts | Inter, Playfair Display, JetBrains Mono |
 | Features | RSS feed, sitemap, dark/light theme, scroll animations |
@@ -35,7 +35,7 @@ pnpm build
 # Preview production build locally
 pnpm preview
 
-# Deploy to Cloudflare
+# Deploy to Vercel
 pnpm deploy
 ```
 

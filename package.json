@@ -8,25 +8,22 @@
 	"scripts": {
 		"dev": "astro dev",
 		"build": "astro build",
-		"preview": "astro build && wrangler dev",
+		"preview": "astro preview",
 		"test": "node --experimental-strip-types --test src/**/*.test.ts",
 		"test:e2e": "playwright test",
 		"astro": "astro",
-		"generate-types": "wrangler types",
-		"deploy": "astro build && wrangler deploy",
-		"cf-typegen": "wrangler types"
+		"deploy": "vercel --prod"
 	},
 	"dependencies": {
-		"@astrojs/cloudflare": "^13.1.1",
 		"@astrojs/mdx": "^5.0.0",
 		"@astrojs/rss": "^4.0.17",
 		"@astrojs/sitemap": "^3.7.1",
+		"@astrojs/vercel": "^10.0.3",
 		"astro": "^6.0.4",
 		"sharp": "^0.34.3"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.58.2",
-		"@types/node": "^25.5.0",
-		"wrangler": "^4.73.0"
+		"@types/node": "^25.5.0"
 	}
 }
