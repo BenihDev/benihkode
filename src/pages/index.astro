@@ -13,9 +13,9 @@ const [ideasRaw, projectsRaw, blogRaw] = await Promise.all([
 	getCollection('blog'),
 ]);
 
-const ideas = ideasRaw.sort((a, b) => a.data.order - b.data.order);
-const projects = projectsRaw.sort((a, b) => a.data.order - b.data.order);
-const posts = blogRaw.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 5);
+const ideas = ideasRaw.sort((a, b) => a.data.order - b.data.order).slice(0, 4);
+const projects = projectsRaw.sort((a, b) => a.data.order - b.data.order).slice(0, 4);
+const posts = blogRaw.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 4);
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -27,7 +27,10 @@ const posts = blogRaw.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.v
 	<section id="prd">
 		<div class="container">
 			<div class="section-label">01 — Ideas</div>
-			<h2 class="section-title animate-on-scroll">Product Ideas</h2>
+			<div class="section-header animate-on-scroll">
+				<h2 class="section-title">Product Ideas</h2>
+				<a href="/ideas" class="view-all-link">View all Ideas &rarr;</a>
+			</div>
 			<p class="section-desc animate-on-scroll">Every project starts as an idea. Here are the seeds waiting to be planted, with specs and dreams attached.</p>
 			<div class="prd-grid stagger-children">
 				{ideas.map(idea => (
@@ -49,7 +52,10 @@ const posts = blogRaw.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.v
 	<section id="portfolio">
 		<div class="container">
 			<div class="section-label">02 — Portfolio</div>
-			<h2 class="section-title animate-on-scroll">Shipped Projects</h2>
+			<div class="section-header animate-on-scroll">
+				<h2 class="section-title">Shipped Projects</h2>
+				<a href="/projects" class="view-all-link">View all Projects &rarr;</a>
+			</div>
 			<p class="section-desc animate-on-scroll">From seed to harvest. These projects made it out of the garden and into the wild.</p>
 			<div class="portfolio-grid stagger-children">
 				{projects.map((project, i) => (
@@ -72,7 +78,10 @@ const posts = blogRaw.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.v
 	<section id="blog">
 		<div class="container">
 			<div class="section-label">03 — Journal</div>
-			<h2 class="section-title animate-on-scroll">Dev Journal</h2>
+			<div class="section-header animate-on-scroll">
+				<h2 class="section-title">Dev Journal</h2>
+				<a href="/blog" class="view-all-link">View all Posts &rarr;</a>
+			</div>
 			<p class="section-desc animate-on-scroll">Notes, learnings, and stories from the garden. Growing in public, one post at a time.</p>
 			<div class="journal-timeline">
 				{posts.map(post => (
@@ -90,6 +99,25 @@ const posts = blogRaw.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.v
 </BaseLayout>
 
 <style>
+	.section-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		margin-bottom: 0.5rem;
+	}
+	.section-header .section-title {
+		margin-bottom: 0;
+	}
+	.view-all-link {
+		font-size: 0.95rem;
+		color: var(--text-muted);
+		text-decoration: none;
+		transition: color 0.2s ease;
+		font-family: var(--font-mono);
+	}
+	.view-all-link:hover {
+		color: var(--accent);
+	}
 	.prd-grid {
 		display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
 		gap: 1.25rem;

@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PortfolioCard from '../../components/PortfolioCard.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Shipped Projects — BenihKode" description="From seed to harvest. These projects made it out of the garden and into the wild.">
+	<section style="padding-top: 4rem;">
+		<div class="container">
+			<div class="section-label">02 — Portfolio</div>
+			<div class="section-header">
+				<h1 class="section-title animate-on-scroll">Shipped Projects</h1>
+			</div>
+			<p class="section-desc animate-on-scroll">From seed to harvest. These projects made it out of the garden and into the wild.</p>
+			<div class="portfolio-grid stagger-children">
+				{projects.map((project, i) => (
+					<PortfolioCard
+						title={project.data.title}
+						description={project.data.description}
+						emoji={project.data.emoji}
+						techStack={project.data.techStack}
+						slug={project.id}
+						index={i}
+					/>
+				))}
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.portfolio-grid {
+		display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 1.5rem;
+	}
+	@media (max-width: 768px) {
+		.portfolio-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

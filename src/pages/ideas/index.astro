@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const ideas = (await getCollection('ideas')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Product Ideas — BenihKode" description="Every project starts as an idea. Here are the seeds waiting to be planted, with specs and dreams attached.">
+	<section style="padding-top: 4rem;">
+		<div class="container">
+			<div class="section-label">01 — Ideas</div>
+			<div class="section-header">
+				<h1 class="section-title animate-on-scroll">Product Ideas</h1>
+			</div>
+			<p class="section-desc animate-on-scroll">Every project starts as an idea. Here are the seeds waiting to be planted, with specs and dreams attached.</p>
+			<div class="prd-grid stagger-children">
+				{ideas.map(idea => (
+					<ProjectCard
+						title={idea.data.title}
+						description={idea.data.description}
+						status={idea.data.status}
+						meta={idea.data.meta}
+						slug={idea.id}
+					/>
+				))}
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.prd-grid {
+		display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+		gap: 1.25rem;
+	}
+	@media (max-width: 768px) {
+		.prd-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
