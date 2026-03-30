@@ -19,6 +19,7 @@
 		"@astrojs/rss": "^4.0.17",
 		"@astrojs/sitemap": "^3.7.1",
 		"@astrojs/vercel": "^10.0.3",
+		"@vercel/analytics": "^2.0.1",
 		"astro": "^6.0.4",
 		"sharp": "^0.34.3"
 	},

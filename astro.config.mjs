@@ -10,7 +10,11 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   site: 'https://benihkode.web.id',
   integrations: [mdx(), sitemap()],
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
   vite: {
     build: {
       minify: false,
