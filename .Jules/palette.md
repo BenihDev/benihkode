@@ -1,3 +1,3 @@
-## 2025-03-20 - Added Global Focus Visible Styles
-**Learning:** The application lacked any visible focus indicators (`:focus-visible`), which makes keyboard navigation (using Tab) incredibly difficult for accessibility users. Adding a simple outline with existing CSS variables (`var(--accent)`) significantly improves this.
-**Action:** When working on new components or reviewing existing ones, always ensure they have a clear `:focus-visible` state or inherit a global one so keyboard users can navigate confidently.
+## 2024-03-24 - Context-Aware ARIA and Safe Social Links
+**Learning:** Found that static `aria-label` values on toggle buttons (like "Toggle theme") don't provide enough context about the current state, and icon-only social links lack visible tooltips (`title`) and safe external link attributes (`target="_blank"` and `rel="noopener noreferrer"`). Decorative SVG icons within text links also need `aria-hidden="true"` to avoid redundant announcements.
+**Action:** Always make toggle button `aria-label` and `title` attributes dynamic based on state, add `title` to icon-only links, explicitly add `target="_blank" rel="noopener noreferrer"` for external social links, and hide decorative parts of complex links from screen readers.
