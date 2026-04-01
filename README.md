@@ -1,67 +1,74 @@
-# BenihKode — Seed of Code 🌱
+# BenihKode
 
-A developer's garden where ideas are planted as PRDs, cultivated through development, and harvested as shipped products. Built with [Astro](https://astro.build) and deployed on [Vercel](https://vercel.com).
+BenihKode is a personal site built with [Astro](https://astro.build). It combines a blog, a project portfolio, and a collection of product ideas in one statically generated site.
 
-> **Benih** (Indonesian) = Seed · **Kode** = Code
+> **Benih** means seed, and **kode** means code.
 
-## 🌿 What's Inside
+## What The Site Contains
 
-- **Product Ideas** — Full PRDs for apps that are in ideation or development
-- **Shipped Projects** — A portfolio of completed projects with tech stacks
-- **Dev Journal** — Blog posts documenting the journey of building in public
+- Blog posts about building, debugging, and shipping software
+- Project pages for completed work
+- Product idea pages written as lightweight PRDs
+- Project-specific privacy policy pages when needed
 
-## 🛠 Tech Stack
+## Stack
 
-| Layer | Technology |
-|---|---|
-| Framework | [Astro 6](https://astro.build) with MDX |
-| Hosting | [Vercel](https://vercel.com) |
-| Styling | Vanilla CSS with custom design system |
-| Fonts | Inter, Playfair Display, JetBrains Mono |
-| Features | RSS feed, sitemap, dark/light theme, scroll animations |
+- [Astro 6](https://astro.build)
+- MDX via `@astrojs/mdx`
+- Content Collections for typed content schemas
+- Vanilla CSS
+- [Vercel](https://vercel.com) deployment
+- RSS and sitemap generation
 
-## 🚀 Getting Started
+## Local Development
 
 ```bash
-# Install dependencies
 pnpm install
-
-# Start dev server at localhost:4321
 pnpm dev
-
-# Build for production
-pnpm build
-
-# Preview production build locally
-pnpm preview
-
-# Deploy to Vercel
-pnpm run deploy
 ```
 
-## 📁 Project Structure
+The dev server runs at `http://localhost:4321`.
 
+## Available Commands
+
+```bash
+pnpm dev         # start the dev server
+pnpm build       # create a production build
+pnpm preview     # preview the production build locally
+pnpm test        # run unit tests
+pnpm test:e2e    # run Playwright end-to-end tests
+pnpm run deploy  # deploy to Vercel
 ```
+
+## Project Structure
+
+```text
 src/
-├── components/     # Astro UI components (Header, Footer, Hero, Cards)
-├── content/
-│   ├── blog/       # Dev journal posts (Markdown)
-│   ├── ideas/      # Product idea PRDs (Markdown/MDX)
-│   └── projects/   # Shipped project entries (Markdown)
-├── layouts/        # Base page layout
-├── pages/          # Route pages (index, about, blog, ideas, projects)
-└── styles/         # Global CSS design system
-public/
-├── favicon.svg     # BenihKode seed icon
-├── og-default.png  # Default Open Graph preview image
-└── robots.txt      # Crawler permissions
+  components/   shared Astro components
+  content/      blog, ideas, and projects content
+  layouts/      page layouts
+  pages/        route files
+  styles/       global styling
+  utils/        testable helper functions
+public/         static assets
+docs/           project notes and supporting docs
 ```
 
-## 🌏 Links
+## Content Model
 
-- **Live site**: [benihkode.web.id](https://benihkode.web.id)
-- **RSS Feed**: [benihkode.web.id/rss.xml](https://benihkode.web.id/rss.xml)
+The site uses Astro Content Collections defined in `src/content.config.ts`:
 
-## 📄 License
+- `blog`: posts with `title`, `description`, and `pubDate`
+- `projects`: portfolio entries with metadata such as `emoji`, `techStack`, and `order`
+- `ideas`: product idea entries with `status` and ordering metadata
 
-Personal project. All content © BenihKode.
+Content files live under `src/content/{collection}/` and can be written in Markdown or MDX.
+
+## Live Site
+
+- [benihkode.web.id](https://benihkode.web.id)
+- [RSS feed](https://benihkode.web.id/rss.xml)
+
+## License
+
+Code is provided for reference unless stated otherwise. Site content and writing remain © BenihKode.

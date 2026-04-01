@@ -1,120 +1,76 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides repository guidance for Claude Code and similar coding assistants.
 
 ## Project Overview
 
-This is an Astro-based blog starter template configured for deployment on Cloudflare Pages. It uses a minimal design approach (based on Bear Blog) with a focus on performance (100/100 Lighthouse score) and SEO.
+BenihKode is a public personal site built with Astro. It includes:
+
+- a blog
+- a projects section
+- an ideas section
+- optional privacy policy pages for selected projects
+
+The repository is deployed on Vercel and uses Astro Content Collections for typed content.
 
 ## Development Commands
 
 ```bash
-# Install dependencies
 pnpm install
-
-# Start development server (runs on localhost:4321)
 pnpm dev
-
-# Build for production
 pnpm build
-
-# Preview production build locally with Wrangler
 pnpm preview
-
-# Deploy to Cloudflare Pages
-pnpm deploy
-
-# Generate/update Cloudflare Workers TypeScript types
-pnpm cf-typegen
+pnpm test
+pnpm test:e2e
+pnpm run deploy
 ```
 
-## Architecture
+## Current Architecture
 
-### Content Management System
+### Content collections
 
-The blog uses Astro's **Content Collections** feature for type-safe content management:
+Collection schemas live in `src/content.config.ts`.
 
-- **Configuration**: `src/content.config.ts` defines the `blog` collection schema
-- **Schema**: Blog posts must include frontmatter with `title`, `description`, `pubDate`, optional `updatedDate`, and optional `heroImage`
-- **Loader**: Uses glob loader to find `.md` and `.mdx` files in `src/content/blog/`
-- **Content Access**: Use `getCollection('blog')` to retrieve all posts, typed as `CollectionEntry<'blog'>`
+- `blog`: `title`, `description`, `pubDate`, optional `updatedDate`, optional `tags`
+- `projects`: `title`, `description`, `emoji`, `techStack`, `order`, optional `url`, optional `hasPrivacyPolicy`, optional `appName`
+- `ideas`: `title`, `description`, `status`, `order`, optional `meta`
 
-### Routing Structure
+Files are loaded from:
 
-- **File-based routing**: Pages in `src/pages/` become routes based on filename
-- **Dynamic routes**: `src/pages/blog/[...slug].astro` uses `getStaticPaths()` to generate routes for each blog post
-- **Blog index**: `src/pages/blog/index.astro` lists all posts sorted by publication date (newest first)
-- **RSS feed**: `src/pages/rss.xml.js` generates an RSS feed for the blog
+- `src/content/blog/`
+- `src/content/projects/`
+- `src/content/ideas/`
 
-### Component Architecture
+### Routing
 
-- **Layouts**: `src/layouts/BlogPost.astro` is the main layout for individual blog posts
-- **Components**: Reusable UI components in `src/components/` (Header, Footer, BaseHead, FormattedDate)
-- **Scoped styles**: Each `.astro` file can include scoped styles in `<style>` tags
-- **Global styles**: `src/styles/global.css` contains the base CSS (customized Bear Blog theme)
+- `src/pages/blog/[...slug].astro`
+- `src/pages/ideas/[slug].astro`
+- `src/pages/projects/[slug].astro`
+- `src/pages/projects/[slug]/privacy-policy.astro`
+- `src/pages/rss.xml.js`
 
-### Image Optimization
+### Layouts and components
 
-The project uses Astro's built-in Image optimization with Cloudflare as the image service:
-- Configure in `astro.config.mjs`: `imageService: "cloudflare"`
-- Images in `src/assets/` are optimized and transformed at build time
-- Use `<Image />` component from `astro:assets` for optimized images
-- Hero images are referenced in blog frontmatter and rendered in BlogPost layout
+- `src/layouts/BaseLayout.astro` is the main shared layout
+- `src/components/` contains shared UI pieces such as the header, footer, and head tags
+- `src/styles/` contains global styling
 
-## Deployment Configuration
+## Deployment Notes
 
-### Cloudflare Pages
+- Deployment target is Vercel
+- Astro uses the Vercel adapter in `astro.config.mjs`
+- `pnpm build` should succeed before any deploy-oriented change is considered complete
 
-- **Adapter**: `@astrojs/cloudflare` with platform proxy enabled for local development
-- **Wrangler**: Configuration in `wrangler.jsonc`
-  - Node.js compatibility mode enabled
-  - Assets binding to `./dist` directory
-  - Observability enabled for monitoring
-- **Build output**: Static site built to `./dist/` directory
+## Editing Guidance
 
-### Integrations
+- Keep documentation and metadata public-ready
+- Prefer accurate repository-specific guidance over generic starter-template wording
+- When changing routing, content schemas, or deployment config, run `pnpm build`
+- When changing utilities, run `pnpm test`
+- Avoid introducing provider-specific config unless the repo is actually deployed there
 
-- **MDX**: `@astrojs/mdx` for MDX support in blog posts
-- **Sitemap**: `@astrojs/sitemap` automatically generates sitemap.xml
-- **RSS**: `@astrojs/rss` generates RSS feed at `/rss.xml`
+## Public Repository Hygiene
 
-## Styling Approach
-
-The project uses a custom CSS theme (based on Bear Blog) with:
-
-- **CSS Variables**: Defined in `:root` for consistent theming (accent colors, grayscale values, box shadows)
-- **Typography**: Custom Atkinson font loaded from `/fonts/` directory
-- **Responsive**: Mobile-first approach with breakpoints at 720px
-- **Performance**: Minimal CSS, no framework dependencies
-- **Scoped**: Component-specific styles are scoped to avoid conflicts
-
-## Content Creation
-
-To add a new blog post:
-
-1. Create a new `.md` or `.mdx` file in `src/content/blog/`
-2. Include required frontmatter:
-   ```yaml
-   ---
-   title: 'Post Title'
-   description: 'Post description for SEO'
-   pubDate: 'YYYY-MM-DD'
-   heroImage: '../../assets/filename.jpg'  # optional
-   ---
-   ```
-3. The post will automatically appear in the blog index and be accessible at `/blog/filename/`
-
-## Type Safety
-
-- **TypeScript**: Strict mode enabled in `tsconfig.json`
-- **Content types**: Auto-generated from content collection schemas
-- **Cloudflare types**: Generated via `wrangler types` and stored in `worker-configuration.d.ts`
-- Always ensure type definitions are up-to-date after modifying Wrangler configuration
-
-## Important Notes
-
-- The site URL in `astro.config.mjs` is set to `https://example.com` - update this before deploying
-- Social links in `src/components/Header.astro` default to Astro's accounts - customize these
-- Blog posts are sorted by `pubDate` in descending order (newest first)
-- The project uses `pnpm` as the package manager (required by `engines` field in package.json)
-- Node.js 22.12.0 or higher is required
+- Do not leave stale references to old hosting providers or starter-template defaults
+- Keep instructions short and concrete
+- Assume outside contributors may read these files first

@@ -1,47 +1,63 @@
 # AGENTS.md
 
+Guidance for coding agents working in this repository.
+
+## Purpose
+
+This project is a personal Astro site with three main content areas:
+
+- `blog`: development journal posts
+- `projects`: shipped work and portfolio entries
+- `ideas`: product ideas and lightweight PRDs
+
+The repository is public-facing, so keep changes tidy, accurate, and safe to publish.
+
 ## Common Commands
 
 ```bash
-# Development
-pnpm dev                    # Start dev server at localhost:4321
-
-# Building & Deployment
-pnpm build                  # Build for production
-pnpm preview                # Preview production build locally
-pnpm run deploy             # Deploy to Vercel (Production)
-
-# Testing
-pnpm test                   # Run unit tests (Node.js native test runner)
-pnpm test:e2e               # Run E2E tests with Playwright
+pnpm dev
+pnpm build
+pnpm preview
+pnpm test
+pnpm test:e2e
+pnpm run deploy
 ```
+
+## Repository Notes
+
+- Package manager is `pnpm`
+- Node.js 22.12.0 or newer is required
+- Deployment target is Vercel
+- The site URL is configured in `astro.config.mjs`
 
 ## Architecture
 
-### Content Collections System
+### Content collections
 
-The site uses Astro's Content Collections for type-safe content management across three collections defined in `src/content.config.ts`:
+Content schemas are defined in `src/content.config.ts`.
 
-- **blog**: Dev journal posts (requires `title`, `description`, `pubDate`; optional `tags`, `updatedDate`)
-- **projects**: Shipped project entries (requires `title`, `description`, `emoji`, `techStack`, `order`; optional `url`, `hasPrivacyPolicy`, `appName`)
-- **ideas**: Product idea PRDs (requires `title`, `description`, `status`, `order`; optional `meta`)
+- `blog` requires `title`, `description`, and `pubDate`
+- `projects` requires `title`, `description`, `emoji`, `techStack`, and `order`
+- `ideas` requires `title`, `description`, `status`, and `order`
 
-Each collection uses glob loaders that find `.md` and `.mdx` files in `src/content/{collection}/`. Access content via `getCollection('{collection}')` which returns typed `CollectionEntry<'{collection}'>[]`.
+All collections load `.md` and `.mdx` files from `src/content/{collection}/`.
 
-### Routing & Page Generation
+### Routes
 
-- Dynamic routes in `src/pages/{collection}/[...slug].astro` or `[slug].astro` use `getStaticPaths()` to generate routes from content collections
-- Blog index (`src/pages/blog/index.astro`) uses parallel collection fetching (see PR #13)
-- Privacy policy routes are conditionally generated in `src/pages/projects/[slug]/privacy-policy.astro` based on `hasPrivacyPolicy` field
+- `src/pages/blog/[...slug].astro` generates blog post routes
+- `src/pages/ideas/[slug].astro` generates idea routes
+- `src/pages/projects/[slug].astro` generates project routes
+- `src/pages/projects/[slug]/privacy-policy.astro` is generated only when `hasPrivacyPolicy` is true
 
-### Testing Strategy
+### Tests
 
-- **Unit tests**: Located in `src/utils/*.test.ts`, use Node.js native test runner with `--experimental-strip-types` flag
-- **E2E tests**: Located in `e2e/*.spec.ts`, use Playwright with automatic dev server startup
-- Playwright configuration includes webServer settings that run `pnpm dev` before tests
+- Unit tests live in `src/utils/*.test.ts`
+- End-to-end tests live in `e2e/*.spec.ts`
+- Playwright starts the local dev server automatically
 
-### Key Constraints
+## Working Style
 
-- Package manager: `pnpm` (enforced by engines field in package.json)
-- Node.js version: 22.12.0 or higher
-- Site URL in `astro.config.mjs` defaults to `https://example.com` - update before deploying
+- Prefer small, targeted changes over broad rewrites
+- Preserve the existing visual language unless the task explicitly calls for redesign
+- When editing content collection schemas or route generation, verify `pnpm build`
+- When changing utilities or route logic, run the relevant tests before finishing
