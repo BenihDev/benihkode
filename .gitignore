@@ -35,3 +35,10 @@ playwright/.cache/
 !.dev.vars.example
 !.env.example
 .vercel
+
+# brainstorming
+.superpowers/
+.claude
+.serena
+.vscode
+docs
