@@ -3,14 +3,13 @@
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
-
-import cloudflare from '@astrojs/cloudflare';
+import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://benihkode.web.id',
   integrations: [mdx(), sitemap()],
-  adapter: cloudflare(),
+  adapter: vercel(),
   vite: {
     build: {
       minify: false,
