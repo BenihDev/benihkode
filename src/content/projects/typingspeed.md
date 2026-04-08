@@ -3,6 +3,7 @@ title: TypingSpeed
 description: "Minimal typing speed test with progress charts."
 emoji: "⌨️"
 techStack: ["TS", "Canvas"]
+category: "app"
 order: 6
 ---
 

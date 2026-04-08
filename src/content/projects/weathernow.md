@@ -3,6 +3,7 @@ title: WeatherNow
 description: "Hyper-local weather app with ML-powered 'feels like' predictions."
 emoji: "🌤"
 techStack: ["React", "ML"]
+category: "app"
 order: 2
 hasPrivacyPolicy: true
 appName: "WeatherNow"

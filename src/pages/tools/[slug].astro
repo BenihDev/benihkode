@@ -3,63 +3,54 @@ import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
-	const projects = await getCollection('projects');
-	return projects.map(project => ({
-		params: { slug: project.id },
-		props: project,
+	const tools = (await getCollection('projects')).filter(p => p.data.category === 'tool');
+	return tools.map(tool => ({
+		params: { slug: tool.id },
+		props: tool,
 	}));
 }
 
 type Props = CollectionEntry<'projects'>;
 
-const project = Astro.props;
-const { Content } = await render(project);
-
-const isTool = project.data.category === 'tool';
-const backLink = isTool ? '/tools' : '/projects';
-const backLabel = isTool ? '← Back to Tools' : '← Back to Portfolio';
+const tool = Astro.props;
+const { Content } = await render(tool);
 ---
 
-<BaseLayout title={`${project.data.title} — ${isTool ? 'Tools' : 'Projects'}`} description={project.data.description}>
+<BaseLayout title={`${tool.data.title} — Tools`} description={tool.data.description}>
 	<article style="padding-top: 4rem;">
 		<div class="container">
-			<a href={backLink} class="back-link">{backLabel}</a>
+			<a href="/tools" class="back-link">← Back to Tools</a>
 
 			<div class="project-header">
 				<div class="project-meta">
-					<div class="project-emoji">{project.data.emoji}</div>
+					<div class="project-emoji">{tool.data.emoji}</div>
 					<div class="tech-stack">
-						{project.data.techStack.map(tech => (
+						{tool.data.techStack.map(tech => (
 							<span class="tech-badge">{tech}</span>
 						))}
-						{isTool && <span class="category-badge">CLI Tool</span>}
+						<span class="category-badge">CLI Tool</span>
 					</div>
 				</div>
-				<h1>{project.data.title}</h1>
-				<p class="project-description">{project.data.description}</p>
+				<h1>{tool.data.title}</h1>
+				<p class="project-description">{tool.data.description}</p>
 
 				<div class="project-links">
-					{project.data.url && (
-						<a href={project.data.url} class="project-link" target="_blank" rel="noopener noreferrer">
-							View Project →
-						</a>
-					)}
-					{project.data.npmPackage && (
-						<a href={`https://www.npmjs.com/package/${project.data.npmPackage}`} class="project-link npm-link" target="_blank" rel="noopener noreferrer">
+					{tool.data.npmPackage && (
+						<a href={`https://www.npmjs.com/package/${tool.data.npmPackage}`} class="project-link npm-link" target="_blank" rel="noopener noreferrer">
 							npm
 						</a>
 					)}
-					{project.data.githubUrl && (
-						<a href={project.data.githubUrl} class="project-link github-link" target="_blank" rel="noopener noreferrer">
+					{tool.data.githubUrl && (
+						<a href={tool.data.githubUrl} class="project-link github-link" target="_blank" rel="noopener noreferrer">
 							GitHub
 						</a>
 					)}
 				</div>
 
-				{project.data.installCommand && (
+				{tool.data.installCommand && (
 					<div class="install-section">
 						<div class="install-label">Install</div>
-						<code class="install-command">{project.data.installCommand}</code>
+						<code class="install-command">{tool.data.installCommand}</code>
 					</div>
 				)}
 			</div>
@@ -68,8 +59,8 @@ const backLabel = isTool ? '← Back to Tools' : '← Back to Portfolio';
 				<Content />
 			</div>
 
-			{project.data.hasPrivacyPolicy && (
-				<a href={`/projects/${project.id}/privacy-policy`} class="privacy-link">
+			{tool.data.hasPrivacyPolicy && (
+				<a href={`/projects/${tool.id}/privacy-policy`} class="privacy-link">
 					Privacy Policy
 				</a>
 			)}

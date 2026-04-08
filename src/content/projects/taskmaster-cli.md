@@ -3,6 +3,7 @@ title: TaskMaster CLI
 description: "A terminal-based task manager with priority sorting and Pomodoro integration."
 emoji: "⚡"
 techStack: ["Rust", "CLI"]
+category: "app"
 order: 1
 ---
 

@@ -3,6 +3,7 @@ title: ColorPalette Pro
 description: "AI-generated color palettes with accessibility scores."
 emoji: "🎨"
 techStack: ["Svelte", "AI"]
+category: "app"
 order: 5
 hasPrivacyPolicy: true
 appName: "ColorPalette Pro"

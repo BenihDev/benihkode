@@ -3,6 +3,7 @@ title: HabitTracker
 description: "Simple daily habit tracker with streak visualization."
 emoji: "📊"
 techStack: ["Vue", "D3"]
+category: "app"
 order: 4
 hasPrivacyPolicy: true
 appName: "HabitTracker"

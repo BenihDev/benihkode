@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PortfolioCard from '../../components/PortfolioCard.astro';
+
+const tools = (await getCollection('projects'))
+	.filter(p => p.data.category === 'tool')
+	.sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Developer Tools — BenihKode" description="CLI tools and utilities built for developers. Install, use, and ship faster.">
+	<section style="padding-top: 4rem;">
+		<div class="container">
+			<div class="section-label">03 — Tools</div>
+			<div class="section-header">
+				<h1 class="section-title animate-on-scroll">Developer Tools</h1>
+			</div>
+			<p class="section-desc animate-on-scroll">CLI tools and utilities to make your development workflow faster.</p>
+			<div class="portfolio-grid stagger-children">
+				{tools.map((tool, i) => (
+					<PortfolioCard
+						title={tool.data.title}
+						description={tool.data.description}
+						emoji={tool.data.emoji}
+						techStack={tool.data.techStack}
+						slug={tool.id}
+						index={i}
+					/>
+				))}
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.portfolio-grid {
+		display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 1.5rem;
+	}
+	@media (max-width: 768px) {
+		.portfolio-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
