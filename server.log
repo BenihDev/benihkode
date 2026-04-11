@@ -1,0 +1,18 @@
+
+> benihkode@0.0.1 dev /app
+> astro dev
+
+[vite] connected.
+19:30:04 [types] Generated 1ms
+[vite] connected.
+19:30:05 [content] Syncing content
+19:30:05 [content] Synced content
+19:30:05 [vite] Re-optimizing dependencies because vite config has changed
+ astro  v6.0.4 ready in 2355 ms
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+19:30:05 watching for file changes...
+19:30:41 [200] / 81ms
+19:30:42 [vite] ✨ new dependencies optimized: astro/runtime/client/dev-toolbar/entrypoint.js
+19:30:42 [vite] ✨ optimized dependencies changed. reloading
+19:31:37 [200] / 16ms
