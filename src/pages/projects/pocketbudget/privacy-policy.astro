@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { SITE_EMAIL } from '../../../consts';
+
+const lastUpdated = "May 10, 2026";
+---
+
+<BaseLayout title="Privacy Policy — PocketBudget" description="Privacy policy for PocketBudget — local-first personal budget tracker for Android.">
+	<section style="padding-top: 4rem;">
+		<div class="container">
+			<div class="privacy-content">
+				<a href="/projects/pocketbudget" class="back-link">← Back to PocketBudget</a>
+				<h1>Privacy Policy</h1>
+				<p class="app-name">for <strong>PocketBudget</strong></p>
+				<p class="last-updated">Last updated: {lastUpdated}</p>
+
+				<div class="highlight-box">
+					<p>PocketBudget is designed with privacy first. Your financial data stays on your device — we do not collect, store, or transmit your personal financial information to any server.</p>
+				</div>
+
+				<h2>1. Information We Collect</h2>
+				<p>
+					PocketBudget stores all financial data locally on your device using SQLite. This includes:
+				</p>
+				<ul>
+					<li>Transaction records you enter (amounts, categories, notes, dates)</li>
+					<li>Budget settings and preferences you configure</li>
+				</ul>
+				<p>This data never leaves your device and is not accessible to us or any third party.</p>
+
+				<h2>2. Data Storage</h2>
+				<p>
+					All financial data is stored exclusively in a local SQLite database on your device. There is no cloud sync, no backend server, and no remote database. If you uninstall the app, all data is permanently deleted from your device.
+				</p>
+
+				<h2>3. Advertising (Google AdMob)</h2>
+				<p>
+					PocketBudget uses Google AdMob to display advertisements in the free version of the app. AdMob may collect and use certain information to serve relevant ads, including:
+				</p>
+				<ul>
+					<li>Device identifiers (Advertising ID)</li>
+					<li>IP address and approximate location</li>
+					<li>Device type, operating system, and language settings</li>
+					<li>App usage data for ad performance measurement</li>
+				</ul>
+				<p>
+					This data is collected and processed by Google in accordance with <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>. You can opt out of personalized ads by adjusting your device's advertising settings.
+				</p>
+				<p>
+					Users who purchase the "Remove Ads" in-app purchase will no longer be served ads, and AdMob data collection will be disabled for those users.
+				</p>
+
+				<h2>4. In-App Purchases</h2>
+				<p>
+					PocketBudget offers optional in-app purchases (Remove Ads, Export Data) processed through Google Play. Purchase transactions are handled entirely by Google Play and RevenueCat. We do not store your payment information. Please refer to <a href="https://play.google.com/about/play-terms/" target="_blank" rel="noopener noreferrer">Google Play's Terms of Service</a> for details on payment data handling.
+				</p>
+
+				<h2>5. Permissions</h2>
+				<p>PocketBudget may request the following device permissions:</p>
+				<ul>
+					<li><strong>Storage:</strong> To read/write the local database and export data files (if you purchase the Export Data feature)</li>
+					<li><strong>Internet:</strong> Required for displaying ads (AdMob) and processing in-app purchases</li>
+				</ul>
+
+				<h2>6. Children's Privacy</h2>
+				<p>
+					PocketBudget is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided personal information through the app, please contact us so we can take appropriate action.
+				</p>
+
+				<h2>7. Your Rights</h2>
+				<p>
+					Since all your financial data is stored locally on your device, you have full control over it at all times. You can:
+				</p>
+				<ul>
+					<li>Delete individual transactions or all data within the app</li>
+					<li>Uninstall the app to permanently remove all stored data</li>
+					<li>Opt out of personalized ads through your device settings</li>
+				</ul>
+
+				<h2>8. Changes to This Policy</h2>
+				<p>
+					We may update this Privacy Policy from time to time. We will notify you of any significant changes by updating the "Last updated" date at the top of this page. Continued use of the app after changes constitutes acceptance of the updated policy.
+				</p>
+
+				<h2>9. Contact Us</h2>
+				<p>
+					If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:hello@pocketbudget.app">hello@pocketbudget.app</a>.
+				</p>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.privacy-content {
+		max-width: 680px;
+		line-height: 1.8;
+	}
+	h1 { margin-bottom: 0.25rem; }
+	.app-name { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+	.last-updated {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+		color: var(--text-muted); margin-bottom: 2rem;
+	}
+	h2 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.3rem; }
+	p { margin-bottom: 1rem; color: var(--text-secondary); }
+	ul {
+		list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;
+	}
+	li { margin-bottom: 0.5rem; color: var(--text-secondary); }
+	a { color: var(--accent); }
+	.highlight-box {
+		background: var(--surface-2, rgba(255,255,255,0.05));
+		border: 1px solid var(--border, rgba(255,255,255,0.1));
+		border-left: 3px solid var(--accent);
+		border-radius: 8px;
+		padding: 1rem 1.25rem;
+		margin-bottom: 2rem;
+	}
+	.highlight-box p {
+		margin: 0;
+		color: var(--text-primary);
+	}
+</style>
