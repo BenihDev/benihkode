@@ -37,7 +37,9 @@ const navLinks = [
 		</nav>
 		<div class="header-actions">
 			<ThemeToggle />
-			<button class="mobile-menu" id="mobileMenuBtn" aria-label="Toggle menu" title="Toggle menu">☰</button>
+			<button class="mobile-menu" id="mobileMenuBtn" aria-label="Toggle menu" title="Toggle menu" aria-expanded="false" aria-controls="mobileNav">
+				<span aria-hidden="true" id="mobileMenuIcon">☰</span>
+			</button>
 		</div>
 	</div>
 	<div class="mobile-nav-overlay" id="mobileNav">
@@ -112,8 +114,19 @@ const navLinks = [
 <script>
 	const menuBtn = document.getElementById('mobileMenuBtn');
 	const nav = document.getElementById('mobileNav');
-	menuBtn?.addEventListener('click', () => nav?.classList.toggle('open'));
+	const menuIcon = document.getElementById('mobileMenuIcon');
+
+	menuBtn?.addEventListener('click', () => {
+		const isOpen = nav?.classList.toggle('open');
+		menuBtn.setAttribute('aria-expanded', String(isOpen));
+		if (menuIcon) menuIcon.textContent = isOpen ? '✕' : '☰';
+	});
+
 	nav?.querySelectorAll('a').forEach(a => {
-		a.addEventListener('click', () => nav?.classList.remove('open'));
+		a.addEventListener('click', () => {
+			nav?.classList.remove('open');
+			menuBtn?.setAttribute('aria-expanded', 'false');
+			if (menuIcon) menuIcon.textContent = '☰';
+		});
 	});
 </script>
