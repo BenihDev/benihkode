@@ -1,0 +1,370 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+const meta = {
+  title: `Services — ${SITE_TITLE}`,
+  description: `Web development, mobile apps, and digital tools. Let's build your next project together.`
+};
+---
+
+<BaseLayout title={meta.title} description={meta.description}>
+  <section class="services-hero">
+    <div class="container">
+      <div class="hero-badge">Services</div>
+      <h1>Build Something Great Together</h1>
+      <p class="hero-subtitle">
+        From concept to launch. I turn ideas into polished digital products — web apps, mobile tools, and everything in between.
+      </p>
+      <div class="hero-cta">
+        <a href="mailto:hello@benihkode.web.id" class="btn-primary">
+          Start a Project →
+        </a>
+        <a href="/projects" class="btn-secondary">
+          View Portfolio
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="services-section">
+    <div class="container">
+      <h2>What I Build</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🌐</div>
+          <h3>Web Applications</h3>
+          <p>Modern, fast web apps built with React, Next.js, and Astro. From landing pages to complex dashboards.</p>
+          <ul class="service-features">
+            <li>Responsive design (mobile-first)</li>
+            <li>SEO-optimized architecture</li>
+            <li>Fast load times & smooth interactions</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">📱</div>
+          <h3>Mobile Apps</h3>
+          <p>Cross-platform mobile apps with React Native and Flutter. Ship to iOS and Android from a single codebase.</p>
+          <ul class="service-features">
+            <li>Native performance & UX</li>
+            <li>App Store & Play Store submission</li>
+            <li>Push notifications & offline support</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🛠️</div>
+          <h3>Developer Tools</h3>
+          <p>CLI tools, automation scripts, and internal tools that save time and reduce repetitive work.</p>
+          <ul class="service-features">
+            <li>Custom CLI tools for your workflow</li>
+            <li>Automation scripts & integrations</li>
+            <li>Developer productivity tools</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process-section">
+    <div class="container">
+      <h2>How I Work</h2>
+      <div class="process-timeline">
+        <div class="process-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Discovery</h3>
+            <p>We start with a quick chat about your idea. I'll ask about goals, timeline, and budget. No commitment — just clarity.</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Planning</h3>
+            <p>I'll create a simple plan with features, timeline, and cost estimate. You approve before we write any code.</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Build</h3>
+            <p>Regular updates as I build. You'll see progress every step of the way. No surprises — just shipping.</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Launch</h3>
+            <p>Testing, deployment, and handoff. You get a working product plus documentation to maintain it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-card">
+        <h2>Ready to Build?</h2>
+        <p>Let's talk about your project. No pressure, just a conversation about what you need.</p>
+        <a href="mailto:hello@benihkode.web.id" class="btn-large">
+          Email Me → hello@benihkode.web.id
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .services-hero {
+    padding: 6rem 2rem 4rem;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-glow);
+    border: 1px solid rgba(255, 107, 44, 0.2);
+    padding: 0.5rem 1.25rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+  }
+  .services-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+  }
+  .hero-subtitle {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 640px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-primary, .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.875rem 2rem;
+    border-radius: var(--radius-sm);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    box-shadow: 0 4px 16px rgba(255, 107, 44, 0.3);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 107, 44, 0.4);
+  }
+  .btn-secondary {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--accent);
+  }
+
+  .services-section {
+    padding: 4rem 2rem;
+    background: var(--bg-secondary);
+  }
+  .services-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    color: var(--text-primary);
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .service-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
+  .service-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+  }
+  .service-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .service-card h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+  }
+  .service-card > p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+  .service-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .service-features li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding-left: 1.5rem;
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+  .service-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .process-section {
+    padding: 5rem 2rem;
+  }
+  .process-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    color: var(--text-primary);
+  }
+  .process-timeline {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .process-step {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  .process-step:last-child {
+    margin-bottom: 0;
+  }
+  .step-number {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border-radius: 50%;
+  }
+  .step-content h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+  .step-content p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .cta-section {
+    padding: 5rem 2rem;
+    background: var(--bg-secondary);
+  }
+  .cta-card {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 3rem 2rem;
+  }
+  .cta-card h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+  .cta-card > p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+  .btn-large {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: var(--radius-sm);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(255, 107, 44, 0.3);
+    transition: all 0.2s ease;
+  }
+  .btn-large:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 107, 44, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    .services-hero h1 {
+      font-size: 2rem;
+    }
+    .hero-cta {
+      flex-direction: column;
+    }
+    .btn-primary, .btn-secondary {
+      width: 100%;
+      justify-content: center;
+    }
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+    .process-step {
+      gap: 1rem;
+    }
+    .step-number {
+      width: 40px;
+      height: 40px;
+      font-size: 1rem;
+    }
+  }
+</style>
