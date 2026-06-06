@@ -37,6 +37,11 @@ const navLinks = [
 		</nav>
 		<div class="header-actions">
 			<ThemeToggle />
+			<a href="/search" class="search-link" aria-label="Search" title="Search">
+				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M21 21l-5.5-5.5m2.5-5.5a7.5 7.5 0 11-15 0 7.5 7.5 0 115 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+			</a>
 			<button class="mobile-menu" id="mobileMenuBtn" aria-label="Open menu" title="Open menu" aria-expanded="false" aria-controls="mobileNav">
 				<span id="mobileMenuIcon" aria-hidden="true">☰</span>
 			</button>
@@ -87,6 +92,13 @@ const navLinks = [
 	}
 	nav a:hover { color: var(--text-primary); background: var(--bg-card-hover); }
 	.header-actions { display: flex; align-items: center; gap: 0.5rem; }
+	.search-link {
+		display: flex; align-items: center; justify-content: center;
+		padding: 0.5rem; color: var(--text-secondary);
+		text-decoration: none; border-radius: var(--radius-xs);
+		transition: all 0.25s ease;
+	}
+	.search-link:hover { color: var(--text-primary); background: var(--bg-card-hover); }
 	.mobile-menu {
 		display: none; background: none; border: none; color: var(--text-primary);
 		font-size: 1.5rem; cursor: pointer; padding: 0.5rem;
