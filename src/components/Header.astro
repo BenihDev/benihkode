@@ -37,7 +37,9 @@ const navLinks = [
 		</nav>
 		<div class="header-actions">
 			<ThemeToggle />
-			<button class="mobile-menu" id="mobileMenuBtn" aria-label="Toggle menu" title="Toggle menu">☰</button>
+			<button class="mobile-menu" id="mobileMenuBtn" aria-label="Open menu" title="Open menu" aria-expanded="false" aria-controls="mobileNav">
+				<span id="mobileMenuIcon" aria-hidden="true">☰</span>
+			</button>
 		</div>
 	</div>
 	<div class="mobile-nav-overlay" id="mobileNav">
@@ -112,8 +114,26 @@ const navLinks = [
 <script>
 	const menuBtn = document.getElementById('mobileMenuBtn');
 	const nav = document.getElementById('mobileNav');
-	menuBtn?.addEventListener('click', () => nav?.classList.toggle('open'));
+	const icon = document.getElementById('mobileMenuIcon');
+
+	function updateMenuState(isOpen: boolean) {
+		menuBtn?.setAttribute('aria-expanded', isOpen.toString());
+		menuBtn?.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+		menuBtn?.setAttribute('title', isOpen ? 'Close menu' : 'Open menu');
+		if (icon) {
+			icon.textContent = isOpen ? '✕' : '☰';
+		}
+	}
+
+	menuBtn?.addEventListener('click', () => {
+		const isOpen = nav?.classList.toggle('open') ?? false;
+		updateMenuState(isOpen);
+	});
+
 	nav?.querySelectorAll('a').forEach(a => {
-		a.addEventListener('click', () => nav?.classList.remove('open'));
+		a.addEventListener('click', () => {
+			nav?.classList.remove('open');
+			updateMenuState(false);
+		});
 	});
 </script>
