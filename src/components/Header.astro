@@ -9,6 +9,8 @@ const navLinks = [
 	{ href: '/blog', label: 'Journal' },
 	{ href: '/about', label: 'About' },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <header>
@@ -33,7 +35,14 @@ const navLinks = [
 			</div>
 		</a>
 		<nav>
-			{navLinks.map(link => <a href={link.href}>{link.label}</a>)}
+			{navLinks.map(link => {
+				const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+				return (
+					<a href={link.href} aria-current={isActive ? 'page' : undefined} class={isActive ? 'active' : undefined}>
+						{link.label}
+					</a>
+				);
+			})}
 		</nav>
 		<div class="header-actions">
 			<ThemeToggle />
@@ -48,7 +57,14 @@ const navLinks = [
 		</div>
 	</div>
 	<div class="mobile-nav-overlay" id="mobileNav">
-		{navLinks.map(link => <a href={link.href}>{link.label}</a>)}
+		{navLinks.map(link => {
+			const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+			return (
+				<a href={link.href} aria-current={isActive ? 'page' : undefined} class={isActive ? 'active' : undefined}>
+					{link.label}
+				</a>
+			);
+		})}
 	</div>
 </header>
 
@@ -90,7 +106,7 @@ const navLinks = [
 		text-decoration: none; padding: 0.5rem 1rem; border-radius: var(--radius-xs);
 		transition: all 0.25s ease;
 	}
-	nav a:hover { color: var(--text-primary); background: var(--bg-card-hover); }
+	nav a:hover, nav a.active { color: var(--text-primary); background: var(--bg-card-hover); }
 	.header-actions { display: flex; align-items: center; gap: 0.5rem; }
 	.search-link {
 		display: flex; align-items: center; justify-content: center;
@@ -119,7 +135,7 @@ const navLinks = [
 			font-size: 0.9rem; padding: 0.75rem 1rem; color: var(--text-secondary);
 			text-decoration: none; border-radius: var(--radius-xs);
 		}
-		.mobile-nav-overlay a:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+		.mobile-nav-overlay a:hover, .mobile-nav-overlay a.active { background: var(--bg-card-hover); color: var(--text-primary); }
 	}
 </style>
 
