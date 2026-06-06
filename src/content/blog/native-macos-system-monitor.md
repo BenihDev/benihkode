@@ -5,6 +5,8 @@ pubDate: 2026-06-06
 tags: ["macOS", "SwiftUI", "Productivity", "Open Source"]
 ---
 
+![SysMonitor](/sysmonitor-banner.png)
+
 **TL;DR:** I built SysMonitor, a lightweight native macOS app that tracks system resources via the menu bar. I bypassed standard `NSPopover` constraints to create a custom glassmorphism widget that dynamically throttles its polling to save battery.
 
 I got tired of system monitors that either gave me too little information or swallowed half my screen with aircraft-dashboard-level charts. When you just want to know why your fans are spinning, you don't need a heavy Electron app hogging the memory it's supposed to be tracking. 
