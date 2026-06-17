@@ -1,7 +1,7 @@
 ---
 title: "Building an Unobtrusive Tutorial UI in Godot 4 for a Game Jam Puzzle"
 description: "How we used dynamic Godot tweens and signals to teach players Solstice Cipher's optical mechanics without breaking immersion."
-date: "2026-06-17"
+pubDate: "2026-06-17"
 tags: [gamejam, solstice, cipher, indiegame]
 ---
 
