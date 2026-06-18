@@ -4,7 +4,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 const lastUpdated = "June 18, 2026";
 ---
 
-<BaseLayout title="Privacy Policy — Solstice Cipher" description="Privacy policy for Solstice Cipher — a free browser-based puzzle game built in Godot 4.">
+<BaseLayout title="Privacy Policy — Solstice Cipher" description="Privacy policy for Solstice Cipher — a free, offline Android puzzle game built in Godot 4.">
 	<section style="padding-top: 4rem;">
 		<div class="container">
 			<div class="privacy-content">
@@ -14,7 +14,7 @@ const lastUpdated = "June 18, 2026";
 				<p class="last-updated">Last updated: {lastUpdated}</p>
 
 				<div class="highlight-box">
-					<p>Solstice Cipher is a free, browser-based puzzle game. There is no account, no login, and no tracking. The game runs entirely in your browser, and your progress stays on your device.</p>
+					<p>Solstice Cipher is a free, offline puzzle game. There is no account, no login, and no tracking. Your puzzle progress stays on your device, and the game collects no personal information.</p>
 				</div>
 
 				<h2>1. Information We Collect</h2>
@@ -24,26 +24,20 @@ const lastUpdated = "June 18, 2026";
 
 				<h2>2. Game Progress and Local Storage</h2>
 				<p>
-					Your puzzle progress and preferences are saved locally in your browser using <code>localStorage</code>. This data remains on your device and is never sent to us or any third party. Clearing your browser data or site storage will remove this information.
+					Your puzzle progress and preferences are stored locally on your device using Godot's application storage. This data remains on your device and is never sent to us or any third party. Uninstalling the app permanently removes this information from your device.
 				</p>
 
-				<h2>3. Hosting</h2>
-				<p>
-					The game is hosted on static hosting providers (GitHub Pages and Vercel). These providers may record standard server logs — such as IP address, request time, and browser type — for the purpose of serving and securing the site. We do not use this data to identify or track you. See their respective policies:
-				</p>
-				<ul>
-					<li><a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub Privacy Statement</a></li>
-					<li><a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Vercel Privacy Policy</a></li>
-				</ul>
-
-				<h2>4. Advertising and In-App Purchases</h2>
+				<h2>3. Advertising and In-App Purchases</h2>
 				<p>
 					Solstice Cipher contains no advertisements and offers no in-app purchases. The game is free to play in its entirety.
 				</p>
 
+				<h2>4. Permissions</h2>
+				<p>Solstice Cipher is designed to work fully offline and does not require network access or sensitive device permissions for its core gameplay.</p>
+
 				<h2>5. Third-Party Services</h2>
 				<p>
-					Aside from the static hosting providers mentioned above, Solstice Cipher does not integrate any third-party analytics, advertising, or tracking services.
+					Solstice Cipher does not integrate any third-party analytics, advertising, tracking, or cloud services. The game runs entirely on your device.
 				</p>
 
 				<h2>6. Children's Privacy</h2>
@@ -53,11 +47,11 @@ const lastUpdated = "June 18, 2026";
 
 				<h2>7. Your Rights</h2>
 				<p>
-					Because all game data is stored locally in your browser, you remain in full control of it at all times. You can:
+					Because all game data is stored locally on your device, you remain in full control of it at all times. You can:
 				</p>
 				<ul>
-					<li>Clear your progress at any time by clearing your browser's site data for this game</li>
-					<li>Play in a private/incognito window to avoid storing any data on your device</li>
+					<li>Clear your progress at any time through the game's settings or your device's app data controls</li>
+					<li>Uninstall the app to permanently remove all stored data</li>
 				</ul>
 
 				<h2>8. Changes to This Policy</h2>
@@ -92,11 +86,6 @@ const lastUpdated = "June 18, 2026";
 	}
 	li { margin-bottom: 0.5rem; color: var(--text-secondary); }
 	a { color: var(--accent); }
-	code {
-		font-family: 'JetBrains Mono', monospace; font-size: 0.9em;
-		background: var(--bg-card); padding: 0.1rem 0.35rem;
-		border-radius: 4px; border: 1px solid var(--border);
-	}
 	.highlight-box {
 		background: var(--surface-2, rgba(255,255,255,0.05));
 		border: 1px solid var(--border, rgba(255,255,255,0.1));
