@@ -1,11 +1,11 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { mapIdeasToStaticPaths } from '../../utils/ideas';
+import { mapEntriesToStaticPaths } from '../../utils/routing.ts';
 
 export async function getStaticPaths() {
 	const ideas = await getCollection('ideas');
-	return mapIdeasToStaticPaths(ideas);
+	return mapEntriesToStaticPaths(ideas);
 }
 type Props = CollectionEntry<'ideas'>;
 
