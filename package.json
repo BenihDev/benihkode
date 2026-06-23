@@ -9,7 +9,6 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "postbuild": "pagefind --site dist",
     "test": "node --experimental-strip-types --test src/**/*.test.ts",
     "test:e2e": "playwright test",
     "astro": "astro",
@@ -27,7 +26,6 @@
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.5.0",
-    "pagefind": "^1.5.2",
     "vercel": "^50.37.3"
   }
 }
