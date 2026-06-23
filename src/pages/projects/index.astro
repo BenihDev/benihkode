@@ -1,11 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
+import { getSortedProjects } from '../../utils/collections.ts';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PortfolioCard from '../../components/PortfolioCard.astro';
 
-const projects = (await getCollection('projects'))
-	.filter(p => p.data.category !== 'tool')
-	.sort((a, b) => a.data.order - b.data.order);
+const projects = (await getSortedProjects())
+	.filter(p => p.data.category !== 'tool');
 ---
 
 <BaseLayout title="Shipped Projects — BenihKode" description="From seed to harvest. These projects made it out of the garden and into the wild.">

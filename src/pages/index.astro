@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getSortedBlogPosts, getSortedProjects, getSortedIdeas } from '../utils/collections.ts';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import ProjectCard from '../components/ProjectCard.astro';
@@ -8,14 +8,14 @@ import JournalEntry from '../components/JournalEntry.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 const [ideasRaw, projectsRaw, blogRaw] = await Promise.all([
-	getCollection('ideas'),
-	getCollection('projects'),
-	getCollection('blog'),
+	getSortedIdeas(),
+	getSortedProjects(),
+	getSortedBlogPosts(),
 ]);
 
-const ideas = ideasRaw.sort((a, b) => a.data.order - b.data.order).slice(0, 4);
-const projects = projectsRaw.sort((a, b) => a.data.order - b.data.order).slice(0, 4);
-const posts = blogRaw.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 4);
+const ideas = ideasRaw.slice(0, 4);
+const projects = projectsRaw.slice(0, 4);
+const posts = blogRaw.slice(0, 4);
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>

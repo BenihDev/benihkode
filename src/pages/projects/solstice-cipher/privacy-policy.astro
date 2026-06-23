@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const lastUpdated = "June 18, 2026";
+---
+
+<BaseLayout title="Privacy Policy — Solstice Cipher" description="Privacy policy for Solstice Cipher — a free, offline Android puzzle game built in Godot 4.">
+	<section style="padding-top: 4rem;">
+		<div class="container">
+			<div class="privacy-content">
+				<a href="/projects/solstice-cipher" class="back-link">← Back to Solstice Cipher</a>
+				<h1>Privacy Policy</h1>
+				<p class="app-name">for <strong>Solstice Cipher</strong></p>
+				<p class="last-updated">Last updated: {lastUpdated}</p>
+
+				<div class="highlight-box">
+					<p>Solstice Cipher is a free, offline puzzle game. There is no account, no login, and no tracking. Your puzzle progress stays on your device, and the game collects no personal information.</p>
+				</div>
+
+				<h2>1. Information We Collect</h2>
+				<p>
+					Solstice Cipher does not collect, store, or transmit any personal information. The game does not ask you to create an account or sign in, and no personally identifiable information is requested at any point.
+				</p>
+
+				<h2>2. Game Progress and Local Storage</h2>
+				<p>
+					Your puzzle progress and preferences are stored locally on your device using Godot's application storage. This data remains on your device and is never sent to us or any third party. Uninstalling the app permanently removes this information from your device.
+				</p>
+
+				<h2>3. Advertising and In-App Purchases</h2>
+				<p>
+					Solstice Cipher contains no advertisements and offers no in-app purchases. The game is free to play in its entirety.
+				</p>
+
+				<h2>4. Permissions</h2>
+				<p>Solstice Cipher is designed to work fully offline and does not require network access or sensitive device permissions for its core gameplay.</p>
+
+				<h2>5. Third-Party Services</h2>
+				<p>
+					Solstice Cipher does not integrate any third-party analytics, advertising, tracking, or cloud services. The game runs entirely on your device.
+				</p>
+
+				<h2>6. Children's Privacy</h2>
+				<p>
+					Solstice Cipher is suitable for general audiences and does not knowingly collect any personal information from children or any other users. No data is gathered from players of any age.
+				</p>
+
+				<h2>7. Your Rights</h2>
+				<p>
+					Because all game data is stored locally on your device, you remain in full control of it at all times. You can:
+				</p>
+				<ul>
+					<li>Clear your progress at any time through the game's settings or your device's app data controls</li>
+					<li>Uninstall the app to permanently remove all stored data</li>
+				</ul>
+
+				<h2>8. Changes to This Policy</h2>
+				<p>
+					We may update this Privacy Policy from time to time. We will notify you of any significant changes by updating the "Last updated" date at the top of this page. Continued use of the game after changes constitutes acceptance of the updated policy.
+				</p>
+
+				<h2>9. Contact Us</h2>
+				<p>
+					If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:hello@benihkode.web.id">hello@benihkode.web.id</a>.
+				</p>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.privacy-content {
+		max-width: 680px;
+		line-height: 1.8;
+	}
+	h1 { margin-bottom: 0.25rem; }
+	.app-name { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+	.last-updated {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+		color: var(--text-muted); margin-bottom: 2rem;
+	}
+	h2 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.3rem; }
+	p { margin-bottom: 1rem; color: var(--text-secondary); }
+	ul {
+		list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;
+	}
+	li { margin-bottom: 0.5rem; color: var(--text-secondary); }
+	a { color: var(--accent); }
+	.highlight-box {
+		background: var(--surface-2, rgba(255,255,255,0.05));
+		border: 1px solid var(--border, rgba(255,255,255,0.1));
+		border-left: 3px solid var(--accent);
+		border-radius: 8px;
+		padding: 1rem 1.25rem;
+		margin-bottom: 2rem;
+	}
+	.highlight-box p {
+		margin: 0;
+		color: var(--text-primary);
+	}
+</style>

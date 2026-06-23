@@ -1,11 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
+import { getSortedProjects } from '../../utils/collections.ts';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PortfolioCard from '../../components/PortfolioCard.astro';
 
-const tools = (await getCollection('projects'))
-	.filter(p => p.data.category === 'tool')
-	.sort((a, b) => a.data.order - b.data.order);
+const tools = (await getSortedProjects())
+	.filter(p => p.data.category === 'tool');
 ---
 
 <BaseLayout title="Developer Tools — BenihKode" description="CLI tools and utilities built for developers. Install, use, and ship faster.">

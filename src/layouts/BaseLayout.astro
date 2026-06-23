@@ -3,6 +3,7 @@ import Analytics from '@vercel/analytics/astro';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_EMAIL } from '../consts';
 
 interface Props {
 	title: string;
@@ -10,6 +11,59 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+
+// Schema.org structured data
+const schema = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "Organization",
+			"@id": "https://benihkode.web.id/#organization",
+			"name": SITE_TITLE,
+			"description": SITE_DESCRIPTION,
+			"url": "https://benihkode.web.id",
+			"email": SITE_EMAIL,
+			"sameAs": [
+				"https://github.com/BenihDev",
+				"https://twitter.com/benihkode",
+				"https://linkedin.com/company/benihkode"
+			]
+		},
+		{
+			"@type": "WebSite",
+			"@id": "https://benihkode.web.id/#website",
+			"url": "https://benihkode.web.id",
+			"name": SITE_TITLE,
+			"description": SITE_DESCRIPTION,
+			"publisher": {
+				"@id": "https://benihkode.web.id/#organization"
+			},
+			"potentialAction": {
+				"@type": "SearchAction",
+				"target": {
+					"@type": "EntryPoint",
+					"urlTemplate": "https://benihkode.web.id/search?q={search_term_string}"
+				},
+				"query-input": "required name=search_term_string"
+			}
+		},
+		{
+			"@type": "WebPage",
+			"@id": `${Astro.url}#webpage`,
+			"url": Astro.url,
+			"name": title,
+			"description": description,
+			"isPartOf": {
+				"@id": "https://benihkode.web.id/#website"
+			},
+			"about": {
+				"@id": "https://benihkode.web.id/#organization"
+			},
+			"datePublished": "2024-01-01",
+			"dateModified": new Date().toISOString().split('T')[0]
+		}
+	]
+};
 ---
 
 <!doctype html>
@@ -17,6 +71,8 @@ const { title, description } = Astro.props;
 	<head>
 		<BaseHead title={title} description={description} />
 		<Analytics />
+		<!-- Schema.org structured data -->
+		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 	</head>
 	<body>
 		<div class="scroll-progress-container"><div class="scroll-progress" id="scrollProgress"></div></div>

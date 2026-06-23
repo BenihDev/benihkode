@@ -3,12 +3,14 @@ import { SITE_TITLE } from '../consts';
 import ThemeToggle from './ThemeToggle.astro';
 
 const navLinks = [
-	{ href: '/ideas', label: 'Ideas' },
-	{ href: '/tools', label: 'Tools' },
+	{ href: '/services', label: 'Services' },
 	{ href: '/projects', label: 'Portfolio' },
+	{ href: '/tools', label: 'Tools' },
 	{ href: '/blog', label: 'Journal' },
 	{ href: '/about', label: 'About' },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <header>
@@ -33,15 +35,36 @@ const navLinks = [
 			</div>
 		</a>
 		<nav>
-			{navLinks.map(link => <a href={link.href}>{link.label}</a>)}
+			{navLinks.map(link => {
+				const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+				return (
+					<a href={link.href} aria-current={isActive ? 'page' : undefined} class={isActive ? 'active' : undefined}>
+						{link.label}
+					</a>
+				);
+			})}
 		</nav>
 		<div class="header-actions">
 			<ThemeToggle />
-			<button class="mobile-menu" id="mobileMenuBtn" aria-label="Toggle menu" title="Toggle menu">☰</button>
+			<a href="/search" class="search-link" aria-label="Search" title="Search">
+				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+					<path d="M21 21l-5.5-5.5m2.5-5.5a7.5 7.5 0 11-15 0 7.5 7.5 0 115 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+			</a>
+			<button class="mobile-menu" id="mobileMenuBtn" aria-label="Open menu" title="Open menu" aria-expanded="false" aria-controls="mobileNav">
+				<span id="mobileMenuIcon" aria-hidden="true">☰</span>
+			</button>
 		</div>
 	</div>
 	<div class="mobile-nav-overlay" id="mobileNav">
-		{navLinks.map(link => <a href={link.href}>{link.label}</a>)}
+		{navLinks.map(link => {
+			const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+			return (
+				<a href={link.href} aria-current={isActive ? 'page' : undefined} class={isActive ? 'active' : undefined}>
+					{link.label}
+				</a>
+			);
+		})}
 	</div>
 </header>
 
@@ -83,8 +106,15 @@ const navLinks = [
 		text-decoration: none; padding: 0.5rem 1rem; border-radius: var(--radius-xs);
 		transition: all 0.25s ease;
 	}
-	nav a:hover { color: var(--text-primary); background: var(--bg-card-hover); }
+	nav a:hover, nav a.active { color: var(--text-primary); background: var(--bg-card-hover); }
 	.header-actions { display: flex; align-items: center; gap: 0.5rem; }
+	.search-link {
+		display: flex; align-items: center; justify-content: center;
+		padding: 0.5rem; color: var(--text-secondary);
+		text-decoration: none; border-radius: var(--radius-xs);
+		transition: all 0.25s ease;
+	}
+	.search-link:hover { color: var(--text-primary); background: var(--bg-card-hover); }
 	.mobile-menu {
 		display: none; background: none; border: none; color: var(--text-primary);
 		font-size: 1.5rem; cursor: pointer; padding: 0.5rem;
@@ -105,15 +135,33 @@ const navLinks = [
 			font-size: 0.9rem; padding: 0.75rem 1rem; color: var(--text-secondary);
 			text-decoration: none; border-radius: var(--radius-xs);
 		}
-		.mobile-nav-overlay a:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+		.mobile-nav-overlay a:hover, .mobile-nav-overlay a.active { background: var(--bg-card-hover); color: var(--text-primary); }
 	}
 </style>
 
 <script>
 	const menuBtn = document.getElementById('mobileMenuBtn');
 	const nav = document.getElementById('mobileNav');
-	menuBtn?.addEventListener('click', () => nav?.classList.toggle('open'));
+	const icon = document.getElementById('mobileMenuIcon');
+
+	function updateMenuState(isOpen: boolean) {
+		menuBtn?.setAttribute('aria-expanded', isOpen.toString());
+		menuBtn?.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+		menuBtn?.setAttribute('title', isOpen ? 'Close menu' : 'Open menu');
+		if (icon) {
+			icon.textContent = isOpen ? '✕' : '☰';
+		}
+	}
+
+	menuBtn?.addEventListener('click', () => {
+		const isOpen = nav?.classList.toggle('open') ?? false;
+		updateMenuState(isOpen);
+	});
+
 	nav?.querySelectorAll('a').forEach(a => {
-		a.addEventListener('click', () => nav?.classList.remove('open'));
+		a.addEventListener('click', () => {
+			nav?.classList.remove('open');
+			updateMenuState(false);
+		});
 	});
 </script>

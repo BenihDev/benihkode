@@ -6,7 +6,7 @@ export const SITE_DESCRIPTION =
 export const SITE_EMAIL = 'hello@benihkode.web.id';
 
 export const SOCIAL_LINKS = {
-  github: '#',
-  twitter: '#',
-  linkedin: '#',
+  github: 'https://github.com/BenihDev',
+  twitter: 'https://twitter.com/benihkode',
+  linkedin: 'https://linkedin.com/company/benihkode',
 } as const;

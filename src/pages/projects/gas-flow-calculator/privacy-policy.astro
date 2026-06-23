@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const lastUpdated = "May 14, 2026";
+---
+
+<BaseLayout title="Privacy Policy — Gas Flow Calculator" description="Privacy policy for Gas Flow Calculator — offline engineering utility for ISO 5167 gas flow calculations.">
+	<section style="padding-top: 4rem;">
+		<div class="container">
+			<div class="privacy-content">
+				<a href="/projects/gas-flow-calculator" class="back-link">← Back to Gas Flow Calculator</a>
+				<h1>Privacy Policy</h1>
+				<p class="app-name">for <strong>Gas Flow Calculator</strong></p>
+				<p class="last-updated">Last updated: {lastUpdated}</p>
+
+				<div class="highlight-box">
+					<p>Gas Flow Calculator does not collect personal data. All calculations are performed locally on your device.</p>
+				</div>
+
+				<h2>Overview</h2>
+				<p>
+					Gas Flow Calculator is designed to run locally on your device. We do not collect personal information, require an account, or send your calculation data to a server.
+				</p>
+
+				<h2>What stays on your device</h2>
+				<p>
+					To make repeat use easier, the app may store your most recent calculation inputs locally using SharedPreferences. This can include values such as pipe diameter, orifice diameter, upstream pressure, differential pressure, temperature, and specific gravity.
+				</p>
+				<ul>
+					<li>This information stays on your device</li>
+					<li>It is not transmitted to us or to third parties</li>
+					<li>You can remove it by clearing app data or uninstalling the app</li>
+				</ul>
+
+				<h2>Data collection and services</h2>
+				<p>
+					Gas Flow Calculator does not use analytics, advertising SDKs, or social integrations. The app is intended to work offline and does not depend on internet connectivity for its core calculations.
+				</p>
+
+				<h2>Policy updates</h2>
+				<p>
+					We may revise this page when the app changes. If we do, we will update the date shown above so you can see when the policy was last reviewed.
+				</p>
+
+				<h2>Contact</h2>
+				<p>If you have questions about this privacy policy, contact <a href="mailto:fanioz@gmail.com">fanioz@gmail.com</a>.</p>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.privacy-content {
+		max-width: 680px;
+		line-height: 1.8;
+	}
+	h1 { margin-bottom: 0.25rem; }
+	.app-name { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+	.last-updated {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+		color: var(--text-muted); margin-bottom: 2rem;
+	}
+	h2 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.3rem; }
+	p { margin-bottom: 1rem; color: var(--text-secondary); }
+	ul {
+		list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;
+	}
+	li { margin-bottom: 0.5rem; color: var(--text-secondary); }
+	a { color: var(--accent); }
+	.highlight-box {
+		background: var(--surface-2, rgba(255,255,255,0.05));
+		border: 1px solid var(--border, rgba(255,255,255,0.1));
+		border-left: 3px solid var(--accent);
+		border-radius: 8px;
+		padding: 1rem 1.25rem;
+		margin-bottom: 2rem;
+	}
+	.highlight-box p {
+		margin: 0;
+		color: var(--text-primary);
+	}
+	.back-link {
+		display: inline-block; margin-bottom: 2rem; color: var(--text-secondary);
+		text-decoration: none; transition: color 0.3s ease;
+	}
+	.back-link:hover { color: var(--accent); }
+</style>

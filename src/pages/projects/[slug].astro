@@ -1,13 +1,11 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { mapEntriesToStaticPaths } from '../../utils/routing';
 
 export async function getStaticPaths() {
 	const projects = await getCollection('projects');
-	return projects.map(project => ({
-		params: { slug: project.id },
-		props: project,
-	}));
+	return mapEntriesToStaticPaths(projects);
 }
 
 type Props = CollectionEntry<'projects'>;

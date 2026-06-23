@@ -36,10 +36,19 @@ const ogImageUrl = image ? new URL(image.src, Astro.url) : new URL('/og-default.
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 
+<!-- Search Engine Verification -->
+<!--
+  Add your verification codes below:
+  Google Search Console: <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />
+  Bing Webmaster Tools: <meta name="msvalidate.01" content="YOUR_VERIFICATION_CODE" />
+-->
+
 <!-- Primary Meta Tags -->
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta name="author" content="BenihKode" />
+<meta name="keywords" content="developer, tools, CLI, npm, JavaScript, TypeScript, coding, software development" />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
@@ -47,6 +56,8 @@ const ogImageUrl = image ? new URL(image.src, Astro.url) : new URL('/og-default.
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImageUrl} />
+<meta property="og:site_name" content={SITE_TITLE} />
+<meta property="og:locale" content="en_US" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
