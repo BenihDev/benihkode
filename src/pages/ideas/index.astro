@@ -1,9 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
+import { getSortedIdeas } from '../../utils/collections.ts';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 
-const ideas = (await getCollection('ideas')).sort((a, b) => a.data.order - b.data.order);
+const ideas = await getSortedIdeas();
 ---
 
 <BaseLayout title="Product Ideas — BenihKode" description="Every project starts as an idea. Here are the seeds waiting to be planted, with specs and dreams attached.">

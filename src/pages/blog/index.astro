@@ -1,11 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
+import { getSortedBlogPosts } from '../../utils/collections.ts';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import JournalEntry from '../../components/JournalEntry.astro';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const posts = await getSortedBlogPosts();
 ---
 
 <BaseLayout title="Dev Journal — BenihKode" description="Notes, learnings, and stories from the garden.">
