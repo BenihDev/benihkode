@@ -260,3 +260,26 @@ section { padding: 6rem 0; position: relative; }
     outline-offset: 4px;
     border-radius: 2px;
 }
+
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--bg-primary);
+    color: var(--accent);
+    padding: 8px 16px;
+    z-index: 9999;
+    border-bottom-right-radius: var(--radius-sm);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid var(--accent);
+    border-top: none;
+    border-left: none;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+}

@@ -18,7 +18,7 @@ test('404 page displays correctly', async ({ page }) => {
   await expect(page.getByRole('heading', { name: "This Seed Hasn't Sprouted Yet" })).toBeVisible();
 
   // Verify the back to home link is present and points to `/`
-  const backLink = page.getByRole('link', { name: '← Back to the Garden' });
+  const backLink = page.getByRole('link', { name: 'Back to the Garden' });
   await expect(backLink).toBeVisible();
   await expect(backLink).toHaveAttribute('href', '/');
 });
