@@ -6,10 +6,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	<section class="not-found">
 		<div class="container">
 			<div class="not-found-content">
-				<div class="error-code">
-					<span class="four">4</span>
-					<span class="seed">🌱</span>
-					<span class="four">4</span>
+				<div class="error-code" aria-label="404 Error" role="img">
+					<span class="four" aria-hidden="true">4</span>
+					<span class="seed" aria-hidden="true">🌱</span>
+					<span class="four" aria-hidden="true">4</span>
 				</div>
 				<h1 class="not-found-title">This Seed Hasn't Sprouted Yet</h1>
 				<p class="not-found-desc">
@@ -17,7 +17,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					or perhaps the wind scattered it somewhere else.
 				</p>
 				<a href="/" class="back-home">
-					<span class="back-arrow">←</span>
+					<span class="back-arrow" aria-hidden="true">←</span>
 					Back to the Garden
 				</a>
 			</div>
