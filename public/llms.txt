@@ -1,0 +1,42 @@
+# BenihKode — Seed of Code
+
+> BenihKode is a solo, multi-practice developer studio. The site is the public face: a development journal, a shipped-work portfolio, lightweight product PRDs ("ideas"), and in-browser tools. Where ideas are planted, code is cultivated, and growth is documented.
+
+BenihKode builds small, opinionated developer tools and ships them — CLIs, npm packages, Flutter/Godot apps, and browser tools — then writes honestly about the engineering behind them. The work spans four practices: mobile-app redesign, Apify actors, WordPress plugins, and standalone dev tools.
+
+## Core pages
+
+- [Home](https://benihkode.web.id/)
+- [Services](https://benihkode.web.id/services/)
+- [Portfolio / Projects](https://benihkode.web.id/projects/)
+- [Tools (in-browser)](https://benihkode.web.id/tools/)
+- [Journal / Blog](https://benihkode.web.id/blog/)
+- [Ideas (PRDs)](https://benihkode.web.id/ideas/)
+- [About](https://benihkode.web.id/about/)
+
+## Shipped tools & apps (selected)
+
+- [gitcommitgen](https://benihkode.web.id/tools/gitcommitgen/) — AI-powered conventional commit messages from staged changes
+- [gitprgen](https://benihkode.web.id/tools/gitprgen/) — AI-powered PR description generator
+- [gitprune](https://benihkode.web.id/tools/gitprune/) — safe git branch cleanup
+- [secretsweep](https://benihkode.web.id/tools/secretsweep/) — zero-config secret scanning for staged files
+- [jsonask](https://benihkode.web.id/tools/jsonask/) — query JSON in natural language instead of jq
+- [envtainer](https://benihkode.web.id/tools/envtainer/) — environment-variable management for .env files
+- [mcpkit](https://benihkode.web.id/tools/mcpkit/) — generate MCP servers from OpenAPI specs, DBs, or YAML
+- [changelog-ai](https://benihkode.web.id/tools/changelog-ai/) — zero-config AI changelog generator from git history
+- [Gas Flow Calculator](https://benihkode.web.id/projects/gas-flow-calculator/) — field-ready Flutter ISO 5167 utility
+- [Solstice Cipher](https://benihkode.web.id/projects/solstice-cipher/) — free offline Android puzzle game (Godot 4)
+- [PocketBudget](https://benihkode.web.id/projects/pocketbudget/) — local-first personal finance tracker
+
+## Writing / journal
+
+- [Reproduce Before You Fix](https://benihkode.web.id/blog/reproduce-before-you-fix/)
+- [Planting BenihKode](https://benihkode.web.id/blog/planting-benihkode/)
+- [The Bug That Took 3 Days](https://benihkode.web.id/blog/the-bug-that-took-3-days/)
+- [async/await Without Fear](https://benihkode.web.id/blog/async-await-without-fear/)
+
+## Optional
+
+- [Full LLM listing](https://benihkode.web.id/llms-full.txt)
+- [Sitemap](https://benihkode.web.id/sitemap-index.xml)
+- [RSS feed](https://benihkode.web.id/rss.xml)
