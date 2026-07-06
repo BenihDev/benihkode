@@ -75,6 +75,7 @@ const schema = {
 		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 	</head>
 	<body>
+		<a href="#main-content" class="skip-link">Skip to main content</a>
 		<div class="scroll-progress-container"><div class="scroll-progress" id="scrollProgress"></div></div>
 		<div class="ambient-glow glow-1"></div>
 		<div class="ambient-glow glow-2"></div>
@@ -82,7 +83,7 @@ const schema = {
 		<div class="dot-pattern"></div>
 
 		<Header />
-		<main>
+		<main id="main-content">
 			<slot />
 		</main>
 		<Footer />

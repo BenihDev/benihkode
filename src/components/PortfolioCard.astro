@@ -23,13 +23,13 @@ const bg = gradients[index % gradients.length];
 <article class="portfolio-item animate-on-scroll">
 	<a href={`/projects/${slug}`} class="portfolio-link">
 		<div class="portfolio-image" style={`background: ${bg};`}>
-			<span class="portfolio-emoji">{emoji}</span>
+			<span class="portfolio-emoji" aria-hidden="true">{emoji}</span>
 			<div class="portfolio-tech">
 				{techStack.map(t => <span class="tech-badge">{t}</span>)}
 			</div>
 		</div>
 		<div class="portfolio-info">
-			<h3>{title} <span class="arrow">→</span></h3>
+			<h3>{title} <span class="arrow" aria-hidden="true">→</span></h3>
 			<p>{description}</p>
 		</div>
 	</a>
