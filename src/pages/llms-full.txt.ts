@@ -2,7 +2,7 @@ import { getCollection } from 'astro:content';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 export async function GET(context) {
-  const siteUrl = context.site || 'https://benihkode.web.id';
+  const siteUrl = (context.site?.toString() || 'https://benihkode.web.id').replace(/\/$/, '');
   
   const posts = (await getCollection('blog'))
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
