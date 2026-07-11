@@ -5,6 +5,8 @@ pubDate: 2026-07-06
 tags: ["openopc", "ai-agents", "one-person-company", "multi-agent-systems", "python"]
 ---
 
+![OpenOPC Banner](/openopc-banner.png)
+
 **TL;DR:** OpenOPC is an open-source Python framework that assembles a team of AI agents around a goal, they self-organize, hand off work, and learn from each run. This post walks through installation with `uv`, your first task, Company Mode, and the Office UI.
 
 ## What OpenOPC Actually Is
