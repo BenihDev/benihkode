@@ -24,12 +24,14 @@ BenihKode builds small, opinionated developer tools and ships them — CLIs, npm
 - [envtainer](https://benihkode.web.id/tools/envtainer/) — environment-variable management for .env files
 - [mcpkit](https://benihkode.web.id/tools/mcpkit/) — generate MCP servers from OpenAPI specs, DBs, or YAML
 - [changelog-ai](https://benihkode.web.id/tools/changelog-ai/) — zero-config AI changelog generator from git history
+- [DomainForge](https://benihkode.web.id/projects/domainforge/) — crawl websites directly into clean, RAG-ready datasets
 - [Gas Flow Calculator](https://benihkode.web.id/projects/gas-flow-calculator/) — field-ready Flutter ISO 5167 utility
 - [Solstice Cipher](https://benihkode.web.id/projects/solstice-cipher/) — free offline Android puzzle game (Godot 4)
 - [PocketBudget](https://benihkode.web.id/projects/pocketbudget/) — local-first personal finance tracker
 
 ## Writing / journal
 
+- [DomainForge: Crawl Websites Directly into RAG-Ready Datasets](https://benihkode.web.id/blog/domainforge-llm-dataset-builder/)
 - [Reproduce Before You Fix](https://benihkode.web.id/blog/reproduce-before-you-fix/)
 - [Planting BenihKode](https://benihkode.web.id/blog/planting-benihkode/)
 - [The Bug That Took 3 Days](https://benihkode.web.id/blog/the-bug-that-took-3-days/)
