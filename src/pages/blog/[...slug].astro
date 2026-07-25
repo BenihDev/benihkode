@@ -21,7 +21,7 @@ const formattedDate = post.data.pubDate.toLocaleDateString('en-US', {
 	<article class="blog-article">
 		<div class="container">
 			<div class="blog-header animate-on-scroll">
-				<a href="/blog" class="back-link">← Back to Journal</a>
+				<a href="/blog" class="back-link"><span aria-hidden="true">←</span> Back to Journal</a>
 				<div class="blog-meta">{formattedDate}</div>
 				<h1>{post.data.title}</h1>
 				{post.data.tags && post.data.tags.length > 0 && (
