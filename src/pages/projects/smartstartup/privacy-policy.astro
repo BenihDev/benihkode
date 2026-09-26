@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const lastUpdated = "September 26, 2026";
+---
+
+<BaseLayout title="Privacy Policy — SmartStartup" description="Privacy policy for SmartStartup — offline Windows 11 boot optimizer. No telemetry, no network access; your data stays on your device.">
+	<section style="padding-top: 4rem;">
+		<div class="container">
+			<div class="privacy-content">
+				<a href="/projects/smartstartup" class="back-link">← Back to SmartStartup</a>
+				<h1>Privacy Policy</h1>
+				<p class="app-name">for <strong>SmartStartup</strong></p>
+				<p class="last-updated">Last updated: {lastUpdated}</p>
+
+				<div class="highlight-box">
+					<p>SmartStartup is designed with privacy first. It runs 100% offline: it collects no telemetry, contacts no server, and your startup configuration and boot history never leave your device.</p>
+				</div>
+
+				<h2>1. Information We Collect</h2>
+				<p>
+					SmartStartup accesses only your local Windows startup configuration and keeps everything on your device:
+				</p>
+				<ul>
+					<li>Startup entries read from local system locations: registry Run keys (HKCU/HKLM), the user's Startup folder shortcuts, and Task Scheduler startup entries</li>
+					<li>Your preferences and optimization choices (theme, language, watchdog setting, delayed or disabled apps), stored locally</li>
+					<li>Boot duration history, stored in a local SQLite database inside the app's own data folder</li>
+				</ul>
+				<p>None of this data is transmitted anywhere. It is not accessible to us or to any third party.</p>
+
+				<h2>2. Data Storage</h2>
+				<p>
+					All data is stored exclusively on your device. Startup changes are written back to your local Windows configuration, and boot history is kept in a local SQLite database in the app's data folder. There is no cloud sync, no backend server, and no remote storage. Uninstalling SmartStartup removes all of its local data.
+				</p>
+
+				<h2>3. Network Access & Telemetry</h2>
+				<p>
+					SmartStartup makes no network connections. There is no telemetry, no analytics, no crash reporting service, and no advertising. The app cannot send your data anywhere because it never communicates with any server.
+				</p>
+
+				<h2>4. Elevated Operations</h2>
+				<p>
+					SmartStartup runs as a standard user without administrator rights. Some operations - such as writing system-level startup entries, creating SYSTEM-level scheduled tasks, reading boot diagnostics, or creating a System Restore point - require elevation. When you explicitly trigger such an action, the app launches a separate helper process and Windows shows a standard UAC consent prompt that you approve. No system change happens silently in the background.
+				</p>
+
+				<h2>5. Third Parties</h2>
+				<p>
+					We do not share data with third parties because no data ever leaves your device. The app contains no advertising SDKs, no analytics frameworks, and no third-party services.
+				</p>
+
+				<h2>6. Children's Privacy</h2>
+				<p>
+					SmartStartup is a system utility that is not directed at children under the age of 13, and it does not collect personal information from anyone - child or adult.
+				</p>
+
+				<h2>7. Your Rights</h2>
+				<p>
+					Because all data stays on your device, you always have full control over it. You can:
+				</p>
+				<ul>
+					<li>Undo any startup change from within the app, or restore your startup configuration manually</li>
+					<li>Clear boot history and app data from Settings > Local Data > Reset Data</li>
+					<li>Uninstall the app to permanently remove all of its stored data</li>
+				</ul>
+
+				<h2>8. Changes to This Policy</h2>
+				<p>
+					We may update this Privacy Policy from time to time. Any changes will be reflected by updating the "Last updated" date at the top of this page. Continued use of the app after changes constitutes acceptance of the updated policy.
+				</p>
+
+				<h2>9. Contact Us</h2>
+				<p>
+					If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:hello@benihkode.web.id">hello@benihkode.web.id</a>.
+				</p>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.privacy-content {
+		max-width: 680px;
+		line-height: 1.8;
+	}
+	h1 { margin-bottom: 0.25rem; }
+	.app-name { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+	.last-updated {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+		color: var(--text-muted); margin-bottom: 2rem;
+	}
+	h2 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.3rem; }
+	p { margin-bottom: 1rem; color: var(--text-secondary); }
+	ul {
+		list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;
+	}
+	li { margin-bottom: 0.5rem; color: var(--text-secondary); }
+	a { color: var(--accent); }
+	.highlight-box {
+		background: var(--surface-2, rgba(255,255,255,0.05));
+		border: 1px solid var(--border, rgba(255,255,255,0.1));
+		border-left: 3px solid var(--accent);
+		border-radius: 8px;
+		padding: 1rem 1.25rem;
+		margin-bottom: 2rem;
+	}
+	.highlight-box p {
+		margin: 0;
+		color: var(--text-primary);
+	}
+</style>
