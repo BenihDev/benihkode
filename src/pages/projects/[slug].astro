@@ -39,7 +39,7 @@ const backLabel = isTool ? '← Back to Tools' : '← Back to Portfolio';
 				<div class="project-links">
 					{project.data.url && (
 						<a href={project.data.url} class="project-link" target="_blank" rel="noopener noreferrer">
-							View Project →
+							View Project <span aria-hidden="true">→</span>
 						</a>
 					)}
 					{project.data.npmPackage && (
