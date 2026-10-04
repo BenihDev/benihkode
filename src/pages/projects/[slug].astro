@@ -15,13 +15,13 @@ const { Content } = await render(project);
 
 const isTool = project.data.category === 'tool';
 const backLink = isTool ? '/tools' : '/projects';
-const backLabel = isTool ? '← Back to Tools' : '← Back to Portfolio';
+const backLabelText = isTool ? 'Back to Tools' : 'Back to Portfolio';
 ---
 
 <BaseLayout title={`${project.data.title} — ${isTool ? 'Tools' : 'Projects'}`} description={project.data.description}>
 	<article style="padding-top: 4rem;">
 		<div class="container">
-			<a href={backLink} class="back-link">{backLabel}</a>
+			<a href={backLink} class="back-link"><span aria-hidden="true">←</span> {backLabelText}</a>
 
 			<div class="project-header">
 				<div class="project-meta">
