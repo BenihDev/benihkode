@@ -5,6 +5,8 @@ pubDate: 2026-10-07
 tags: ["Chrome Extension", "MV3", "Side Projects", "Indie Hacking", "Journal"]
 ---
 
+![Tutupen — auto close idle tabs](/tutupen-banner.png)
+
 My browser had around ninety open tabs. Pinned ones I actually used; the rest were a sediment of "I'll read this later" - a GitHub doc from last week, a hotel page, a blog post, another AI-router dashboard. Chrome's task manager showed Gmail's discarded-but-resident tabs eating memory I never got back. The pile grew monotonically. I never revisited old tabs; I only ever opened new ones.
 
 So I built **Tutupen** - a Manifest V3 extension for Chrome and Edge that silently closes tabs you haven't touched for longer than your threshold, and lets you restore everything it closed. This is the build story: the decisions, the live test that made me trust it, and the naming saga that took longer than the code.
