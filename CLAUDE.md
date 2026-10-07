@@ -74,3 +74,7 @@ Files are loaded from:
 - Do not leave stale references to old hosting providers or starter-template defaults
 - Keep instructions short and concrete
 - Assume outside contributors may read these files first
+
+## Skills
+
+- **`.agents/skills/add-project-entry/SKILL.md`** — invoke this when adding a new project entry (post, project card, idea PRD, privacy policy, banner, homepage surfacing). It encodes the content schemas, routing rules (`/projects` vs `/tools`), homepage slice/order pitfalls, and the PR workflow.
