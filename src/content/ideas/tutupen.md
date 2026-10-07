@@ -1,6 +1,6 @@
 ---
 title: "Tutupen"
-description: "A silent janitor for your browser. Auto-closes tabs you forgot about on a threshold you set — audible and excepted tabs are always safe, pinned tabs are protected by default, and everything it closes is restorable."
+description: "A silent janitor for your browser — auto-closes tabs you forgot about. Pinned tabs protected by default; everything it closes is restorable."
 status: completed
 meta: "Shipping to Edge Add-ons & Chrome Web Store"
 order: 1
