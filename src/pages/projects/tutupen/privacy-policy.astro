@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const lastUpdated = "October 7, 2026";
+---
+
+<BaseLayout title="Privacy Policy — Tutupen" description="Privacy policy for Tutupen — the silent tab janitor for Chrome and Edge. No network requests, no analytics; all data stays in your browser.">
+	<section style="padding-top: 4rem;">
+		<div class="container">
+			<div class="privacy-content">
+				<a href="/projects/tutupen" class="back-link">← Back to Tutupen</a>
+				<h1>Privacy Policy</h1>
+				<p class="app-name">for <strong>Tutupen</strong></p>
+				<p class="last-updated">Last updated: {lastUpdated}</p>
+
+				<div class="highlight-box">
+					<p>Tutupen is designed with privacy first. It makes no network requests, contains no remote code, collects no telemetry, and all of its data lives in your browser's own extension storage. Nothing is transmitted anywhere.</p>
+				</div>
+
+				<h2>1. Information We Collect</h2>
+				<p>
+					Tutupen reads browser tab metadata locally to decide which tabs are idle, and keeps everything on your device:
+				</p>
+				<ul>
+					<li>Tab metadata: each tab's last-accessed timestamp, pinned/audible/active state, URL, and title - read from the browser's tabs API and processed locally to run the idle sweep</li>
+					<li>Your settings: the idle threshold, the pinned-tab protection toggle, and your domain exception list (hostnames only), stored in `chrome.storage.sync`</li>
+					<li>The auto-closed tab log: title, URL, favicon URL, and close time of recently closed tabs (capped at 100 entries), stored in `chrome.storage.local` - used only to power the Restore list</li>
+				</ul>
+				<p>None of this data is transmitted anywhere. It is not accessible to us or to any third party.</p>
+
+				<h2>2. Data Storage</h2>
+				<p>
+					All data is stored exclusively in your browser's built-in extension storage. Settings use `chrome.storage.sync`, which means your own browser syncs them across your signed-in browser instances - that is your browser's standard sync, not a Tutupen server. The closed-tabs log uses `chrome.storage.local` and never leaves the device. There is no backend server, no cloud storage, and no account. Uninstalling Tutupen removes all of its stored data automatically.
+				</p>
+
+				<h2>3. Network Access & Telemetry</h2>
+				<p>
+					Tutupen makes no network connections. There is no telemetry, no analytics, no crash reporting, no advertising, and no remote code. All HTML, CSS, and JavaScript run locally from the extension package itself.
+				</p>
+
+				<h2>4. Permissions</h2>
+				<p>
+					Tutupen requests three permissions, and only these:
+				</p>
+				<ul>
+					<li><strong>tabs</strong> - to read each tab's idle time and protected state (pinned, audible, active), record closed tabs in the restore log, and reopen a tab when you click Restore</li>
+					<li><strong>alarms</strong> - to wake the extension every 5 minutes so the idle sweep can run while the service worker is dormant</li>
+					<li><strong>storage</strong> - to keep your settings and the recently-closed tab list</li>
+				</ul>
+				<p>No host permissions are requested. Tutupen never reads, injects into, or modifies the content of any web page.</p>
+
+				<h2>5. Third Parties</h2>
+				<p>
+					We do not share data with third parties because no data ever leaves your browser. The extension contains no advertising SDKs, no analytics frameworks, and no third-party services.
+				</p>
+
+				<h2>6. Children's Privacy</h2>
+				<p>
+					Tutupen is a productivity utility that is not directed at children under the age of 13, and it does not collect personal information from anyone - child or adult.
+				</p>
+
+				<h2>7. Your Rights</h2>
+				<p>
+					Because all data stays in your browser, you always have full control over it. You can:
+				</p>
+				<ul>
+					<li>Restore any auto-closed tab from the popup's Recently Auto-Closed list, or via your browser's native reopen-closed-tab shortcut</li>
+					<li>Change the threshold, toggle pinned-tab protection, or edit the exception list at any time in Settings</li>
+					<li>Uninstall the extension to permanently remove all of its stored data</li>
+				</ul>
+
+				<h2>8. Changes to This Policy</h2>
+				<p>
+					We may update this Privacy Policy from time to time. Any changes will be reflected by updating the "Last updated" date at the top of this page. Continued use of the extension after changes constitutes acceptance of the updated policy.
+				</p>
+
+				<h2>9. Contact Us</h2>
+				<p>
+					If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:hello@benihkode.web.id">hello@benihkode.web.id</a>.
+				</p>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.privacy-content {
+		max-width: 680px;
+		line-height: 1.8;
+	}
+	h1 { margin-bottom: 0.25rem; }
+	.app-name { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+	.last-updated {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+		color: var(--text-muted); margin-bottom: 2rem;
+	}
+	h2 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.3rem; }
+	p { margin-bottom: 1rem; color: var(--text-secondary); }
+	ul {
+		list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;
+	}
+	li { margin-bottom: 0.5rem; color: var(--text-secondary); }
+	a { color: var(--accent); }
+	.highlight-box {
+		background: var(--surface-2, rgba(255,255,255,0.05));
+		border: 1px solid var(--border, rgba(255,255,255,0.1));
+		border-left: 3px solid var(--accent);
+		border-radius: 8px;
+		padding: 1rem 1.25rem;
+		margin-bottom: 2rem;
+	}
+	.highlight-box p {
+		margin: 0;
+		color: var(--text-primary);
+	}
+</style>
