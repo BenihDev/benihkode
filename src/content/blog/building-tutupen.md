@@ -22,7 +22,7 @@ That one decision shaped everything downstream:
 - **Idle metric**: the tab's native `lastAccessed` timestamp - "I haven't looked at this in X time" - not interaction tracking via content scripts. Simpler, permission-cheaper, and it matches the mental model.
 - **Threshold**: one global slider, default 24 hours. Per-domain thresholds are a post-MVP idea, deliberately left in the fog.
 - **Sweep cadence**: every 5 minutes via the Alarms API. For "idle > 24 hours", a 5-minute latency is invisible.
-- **Safety invariants**: never close the active tab, audible tabs (something is playing), tabs whose domain is on the exception list, and pinned tabs.
+- **Safety invariants**: never close the active tab, audible tabs (something is playing), tabs whose domain is on the exception list, and pinned tabs (protected by default - the toggle gets its own section below).
 - **Storage split**: settings in `chrome.storage.sync` (they follow you across your own machines), the closed-tabs log in `chrome.storage.local` (device-only, capped at 100 entries).
 
 ## The build itself was small

@@ -1,6 +1,6 @@
 ---
 title: Tutupen
-description: "A silent janitor for your browser. Tutupen auto-closes tabs you forgot about on a threshold you set — pinned, audible, and excepted tabs are always safe, and everything it closes is restorable."
+description: "A silent janitor for your browser. Tutupen auto-closes tabs you forgot about on a threshold you set — audible and excepted tabs are always safe, pinned tabs are protected by default, and everything it closes is restorable."
 emoji: "🧹"
 techStack: ["Chrome Extension", "MV3", "JavaScript", "Alarms API", "Chrome Storage"]
 category: "tool"
