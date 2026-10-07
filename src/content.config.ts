@@ -21,6 +21,7 @@ const projects = defineCollection({
 		emoji: z.string(),
 		techStack: z.array(z.string()),
 		category: z.enum(['tool', 'app']).default('app'),
+		icon: z.string().optional(),
 		url: z.string().optional(),
 		npmPackage: z.string().optional(),
 		githubUrl: z.string().optional(),
