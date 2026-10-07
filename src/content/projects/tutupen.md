@@ -5,7 +5,7 @@ emoji: "🧹"
 techStack: ["Chrome Extension", "MV3", "JavaScript", "Alarms API", "Chrome Storage"]
 category: "tool"
 githubUrl: "https://github.com/fanioz/tutupen"
-order: 12
+order: 1
 hasPrivacyPolicy: true
 appName: "Tutupen"
 ---
