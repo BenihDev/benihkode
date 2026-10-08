@@ -1,6 +1,6 @@
 ---
 title: "Building gitprgen: An AI Pull Request Description Generator CLI"
-description: "Build story of gitprgen, an AI pull request description generator CLI written in TypeScript and shipped as an npm package. How it parses git diffs, prompts LLMs, and writes PR descriptions you actually keep."
+description: "Build story of gitprgen, an AI pull request description generator CLI: parsing git diffs, prompting LLMs, and writing PR descriptions worth keeping."
 pubDate: 2026-10-08
 tags: ["CLI", "TypeScript", "AI", "Open Source", "Build Story"]
 ---
@@ -15,7 +15,7 @@ I already automated commit messages with [gitcommitgen](/blog/shipped-first-npm-
 
 Writing those by hand cost me ten to fifteen minutes per PR. Multiply that by the branch-heavy workflow I keep — I had [a whole cleanup tool](/tools/gitprune) precisely because I open so many branches — and the tax adds up fast. When a chore has a mechanical half, I turn it into a tool. That's the whole ethos of this garden: [from script to tool](/blog/from-script-to-tool), every time.
 
-## The core loop is three commands
+## How the AI pull request description generator works
 
 The design fits in a sentence: run `git diff`, collect context, let a large language model write the first draft. The implementation is a little more honest:
 
@@ -56,7 +56,3 @@ The full source is on [GitHub](https://github.com/BenihDev/gitprgen) under MIT, 
 ## What's next
 
 Two seeds are already germinating: a `--dry-run` mode that prints token counts before spending them, and a review mode that critiques an *existing* PR description instead of writing one. If you open pull requests for a living, [try gitprgen](/tools/gitprgen) — and if it saves you the freeze in front of the empty box, that's the harvest I planted it for.
-
----
-
-*gitprgen is one of the CLI tools grown in the BenihKode garden. The ideas start as PRDs in [Product Ideas](/ideas/), ship into the [Portfolio](/projects/), and the journey gets logged here in the [Journal](/blog/).*

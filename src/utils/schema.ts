@@ -78,11 +78,11 @@ export function webpageSchema(url: string, title: string, description: string) {
  * Each crumb matches the site's real section order (01 Ideas, 02 Portfolio, 03 Journal),
  * not the header nav order — the graph mirrors how content matures on this site.
  */
-export function breadcrumbSchema(crumbs: Crumb[]) {
+export function breadcrumbSchema(crumbs: Crumb[], pageUrl: string) {
 	const items = [{ label: 'Home', path: '/' }, ...crumbs];
 	return {
 		'@type': 'BreadcrumbList',
-		'@id': `${SITE_URL}${crumbs.length ? crumbs[crumbs.length - 1].path ?? '' : ''}#breadcrumb`,
+		'@id': `${pageUrl}#breadcrumb`,
 		itemListElement: items.map((crumb, i) => ({
 			'@type': 'ListItem',
 			position: i + 1,

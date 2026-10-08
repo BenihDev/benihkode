@@ -35,7 +35,7 @@ const schema = {
 	],
 };
 
-const jsonLdAll: Record<string, unknown>[] = [schema, ...(breadcrumbs ? [breadcrumbSchema(breadcrumbs)] : []), ...jsonLd];
+const jsonLdAll: Record<string, unknown>[] = [schema, ...(breadcrumbs ? [breadcrumbSchema(breadcrumbs, pageUrl)] : []), ...jsonLd];
 ---
 
 <!doctype html>

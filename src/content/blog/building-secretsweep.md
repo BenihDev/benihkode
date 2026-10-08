@@ -1,6 +1,6 @@
 ---
 title: "Building secretsweep: Zero-Config Secret Scanning for Your Pre-Commit Hook"
-description: "Build story of secretsweep, a zero-config secret scanning CLI that catches API keys, tokens, and credentials in staged git files before you push. Pattern design, entropy detection, and the false-positive war."
+description: "Build story of secretsweep, a zero-config secret scanning CLI that catches staged API keys and tokens with pattern matching and entropy detection."
 pubDate: 2026-10-08
 tags: ["Security", "CLI", "TypeScript", "Git", "Build Story"]
 ---
@@ -9,7 +9,7 @@ Every developer has a story about the secret that almost shipped. Mine ends well
 
 [secretsweep](/tools/secretsweep) is that regex, weaponized: a zero-config secret scanning CLI that checks your staged git files — the exact set that's about to be committed — and fails loudly if it finds API keys, tokens, database URIs, or private keys. It ships as an [npm package](/tools/), runs in under two seconds, and needs no setup file. This is the build story.
 
-## Why staged files, and why zero config
+## Why zero-config secret scanning starts with staged files
 
 Existing scanners — gitleaks, truffleHog — are excellent, and enterprise-grade. They're also built to audit entire repositories and organizational histories, which is a different job from the one I wanted done: **stop the leak at 11:58pm, before `git push`**.
 
@@ -18,7 +18,7 @@ That framing made two decisions automatic:
 - **Scan the git index, not the working tree.** Staged files are the exact set about to be committed. Scanning everything produces a wall of pre-existing noise that trains you to ignore the output. Scanning the delta keeps every finding actionable: *this* key, in *this* file, right now.
 - **Zero config as a hard requirement.** A security tool that demands a `.yaml` file before its first run is a security tool that doesn't get installed. secretsweep works with `npx` and nothing else. Ignore patterns exist (`.secretsweepignore`) for the false-positive case, but you never touch them until you need to.
 
-The whole thing drops into a pre-commit hook in one line — `npx secretsweep staged` — because the best security tooling is the kind you forget is running.
+The whole thing drops into a pre-commit hook in one line — `npx @fanioz/secretsweep staged` — because the best security tooling is the kind you forget is running.
 
 ## The detection stack: patterns plus entropy
 
@@ -61,7 +61,3 @@ Source is on [GitHub](https://github.com/BenihDev/secretsweep) under MIT, with t
 ## What's next
 
 Three seeds in the tray: a `--history` mode for scanning recent commits before an open-source release, CI-friendly exit codes with a JSON output mode, and a wider entropy heuristic that understands base64-encoded blobs. If your pre-commit hook doesn't have a [secret scanner](/tools/secretsweep) on it yet, this one costs you one line and two seconds — cheap insurance against the story that doesn't end well.
-
----
-
-*secretsweep is one of the CLI tools grown in the BenihKode garden. The ideas start as PRDs in [Product Ideas](/ideas/), ship into the [Portfolio](/projects/), and the journey gets logged here in the [Journal](/blog/).*
