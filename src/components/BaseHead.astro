@@ -75,7 +75,7 @@ const ogImageUrl = image ? new URL(image.src, Astro.url) : new URL('/og-default.
 <meta property="twitter:image:alt" content={title} />
 
 <!-- JSON-LD structured data -->
-{jsonLd.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+{jsonLd.map((schema) => <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', ...schema })} />)}
 
 <!-- Theme detection (prevent flash of wrong theme) -->
 <script is:inline>
