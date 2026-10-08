@@ -5,7 +5,7 @@ pubDate: 2026-06-06
 tags: ["macOS", "SwiftUI", "Productivity", "Open Source"]
 ---
 
-![SysMonitor](/sysmonitor-banner.png)
+![SysMonitor – a lightweight native macOS system monitor with glassmorphism menu bar widget](/sysmonitor-banner.png)
 
 **TL;DR:** I built SysMonitor, a lightweight native macOS app that tracks system resources via the menu bar. I bypassed standard `NSPopover` constraints to create a custom glassmorphism widget that dynamically throttles its polling to save battery.
 

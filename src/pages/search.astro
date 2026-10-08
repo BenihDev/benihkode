@@ -1,0 +1,194 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSortedBlogPosts, getSortedProjects, getSortedIdeas } from '../utils/collections.ts';
+
+export const prerender = false;
+
+const query = Astro.url.searchParams.get('q') || '';
+const q = query.toLowerCase().trim();
+
+const [posts, projects, ideas] = await Promise.all([
+	getSortedBlogPosts(),
+	getSortedProjects(),
+	getSortedIdeas(),
+]);
+
+const matchedPosts = q
+	? posts.filter(p =>
+			p.data.title.toLowerCase().includes(q) ||
+			p.data.description.toLowerCase().includes(q) ||
+			(p.data.tags || []).some((t: string) => t.toLowerCase().includes(q))
+	  )
+	: [];
+
+const matchedProjects = q
+	? projects.filter(p =>
+			p.data.title.toLowerCase().includes(q) ||
+			p.data.description.toLowerCase().includes(q)
+	  )
+	: [];
+
+const matchedIdeas = q
+	? ideas.filter(i =>
+			i.data.title.toLowerCase().includes(q) ||
+			i.data.description.toLowerCase().includes(q)
+	  )
+	: [];
+
+const totalResults = matchedPosts.length + matchedProjects.length + matchedIdeas.length;
+---
+
+<BaseLayout
+	title={q ? `Search results for "${query}" — BenihKode` : 'Search — BenihKode'}
+	description="Search blog posts, projects, and product ideas on BenihKode."
+>
+	<section style="padding-top: 4rem; padding-bottom: 4rem;">
+		<div class="container">
+			<div class="section-label">Search</div>
+			<h1 class="section-title">Search BenihKode</h1>
+
+			<form method="get" action="/search" class="search-form" role="search">
+				<label for="search-input" class="sr-only">Search</label>
+				<div class="search-input-wrap">
+					<input
+						id="search-input"
+						type="search"
+						name="q"
+						value={query}
+						placeholder="Search posts, projects, ideas…"
+						class="search-input"
+						autofocus
+						autocomplete="off"
+						aria-label="Search query"
+					/>
+					<button type="submit" class="search-btn" aria-label="Submit search">
+						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+							<path d="M21 21l-5.5-5.5m2.5-5.5a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</button>
+				</div>
+			</form>
+
+			{q && (
+				<p class="results-summary">
+					{totalResults === 0
+						? `No results for "${query}".`
+						: `${totalResults} result${totalResults !== 1 ? 's' : ''} for "${query}".`}
+				</p>
+			)}
+
+			{matchedPosts.length > 0 && (
+				<section class="results-group">
+					<h2 class="results-group-title">Blog Posts</h2>
+					<ul class="results-list">
+						{matchedPosts.map(post => (
+							<li>
+								<a href={`/blog/${post.id}`} class="result-link">
+									<span class="result-title">{post.data.title}</span>
+									<span class="result-desc">{post.data.description}</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			)}
+
+			{matchedProjects.length > 0 && (
+				<section class="results-group">
+					<h2 class="results-group-title">Projects &amp; Tools</h2>
+					<ul class="results-list">
+						{matchedProjects.map(project => (
+							<li>
+								<a href={`/projects/${project.id}`} class="result-link">
+									<span class="result-title">{project.data.emoji} {project.data.title}</span>
+									<span class="result-desc">{project.data.description}</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			)}
+
+			{matchedIdeas.length > 0 && (
+				<section class="results-group">
+					<h2 class="results-group-title">Product Ideas</h2>
+					<ul class="results-list">
+						{matchedIdeas.map(idea => (
+							<li>
+								<a href={`/ideas/${idea.id}`} class="result-link">
+									<span class="result-title">💡 {idea.data.title}</span>
+									<span class="result-desc">{idea.data.description}</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			)}
+
+			{q && totalResults === 0 && (
+				<div class="no-results">
+					<p>No results found. Try a different keyword or browse:</p>
+					<ul class="browse-links">
+						<li><a href="/blog">Dev Journal</a></li>
+						<li><a href="/projects">Shipped Projects</a></li>
+						<li><a href="/ideas">Product Ideas</a></li>
+					</ul>
+				</div>
+			)}
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.sr-only {
+		position: absolute; width: 1px; height: 1px; overflow: hidden;
+		clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+	}
+	.search-form { max-width: 600px; margin: 2rem 0 1.5rem; }
+	.search-input-wrap {
+		display: flex; align-items: center; gap: 0;
+		border: 1px solid var(--border); border-radius: var(--radius-sm);
+		background: var(--bg-secondary); overflow: hidden;
+		transition: border-color 0.2s ease;
+	}
+	.search-input-wrap:focus-within { border-color: var(--accent); }
+	.search-input {
+		flex: 1; border: none; background: transparent;
+		padding: 0.875rem 1.25rem; font-size: 1rem; color: var(--text-primary);
+		font-family: var(--font-sans, 'Inter', sans-serif); outline: none;
+	}
+	.search-input::placeholder { color: var(--text-muted); }
+	.search-btn {
+		display: flex; align-items: center; justify-content: center;
+		padding: 0.875rem 1.25rem; background: var(--accent); color: white;
+		border: none; cursor: pointer; transition: background 0.2s ease;
+	}
+	.search-btn:hover { background: var(--gradient-end); }
+
+	.results-summary {
+		color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;
+		font-family: 'JetBrains Mono', monospace;
+	}
+
+	.results-group { margin-bottom: 2.5rem; }
+	.results-group-title {
+		font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em;
+		color: var(--text-muted); font-family: 'JetBrains Mono', monospace;
+		margin-bottom: 0.75rem; padding-bottom: 0.5rem;
+		border-bottom: 1px solid var(--border);
+	}
+	.results-list { list-style: none; padding: 0; margin: 0; }
+	.results-list li { border-bottom: 1px solid var(--border); }
+	.result-link {
+		display: flex; flex-direction: column; gap: 0.25rem;
+		padding: 1rem 0; text-decoration: none;
+		transition: color 0.2s ease;
+	}
+	.result-link:hover .result-title { color: var(--accent); }
+	.result-title { font-weight: 600; color: var(--text-primary); font-size: 1rem; }
+	.result-desc { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.5; }
+
+	.no-results { color: var(--text-secondary); margin-top: 2rem; }
+	.browse-links { list-style: none; padding: 0; margin-top: 0.75rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+	.browse-links a { color: var(--accent); text-decoration: underline; }
+</style>

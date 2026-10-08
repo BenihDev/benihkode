@@ -18,14 +18,14 @@ const backLink = isTool ? '/tools' : '/projects';
 const backLabelText = isTool ? 'Back to Tools' : 'Back to Portfolio';
 ---
 
-<BaseLayout title={`${project.data.title} — ${isTool ? 'Tools' : 'Projects'}`} description={project.data.description}>
+<BaseLayout title={`${project.data.title} — ${isTool ? 'BenihKode Tools' : 'BenihKode Portfolio'}`} description={project.data.description}>
 	<article style="padding-top: 4rem;">
 		<div class="container">
 			<a href={backLink} class="back-link"><span aria-hidden="true">←</span> {backLabelText}</a>
 
 			<div class="project-header">
 				<div class="project-meta">
-					{project.data.icon ? <img src={project.data.icon} alt="" class="project-icon" /> : <div class="project-emoji">{project.data.emoji}</div>}
+					{project.data.icon ? <img src={project.data.icon} alt={`${project.data.title} app icon`} class="project-icon" loading="lazy" width="80" height="80" /> : <div class="project-emoji">{project.data.emoji}</div>}
 					<div class="tech-stack">
 						{project.data.techStack.map(tech => (
 							<span class="tech-badge">{tech}</span>
