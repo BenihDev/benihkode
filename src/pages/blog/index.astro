@@ -4,9 +4,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import JournalEntry from '../../components/JournalEntry.astro';
 
 const posts = await getSortedBlogPosts();
+const breadcrumbs = [{ label: 'Dev Journal' }];
 ---
 
-<BaseLayout title="Software Development Blog — BenihKode" description="Dev journal covering software architecture, system design, CLI tools, npm packages, React Native, Flutter, Astro, and indie development insights.">
+<BaseLayout title="Software Development Blog — BenihKode" description="Dev journal covering software architecture, system design, CLI tools, npm packages, React Native, Flutter, Astro, and indie development insights." breadcrumbs={breadcrumbs}>
 	<section style="padding-top: 4rem;">
 		<div class="container">
 			<div class="section-label">Journal</div>

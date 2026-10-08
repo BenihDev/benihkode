@@ -5,9 +5,10 @@ import PortfolioCard from '../../components/PortfolioCard.astro';
 
 const tools = (await getSortedProjects())
 	.filter(p => p.data.category === 'tool');
+const breadcrumbs = [{ label: 'Portfolio', path: '/projects/' }, { label: 'Developer Tools' }];
 ---
 
-<BaseLayout title="CLI & Utilities — BenihKode" description="Developer CLI tools and npm packages: command-line utilities, code generators, build tools, and productivity scripts. Install from npm and ship faster.">
+<BaseLayout title="CLI & Utilities — BenihKode" description="Developer CLI tools and npm packages: command-line utilities, code generators, build tools, and productivity scripts. Install from npm and ship faster." breadcrumbs={breadcrumbs}>
 	<section style="padding-top: 4rem;">
 		<div class="container">
 			<div class="section-label">03 — Tools</div>

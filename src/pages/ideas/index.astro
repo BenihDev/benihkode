@@ -4,9 +4,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 
 const ideas = await getSortedIdeas();
+const breadcrumbs = [{ label: 'Product Ideas' }];
 ---
 
-<BaseLayout title="Product Ideas PRD Showcase — BenihKode" description="Product ideas as full PRDs: every project starts as a seed. Browse product concepts for mobile apps, web apps, CLI tools, and SaaS products with detailed specs and vision documents.">
+<BaseLayout title="Product Ideas PRD Showcase — BenihKode" description="Product ideas as full PRDs: every project starts as a seed. Browse product concepts for mobile apps, web apps, CLI tools, and SaaS products with detailed specs and vision documents." breadcrumbs={breadcrumbs}>
 	<section style="padding-top: 4rem;">
 		<div class="container">
 			<div class="section-label">01 — Ideas</div>
