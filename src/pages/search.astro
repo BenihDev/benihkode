@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getSortedBlogPosts, getSortedProjects, getSortedIdeas } from '../utils/collections.ts';
 
+export const prerender = false;
+
 const query = Astro.url.searchParams.get('q') || '';
 const q = query.toLowerCase().trim();
 

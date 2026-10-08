@@ -6,15 +6,16 @@ import { defineConfig } from 'astro/config';
 import vercel from '@astrojs/vercel';
 
 /**
- * Rehype plugin: add loading="lazy" and decoding="async" to every <img> in
- * markdown/MDX content so Core Web Vitals (LCP / TBT) are not blocked by
- * off-screen images.
+ * Rehype plugin: load the first blog image eagerly and default other
+ * markdown/MDX images to lazy loading. Decode images asynchronously.
  *
  * Uses only the hast node shape — no extra npm dependency required.
  * @returns {import('unified').Plugin}
  */
 function rehypeLazyImages() {
-  return (tree) => {
+  return (tree, file) => {
+    const isBlog = /(^|[/\\])src[/\\]content[/\\]blog[/\\]/.test(file.path || '');
+    let isFirstImage = true;
     const visit = (node, type, fn) => {
       if (node.type === type) fn(node);
       if (node.children) node.children.forEach(child => visit(child, type, fn));
@@ -22,8 +23,10 @@ function rehypeLazyImages() {
     visit(tree, 'element', (node) => {
       if (node.tagName === 'img') {
         node.properties = node.properties || {};
-        if (!node.properties.loading) node.properties.loading = 'lazy';
+        if (isBlog && isFirstImage) node.properties.loading = 'eager';
+        else if (!node.properties.loading) node.properties.loading = 'lazy';
         if (!node.properties.decoding) node.properties.decoding = 'async';
+        isFirstImage = false;
       }
     });
   };
