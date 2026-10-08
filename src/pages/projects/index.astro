@@ -5,9 +5,10 @@ import PortfolioCard from '../../components/PortfolioCard.astro';
 
 const projects = (await getSortedProjects())
 	.filter(p => p.data.category !== 'tool');
+const breadcrumbs = [{ label: 'Portfolio' }];
 ---
 
-<BaseLayout title="Shipped Projects — BenihKode Portfolio" description="Shipped web and mobile apps: React Native apps, Chrome extensions, Astro sites, Flutter projects, and full-stack applications. From seed to harvest.">
+<BaseLayout title="Shipped Projects — BenihKode Portfolio" description="Shipped web and mobile apps: React Native apps, Chrome extensions, Astro sites, Flutter projects, and full-stack applications. From seed to harvest." breadcrumbs={breadcrumbs}>
 	<section style="padding-top: 4rem;">
 		<div class="container">
 			<div class="section-label">02 — Portfolio</div>

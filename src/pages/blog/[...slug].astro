@@ -2,6 +2,7 @@
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { mapEntriesToStaticPaths } from '../../utils/routing.ts';
+import { articleSchema } from '../../utils/schema';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -15,9 +16,23 @@ const { Content } = await render(post);
 const formattedDate = post.data.pubDate.toLocaleDateString('en-US', {
 	year: 'numeric', month: 'long', day: 'numeric'
 });
+
+// Article (BlogPosting) schema + breadcrumb following the site's
+// Ideas → Portfolio → Journal maturity order (BEN-4).
+const jsonLd = [articleSchema({
+	title: post.data.title,
+	description: post.data.description,
+	pubDate: post.data.pubDate,
+	updatedDate: post.data.updatedDate,
+	tags: post.data.tags,
+	slug: post.id,
+})];
+const breadcrumbs = [
+	{ label: 'Dev Journal', path: '/blog/' },
+];
 ---
 
-<BaseLayout title={`${post.data.title} — Dev Journal`} description={post.data.description}>
+<BaseLayout title={`${post.data.title} — Dev Journal`} description={post.data.description} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
 	<article class="blog-article">
 		<div class="container">
 			<div class="blog-header animate-on-scroll">
@@ -34,6 +49,16 @@ const formattedDate = post.data.pubDate.toLocaleDateString('en-US', {
 			<div class="blog-body prose">
 				<Content />
 			</div>
+			<nav class="post-funnel" aria-label="Explore more of BenihKode">
+				<p class="post-funnel-label">From seed to harvest</p>
+				<div class="post-funnel-links">
+					<a href="/ideas/">Product Ideas</a>
+					<span aria-hidden="true">→</span>
+					<a href="/projects/">Portfolio</a>
+					<span aria-hidden="true">→</span>
+					<a href="/blog/">Journal</a>
+				</div>
+			</nav>
 		</div>
 	</article>
 </BaseLayout>
@@ -55,4 +80,22 @@ const formattedDate = post.data.pubDate.toLocaleDateString('en-US', {
 		border: 1px solid var(--glass-border); color: var(--text-secondary); border-radius: 4px;
 	}
 	.blog-body { max-width: 680px; }
+	.post-funnel {
+		max-width: 680px; margin-top: 3rem; padding: 1.25rem 1.5rem;
+		background: var(--glass); border: 1px solid var(--glass-border); border-radius: var(--radius, 8px);
+	}
+	.post-funnel-label {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+		text-transform: uppercase; letter-spacing: 0.08em;
+		color: var(--text-muted); margin-bottom: 0.5rem;
+	}
+	.post-funnel-links {
+		display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+		font-size: 0.9rem;
+	}
+	.post-funnel-links a {
+		color: var(--accent); text-decoration: none;
+	}
+	.post-funnel-links a:hover { text-decoration: underline; }
+	.post-funnel-links span { color: var(--text-muted); }
 </style>

@@ -11,9 +11,10 @@ type Props = CollectionEntry<'ideas'>;
 
 const idea = Astro.props;
 const { Content } = await render(idea);
+const breadcrumbs = [{ label: 'Product Ideas', path: '/ideas/' }, { label: idea.data.title }];
 ---
 
-<BaseLayout title={`${idea.data.title} — Product Idea | BenihKode`} description={idea.data.description}>
+<BaseLayout title={`${idea.data.title} — Product Idea | BenihKode`} description={idea.data.description} breadcrumbs={breadcrumbs}>
 	<article class="prd-article">
 		<div class="container">
 			<div class="prd-header animate-on-scroll">

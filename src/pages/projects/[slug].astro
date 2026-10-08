@@ -16,9 +16,12 @@ const { Content } = await render(project);
 const isTool = project.data.category === 'tool';
 const backLink = isTool ? '/tools' : '/projects';
 const backLabelText = isTool ? 'Back to Tools' : 'Back to Portfolio';
+const breadcrumbs = isTool
+	? [{ label: 'Portfolio', path: '/projects/' }, { label: 'Developer Tools', path: '/tools/' }, { label: project.data.title }]
+	: [{ label: 'Portfolio', path: '/projects/' }, { label: project.data.title }];
 ---
 
-<BaseLayout title={`${project.data.title} — ${isTool ? 'BenihKode Tools' : 'BenihKode Portfolio'}`} description={project.data.description}>
+<BaseLayout title={`${project.data.title} — ${isTool ? 'BenihKode Tools' : 'BenihKode Portfolio'}`} description={project.data.description} breadcrumbs={breadcrumbs}>
 	<article style="padding-top: 4rem;">
 		<div class="container">
 			<a href={backLink} class="back-link"><span aria-hidden="true">←</span> {backLabelText}</a>

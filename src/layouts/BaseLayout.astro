@@ -3,76 +3,46 @@ import Analytics from '@vercel/analytics/astro';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, SITE_EMAIL } from '../consts';
+import {
+	SITE_URL,
+	organizationSchema,
+	websiteSchema,
+	webpageSchema,
+	breadcrumbSchema,
+	type Crumb,
+} from '../utils/schema';
 
 interface Props {
 	title: string;
 	description: string;
+	/** Extra JSON-LD payloads rendered after the site-wide graph (e.g. Article). */
+	jsonLd?: Record<string, unknown>[];
+	/** Breadcrumb trail following the Ideas → Portfolio → Journal section order. */
+	breadcrumbs?: Crumb[];
 }
 
-const { title, description } = Astro.props;
+const { title, description, jsonLd = [], breadcrumbs } = Astro.props;
 
-// Schema.org structured data
+// Site-wide graph: Organization + WebSite + this page's WebPage node (BEN-4).
+// The WebPage node shares one @id namespace with articleSchema.mainEntityOfPage.
+const pageUrl = new URL(Astro.url.pathname, SITE_URL).href;
 const schema = {
-	"@context": "https://schema.org",
-	"@graph": [
-		{
-			"@type": "Organization",
-			"@id": "https://benihkode.web.id/#organization",
-			"name": SITE_TITLE,
-			"description": SITE_DESCRIPTION,
-			"url": "https://benihkode.web.id",
-			"email": SITE_EMAIL,
-			"sameAs": [
-				"https://github.com/BenihDev",
-				"https://twitter.com/benihkode",
-				"https://linkedin.com/company/benihkode"
-			]
-		},
-		{
-			"@type": "WebSite",
-			"@id": "https://benihkode.web.id/#website",
-			"url": "https://benihkode.web.id",
-			"name": SITE_TITLE,
-			"description": SITE_DESCRIPTION,
-			"publisher": {
-				"@id": "https://benihkode.web.id/#organization"
-			},
-			"potentialAction": {
-				"@type": "SearchAction",
-				"target": {
-					"@type": "EntryPoint",
-					"urlTemplate": "https://benihkode.web.id/search?q={search_term_string}"
-				},
-				"query-input": "required name=search_term_string"
-			}
-		},
-		{
-			"@type": "WebPage",
-			"@id": `${Astro.url}#webpage`,
-			"url": Astro.url,
-			"name": title,
-			"description": description,
-			"isPartOf": {
-				"@id": "https://benihkode.web.id/#website"
-			},
-			"about": {
-				"@id": "https://benihkode.web.id/#organization"
-			},
-			"datePublished": "2024-01-01",
-			"dateModified": new Date().toISOString().split('T')[0]
-		}
-	]
+	'@context': 'https://schema.org',
+	'@graph': [
+		organizationSchema(),
+		websiteSchema(),
+		webpageSchema(pageUrl, title, description),
+	],
 };
+
+const jsonLdAll: Record<string, unknown>[] = [schema, ...(breadcrumbs ? [breadcrumbSchema(breadcrumbs)] : []), ...jsonLd];
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title} description={description} jsonLd={jsonLdAll} />
 		<Analytics />
-		<!-- Schema.org structured data -->
-		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 	</head>
 	<body>
 		<a href="#main-content" class="skip-link">Skip to main content</a>
