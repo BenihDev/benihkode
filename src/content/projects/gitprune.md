@@ -1,6 +1,7 @@
 ---
 title: gitprune
 description: "Safe git branch cleanup tool. Identify and remove merged branches without losing work."
+summary: "gitprune is a free CLI that finds merged, stale, and untracked git branches — then removes them safely, without losing work."
 emoji: "✂️"
 techStack: ["TypeScript", "Node.js", "CLI"]
 category: "tool"

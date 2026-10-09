@@ -1,0 +1,94 @@
+---
+/**
+ * BrandSignal (BEN-7) — "Built by BenihKode" byline for tool and project pages.
+ *
+ * GEO rationale: AI answer engines weight entity clarity and author attribution.
+ * A consistent, visible byline that links to the author page (and the author's
+ * `sameAs` profiles) reinforces the BenihKode entity across every tool page.
+ *
+ * The matching Person node is emitted once per page by `authorSchema()`
+ * (see src/utils/schema.ts) and referenced here by `authorNode = 'primary'`.
+ */
+import { SITE_URL } from '../utils/schema';
+
+interface Props {
+	/** Page-specific credit line, e.g. the tool's name. */
+	subject?: string;
+	/** Emit the Person JSON-LD on this page. Off when the layout already emits it. */
+	emitSchema?: boolean;
+}
+
+const { subject, emitSchema = true } = Astro.props;
+const AUTHOR_URL = `${SITE_URL}/about/`;
+
+const author = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	'@id': `${AUTHOR_URL}#person`,
+	name: 'BenihKode',
+	alternateName: 'Seed of Code',
+	url: AUTHOR_URL,
+	description:
+		'BenihKode is a solo, multi-practice developer studio that builds small, opinionated developer tools (CLIs, npm packages, browser extensions, and mobile apps) and documents the engineering behind them.',
+	jobTitle: 'Software Developer',
+	knowsAbout: [
+		'developer tools',
+		'command-line interfaces',
+		'npm packages',
+		'TypeScript',
+		'Node.js',
+		'Astro',
+		'software engineering',
+	],
+	sameAs: [
+		'https://github.com/BenihDev',
+		'https://twitter.com/benihkode',
+		'https://linkedin.com/company/benihkode',
+	],
+};
+---
+
+<aside class="brand-signal" aria-label="About the author">
+	<p class="brand-signal-text">
+		{subject ? <>Built by <strong>BenihKode</strong> — <em>{subject}</em> is part of the</> : <>Built by <strong>BenihKode</strong> — part of the</>}
+		<a href="/tools/">BenihKode developer toolset</a>. A solo studio shipping small,
+		focused dev tools and documenting the build.
+		<a class="brand-signal-more" href="/about/">More about BenihKode <span aria-hidden="true">→</span></a>
+	</p>
+</aside>
+
+{emitSchema && (
+	<script type="application/ld+json" set:html={JSON.stringify(author)} />
+)}
+
+<style>
+	.brand-signal {
+		margin: 2.5rem 0 0;
+		padding: 1.25rem 1.5rem;
+		background: var(--bg-card);
+		border: 1px solid var(--border);
+		border-left: 3px solid var(--accent);
+		border-radius: var(--radius);
+	}
+	.brand-signal-text {
+		margin: 0;
+		font-size: 0.92rem;
+		line-height: 1.7;
+		color: var(--text-secondary);
+	}
+	.brand-signal-text strong {
+		color: var(--text-primary);
+	}
+	.brand-signal-text em {
+		font-style: normal;
+		color: var(--text-primary);
+	}
+	.brand-signal-more {
+		white-space: nowrap;
+		color: var(--accent);
+		text-decoration: none;
+	}
+	.brand-signal-more:hover {
+		text-decoration: underline;
+	}
+</style>

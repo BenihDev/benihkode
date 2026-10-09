@@ -1,6 +1,7 @@
 ---
 title: gitcommitgen
 description: "AI-powered conventional commit message generator. Analyzes staged changes and generates clean commit messages."
+summary: "gitcommitgen is a free CLI that reads your staged git changes and writes a clean Conventional Commits message for you."
 emoji: "📝"
 techStack: ["TypeScript", "Node.js", "CLI"]
 category: "tool"

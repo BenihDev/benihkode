@@ -1,6 +1,7 @@
 ---
 title: secretsweep
 description: "Zero-config secret scanning for staged git files — catch API keys before you push."
+summary: "secretsweep is a free, zero-config CLI that scans your staged git files for API keys and secrets before you push them."
 emoji: "🔍"
 techStack: ["TypeScript", "Node.js", "CLI"]
 category: "tool"

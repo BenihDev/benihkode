@@ -1,6 +1,7 @@
 ---
 title: changelog-ai
 description: "Zero-config AI-powered changelog generator. Reads git history and generates clean release notes."
+summary: "changelog-ai is a free, zero-config CLI that turns your git history into a polished changelog, with or without an AI API key."
 emoji: "📖"
 techStack: ["TypeScript", "Node.js", "CLI"]
 category: "tool"

@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BrandSignal from '../../components/BrandSignal.astro';
 
 export async function getStaticPaths() {
 	const tools = (await getCollection('projects')).filter(p => p.data.category === 'tool');
@@ -35,6 +36,13 @@ const breadcrumbs = [{ label: 'Portfolio', path: '/projects/' }, { label: 'Devel
 				<h1>{tool.data.title}</h1>
 				<p class="project-description">{tool.data.description}</p>
 
+				{tool.data.summary && (
+					<div class="quick-summary" role="note">
+						<div class="quick-summary-label">Quick summary</div>
+						<p>{tool.data.summary}</p>
+					</div>
+				)}
+
 				<div class="project-links">
 					{tool.data.npmPackage && (
 						<a href={`https://www.npmjs.com/package/${tool.data.npmPackage}`} class="project-link npm-link" target="_blank" rel="noopener noreferrer">
@@ -59,6 +67,8 @@ const breadcrumbs = [{ label: 'Portfolio', path: '/projects/' }, { label: 'Devel
 			<div class="project-content">
 				<Content />
 			</div>
+
+			<BrandSignal subject={tool.data.title} emitSchema={false} />
 
 			{tool.data.hasPrivacyPolicy && (
 				<a href={`/projects/${tool.id}/privacy-policy`} class="privacy-link">
@@ -134,6 +144,24 @@ const breadcrumbs = [{ label: 'Portfolio', path: '/projects/' }, { label: 'Devel
 	.github-link:hover {
 		border-color: var(--accent); color: var(--accent);
 		box-shadow: 0 8px 16px var(--accent-glow);
+	}
+
+	.quick-summary {
+		margin: 1.5rem 0 0;
+		padding: 1rem 1.25rem;
+		background: var(--bg-card);
+		border: 1px solid var(--border);
+		border-left: 3px solid var(--accent);
+		border-radius: var(--radius);
+	}
+	.quick-summary-label {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+		text-transform: uppercase; letter-spacing: 0.08em;
+		color: var(--text-muted); margin-bottom: 0.4rem;
+	}
+	.quick-summary p {
+		margin: 0; font-size: 0.98rem; line-height: 1.65;
+		color: var(--text-secondary);
 	}
 
 	.install-section {

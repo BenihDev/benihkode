@@ -1,6 +1,7 @@
 ---
 title: DomainForge
 description: "Crawl websites directly into RAG-ready datasets with Mozilla Readability cleaning, SHA-256 deduplication, and smart chunking."
+summary: "DomainForge is an Apify actor that crawls a website and returns a clean, deduplicated, chunked dataset — ready for RAG, fine-tuning, or search."
 emoji: "🔥"
 techStack: ["TypeScript", "Crawlee", "Apify", "Cheerio"]
 category: "tool"

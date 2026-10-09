@@ -13,6 +13,9 @@ export const SITE_URL = 'https://www.benihkode.web.id';
 
 const ORG_ID = `${SITE_URL}/#organization`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
+const AUTHOR_ID = `${SITE_URL}/about/#person`;
+
+export { ORG_ID, WEBSITE_ID, AUTHOR_ID };
 
 export interface Crumb {
 	label: string;
@@ -28,6 +31,40 @@ export interface ArticleSchemaInput {
 	slug: string;
 }
 
+/**
+ * Author entity (Person) for the BenihKode byline (BEN-7).
+ *
+ * GEO rationale: answer engines resolve entities, not just pages. One stable
+ * `@id` for the author, linked from every tool/project byline and from the
+ * Organization node, keeps "BenihKode" a single resolvable entity with
+ * consistent `sameAs` profiles across the site.
+ */
+export function authorSchema() {
+	return {
+		'@type': 'Person',
+		'@id': AUTHOR_ID,
+		name: 'BenihKode',
+		alternateName: 'Seed of Code',
+		url: `${SITE_URL}/about/`,
+		description:
+			'BenihKode is a solo, multi-practice developer studio that builds small, opinionated developer tools (CLIs, npm packages, browser extensions, and mobile apps) and documents the engineering behind them.',
+		jobTitle: 'Software Developer',
+		knowsAbout: [
+			'developer tools',
+			'command-line interfaces',
+			'npm packages',
+			'TypeScript',
+			'Node.js',
+			'software engineering',
+		],
+		sameAs: [
+			'https://github.com/BenihDev',
+			'https://twitter.com/benihkode',
+			'https://linkedin.com/company/benihkode',
+		],
+	};
+}
+
 export function organizationSchema() {
 	return {
 		'@type': 'Organization',
@@ -37,6 +74,8 @@ export function organizationSchema() {
 			'A developer\u2019s garden: where product ideas are planted, shipped projects are harvested, and the whole build journey is documented.',
 		url: SITE_URL,
 		email: 'hello@benihkode.web.id',
+		// The same person owns the org on a solo studio — link them (BEN-7).
+		founder: { '@id': AUTHOR_ID },
 		logo: {
 			'@type': 'ImageObject',
 			url: `${SITE_URL}/favicon.svg`,
@@ -107,11 +146,7 @@ export function articleSchema(post: ArticleSchemaInput) {
 		image: `${SITE_URL}/og-default.png`,
 		datePublished: post.pubDate.toISOString(),
 		...(post.updatedDate ? { dateModified: post.updatedDate.toISOString() } : {}),
-		author: {
-			'@type': 'Person',
-			name: 'BenihKode',
-			url: SITE_URL,
-		},
+		author: { '@id': AUTHOR_ID },
 		publisher: { '@id': ORG_ID },
 		mainEntityOfPage: { '@id': `${url}#webpage` },
 		keywords: post.tags?.length ? post.tags.join(', ') : undefined,

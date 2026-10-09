@@ -2,12 +2,18 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="About — BenihKode" description="About BenihKode: a developer's garden where ideas grow into projects. Learn about my journey building CLI tools, web apps, mobile apps, and product concepts.">
+<BaseLayout title="About — BenihKode" description="BenihKode is a solo developer studio that builds small, opinionated developer tools — CLIs, npm packages, browser extensions, and apps — and documents the engineering behind them.">
 	<section style="padding-top: 4rem;">
 		<div class="container">
 			<div class="section-label">About</div>
 			<h1 class="section-title animate-on-scroll">The Story Behind BenihKode</h1>
 			<div class="about-content animate-on-scroll">
+				<p class="about-summary">
+					<strong>BenihKode is a solo developer studio that builds small, opinionated developer tools</strong> —
+					CLIs, npm packages, browser extensions, and mobile apps — then documents the engineering
+					behind each one. The name means "Seed of Code": every shipped tool starts as a small idea
+					and grows in public.
+				</p>
 				<p>
 					<strong>BenihKode</strong> means "Seed of Code" — a name that reflects the philosophy that every great application begins as a tiny idea, a seed that needs nurturing, patience, and care to grow into something real and meaningful.
 				</p>
@@ -20,6 +26,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					<li><strong>Shipped Projects 🚀</strong> — From seed to harvest. Real projects that made it out of the garden.</li>
 					<li><strong>Dev Journal 📝</strong> — Notes, learnings, and stories from the trenches. Growing in public.</li>
 				</ul>
+				<h2>What BenihKode Ships</h2>
+				<p>
+					The current toolset spans command-line utilities and apps. Every tool is free and
+					open-source, published on npm or the relevant store, and documented on its own page.
+				</p>
+				<ul>
+					<li><strong>gitcommitgen</strong> — AI-powered conventional commit messages from staged changes.</li>
+					<li><strong>gitprgen</strong> — AI-generated pull request descriptions from git diffs.</li>
+					<li><strong>gitprune</strong> — safe git branch cleanup without losing work.</li>
+					<li><strong>secretsweep</strong> — zero-config secret scanning for staged files.</li>
+					<li><strong>jsonask</strong> — query JSON in natural language instead of jq.</li>
+					<li><strong>mcpkit</strong> — generate MCP servers from OpenAPI specs, databases, or YAML.</li>
+				</ul>
+				<p>
+					The full list, with install commands and source repositories, is on the
+					<a href="/tools/">Developer Tools</a> page.
+				</p>
+
+				<h2>Find BenihKode Elsewhere</h2>
+				<ul class="about-profiles">
+					<li><a href="https://github.com/BenihDev" target="_blank" rel="noopener noreferrer">GitHub</a> — source for every tool</li>
+					<li><a href="https://twitter.com/benihkode" target="_blank" rel="noopener noreferrer">X / Twitter</a></li>
+					<li><a href="https://linkedin.com/company/benihkode" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+				</ul>
+
 				<h2>The Philosophy</h2>
 				<p>
 					Not every seed becomes a tree. Some ideas stay as seeds, some start growing but pivot into something else entirely, and some bloom beautifully. The point isn't perfection — it's the act of planting, nurturing, and learning from every attempt.
@@ -40,6 +71,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	.about-content p {
 		margin-bottom: 1.5rem;
 		font-size: 1rem;
+	}
+	.about-summary {
+		font-size: 1.08rem;
+		color: var(--text-primary);
+		border-left: 3px solid var(--accent);
+		padding-left: 1.25rem;
+	}
+	.about-profiles li a {
+		color: var(--accent);
+		text-decoration: underline;
 	}
 	.about-content h2 {
 		font-size: 1.4rem;

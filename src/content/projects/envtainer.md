@@ -1,6 +1,7 @@
 ---
 title: envtainer
 description: "Environment variable management tool. Keep your .env files organized, validated, and synced across environments."
+summary: "envtainer is a small CLI that keeps .env files organized, validated, and in sync across every project and environment."
 emoji: "📦"
 techStack: ["TypeScript", "Node.js", "CLI"]
 category: "tool"

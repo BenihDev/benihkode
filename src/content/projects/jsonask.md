@@ -1,6 +1,7 @@
 ---
 title: jsonask
 description: "Query JSON with natural language instead of jq syntax. Stop memorizing jq — just ask."
+summary: "jsonask is a free CLI that lets you query JSON in plain English instead of memorizing jq syntax."
 emoji: "❓"
 techStack: ["TypeScript", "Node.js", "CLI"]
 category: "tool"

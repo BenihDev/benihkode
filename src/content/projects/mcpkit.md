@@ -1,6 +1,7 @@
 ---
 title: mcpkit
 description: "Generate ready-to-use MCP servers from OpenAPI specs, databases, or YAML descriptions."
+summary: "mcpkit is a free CLI that generates a working Model Context Protocol (MCP) server from an OpenAPI spec, database, or YAML description."
 emoji: "🛠️"
 techStack: ["TypeScript", "Node.js", "CLI"]
 category: "tool"

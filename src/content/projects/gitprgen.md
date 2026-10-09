@@ -1,6 +1,7 @@
 ---
 title: gitprgen
 description: "AI-powered PR description generator. Generates clear, structured pull request descriptions from your git diffs."
+summary: "gitprgen is a free CLI that reads the diff between your branch and its base, then writes a structured pull request description for you."
 emoji: "🔀"
 techStack: ["TypeScript", "Node.js", "CLI"]
 category: "tool"
