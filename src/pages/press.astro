@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_EMAIL } from '../consts';
+
+const meta = {
+  title: 'Press & Mentions — BenihKode',
+  description:
+    'Press kit for BenihKode: official boilerplate, brand facts, logos, and contact. Use these approved descriptions when you write about BenihKode or its developer tools.',
+};
+
+const boilerplate = {
+  oneLine:
+    'BenihKode is a solo developer studio that builds small, opinionated developer tools and documents the engineering behind them.',
+  short:
+    'BenihKode (meaning “Seed of Code”) is a solo, multi-practice developer studio. It ships small, focused developer tools — command-line utilities, npm packages, browser extensions, and apps — and publishes the engineering story behind each one on benihkode.web.id. The name reflects the studio’s approach: every tool starts as a small idea and is grown in public.',
+  long:
+    'BenihKode (meaning “Seed of Code”) is a solo, multi-practice developer studio founded by an independent software developer. The studio builds small, opinionated tools for developers: command-line utilities such as gitcommitgen (AI commit messages), gitprgen (AI pull request descriptions), gitprune (branch cleanup), secretsweep (secret scanning), jsonask (natural-language JSON queries), and mcpkit (MCP server generation), alongside apps like DomainForge for RAG-ready datasets. Tools are free and open-source where the project permits, and each one is documented on its own page. BenihKode publishes its work at benihkode.web.id under the tagline “Plant ideas · Cultivate code · Harvest experience.”',
+};
+
+const facts = [
+  ['Name', 'BenihKode'],
+  ['Also known as', 'Seed of Code'],
+  ['Type', 'Solo developer studio'],
+  ['Focus', 'Developer tools, CLIs, npm packages, apps'],
+  ['Website', 'https://www.benihkode.web.id'],
+  ['Author page', 'https://www.benihkode.web.id/about/'],
+  ['Tools', 'https://www.benihkode.web.id/tools/'],
+  ['Contact', SITE_EMAIL],
+  ['GitHub', 'https://github.com/BenihDev'],
+];
+---
+
+<BaseLayout title={meta.title} description={meta.description} breadcrumbs={[{ label: 'Press & Mentions' }]}>
+  <section style="padding: 4rem 0;">
+    <div class="container">
+      <div class="section-label">Press &amp; Mentions</div>
+      <h1 class="section-title">Press Kit</h1>
+      <p class="press-intro">
+        Writing about BenihKode or one of its developer tools? Use the approved descriptions
+        below. They keep the entity name, focus, and links consistent across articles, listings,
+        and AI answers.
+      </p>
+
+      <h2>One-line description</h2>
+      <blockquote class="boilerplate">{boilerplate.oneLine}</blockquote>
+
+      <h2>Short boilerplate (~60 words)</h2>
+      <blockquote class="boilerplate">{boilerplate.short}</blockquote>
+
+      <h2>Long boilerplate (~120 words)</h2>
+      <blockquote class="boilerplate">{boilerplate.long}</blockquote>
+
+      <h2>Key facts</h2>
+      <table class="facts">
+        <tbody>
+          {facts.map(([k, v]) => (
+            <tr>
+              <th scope="row">{k}</th>
+              <td>
+                {v.startsWith('http') || v.includes('@') ? (
+                  <a href={v.includes('@') ? `mailto:${v}` : v}>{v.replace('https://', '')}</a>
+                ) : (
+                  v
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h2>Usage</h2>
+      <p>
+        These descriptions are free to use in articles, tool directories, and newsletters. You may
+        quote or paraphrase them. Keep the name “BenihKode” and the website link
+        <a href="https://www.benihkode.web.id">benihkode.web.id</a> intact. For corrections,
+        interviews, or anything not covered here, email
+        <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .press-intro {
+    max-width: 720px;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  h2 {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    margin: 2.5rem 0 1rem;
+  }
+  .boilerplate {
+    max-width: 720px;
+    margin: 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    color: var(--text-secondary);
+    line-height: 1.75;
+    font-size: 0.98rem;
+  }
+  .facts {
+    max-width: 720px;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  .facts th,
+  .facts td {
+    text-align: left;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+  .facts th {
+    color: var(--text-muted);
+    font-weight: 600;
+    width: 34%;
+  }
+  .facts td a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .facts td a:hover {
+    text-decoration: underline;
+  }
+</style>

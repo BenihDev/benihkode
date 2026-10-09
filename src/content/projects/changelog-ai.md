@@ -1,6 +1,7 @@
 ---
 title: changelog-ai
 description: "Zero-config AI-powered changelog generator. Reads git history and generates clean release notes."
+summary: "changelog-ai is a free, zero-config CLI that turns your git history into a polished changelog, with or without an AI API key."
 emoji: "📖"
 techStack: ["TypeScript", "Node.js", "CLI"]
 category: "tool"
@@ -69,3 +70,13 @@ Without an API key, changelog-ai automatically falls back to heuristic-based com
 - Flexible range selection (`--from`, `--all`)
 - Outputs to file or stdout
 - No conventional commits required
+
+## Related Tools
+
+- [gitcommitgen](/tools/gitcommitgen) — keep the commit messages this tool reads
+  in conventional shape.
+- [gitprgen](/tools/gitprgen) — draft the pull request description from the same
+  git history.
+- [gitprune](/tools/gitprune) — tidy up branches once a release is tagged.
+- Browse the rest of the [developer tools collection](/tools/) and the
+  [collection announcement](/blog/introducing-benihkode-dev-tools).
