@@ -70,7 +70,7 @@ const breadcrumbs = isTool
 				<Content />
 			</div>
 
-			<BrandSignal subject={project.data.title} emitSchema={false} />
+			<BrandSignal subject={project.data.title} collection="project" emitSchema={false} />
 
 			{project.data.hasPrivacyPolicy && (
 				<a href={`/projects/${project.id}/privacy-policy`} class="privacy-link">

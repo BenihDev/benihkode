@@ -68,7 +68,7 @@ const breadcrumbs = [{ label: 'Portfolio', path: '/projects/' }, { label: 'Devel
 				<Content />
 			</div>
 
-			<BrandSignal subject={tool.data.title} emitSchema={false} />
+			<BrandSignal subject={tool.data.title} collection="tool" emitSchema={false} />
 
 			{tool.data.hasPrivacyPolicy && (
 				<a href={`/projects/${tool.id}/privacy-policy`} class="privacy-link">

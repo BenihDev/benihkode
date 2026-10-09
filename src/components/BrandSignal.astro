@@ -14,11 +14,13 @@ import { SITE_URL } from '../utils/schema';
 interface Props {
 	/** Page-specific credit line, e.g. the tool's name. */
 	subject?: string;
+	/** Which collection the page belongs to. Controls the wording so the claim stays true. */
+	collection?: 'tool' | 'project';
 	/** Emit the Person JSON-LD on this page. Off when the layout already emits it. */
 	emitSchema?: boolean;
 }
 
-const { subject, emitSchema = true } = Astro.props;
+const { subject, collection = 'project', emitSchema = true } = Astro.props;
 const AUTHOR_URL = `${SITE_URL}/about/`;
 
 const author = {
@@ -50,9 +52,10 @@ const author = {
 
 <aside class="brand-signal" aria-label="About the author">
 	<p class="brand-signal-text">
-		{subject ? <>Built by <strong>BenihKode</strong> — <em>{subject}</em> is part of the</> : <>Built by <strong>BenihKode</strong> — part of the</>}
-		<a href="/tools/">BenihKode developer toolset</a>. A solo studio shipping small,
-		focused dev tools and documenting the build.
+		{subject ? <>Built by <strong>BenihKode</strong> — <em>{subject}</em> {collection === 'tool' ? <>is part of the</> : <>is one of the</>}</> : <>Built by <strong>BenihKode</strong> — {collection === 'tool' ? <>part of the</> : <>one of</>}</>}
+		<a href={collection === 'tool' ? '/tools/' : '/projects/'}>
+			{collection === 'tool' ? 'BenihKode developer toolset' : 'BenihKode projects'}
+		</a>. A solo studio shipping small, focused dev tools and documenting the build.
 		<a class="brand-signal-more" href="/about/">More about BenihKode <span aria-hidden="true">→</span></a>
 	</p>
 </aside>
