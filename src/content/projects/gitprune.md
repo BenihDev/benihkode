@@ -47,3 +47,14 @@ Over time, repositories accumulate dozens of merged branches that clutter `git b
 - Remove stale feature branches older than N days
 - Sync remote-tracking references after team branch cleanup
 - Keep your branch list focused on active work
+
+## Related Tools
+
+- [gitprgen](/tools/gitprgen) — describe the pull request whose branch you will
+  later prune.
+- [gitcommitgen](/tools/gitcommitgen) — write clean messages so branch history is
+  readable before cleanup.
+- [secretsweep](/tools/secretsweep) — scan staged files as part of the git
+  workflow.
+- Browse the rest of the [developer tools collection](/tools/) and the
+  [collection announcement](/blog/introducing-benihkode-dev-tools).
