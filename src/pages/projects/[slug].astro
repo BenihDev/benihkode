@@ -2,6 +2,7 @@
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { mapEntriesToStaticPaths } from '../../utils/routing';
+import { softwareApplicationSchema } from '../../utils/schema';
 
 export async function getStaticPaths() {
 	const projects = await getCollection('projects');
@@ -19,9 +20,12 @@ const backLabelText = isTool ? 'Back to Tools' : 'Back to Portfolio';
 const breadcrumbs = isTool
 	? [{ label: 'Portfolio', path: '/projects/' }, { label: 'Developer Tools', path: '/tools/' }, { label: project.data.title }]
 	: [{ label: 'Portfolio', path: '/projects/' }, { label: project.data.title }];
+const jsonLd = isTool
+	? [softwareApplicationSchema({ title: project.data.title, description: project.data.description, slug: project.id, techStack: project.data.techStack, githubUrl: project.data.githubUrl, npmPackage: project.data.npmPackage, installCommand: project.data.installCommand })]
+	: [];
 ---
 
-<BaseLayout title={`${project.data.title} — ${isTool ? 'BenihKode Tools' : 'BenihKode Portfolio'}`} description={project.data.description} breadcrumbs={breadcrumbs}>
+<BaseLayout title={`${project.data.title} — ${isTool ? 'BenihKode Tools' : 'BenihKode Portfolio'}`} description={project.data.description} breadcrumbs={breadcrumbs} jsonLd={jsonLd}>
 	<article style="padding-top: 4rem;">
 		<div class="container">
 			<a href={backLink} class="back-link"><span aria-hidden="true">←</span> {backLabelText}</a>

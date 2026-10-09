@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { softwareApplicationSchema } from '../../utils/schema';
 
 export async function getStaticPaths() {
 	const tools = (await getCollection('projects')).filter(p => p.data.category === 'tool');
@@ -15,9 +16,10 @@ type Props = CollectionEntry<'projects'>;
 const tool = Astro.props;
 const { Content } = await render(tool);
 const breadcrumbs = [{ label: 'Portfolio', path: '/projects/' }, { label: 'Developer Tools', path: '/tools/' }, { label: tool.data.title }];
+const jsonLd = [softwareApplicationSchema({ title: tool.data.title, description: tool.data.description, slug: tool.id, techStack: tool.data.techStack, githubUrl: tool.data.githubUrl, npmPackage: tool.data.npmPackage, installCommand: tool.data.installCommand })];
 ---
 
-<BaseLayout title={`${tool.data.title} — BenihKode CLI Tool`} description={tool.data.description} breadcrumbs={breadcrumbs}>
+<BaseLayout title={`${tool.data.title} — BenihKode CLI Tool`} description={tool.data.description} breadcrumbs={breadcrumbs} jsonLd={jsonLd}>
 	<article style="padding-top: 4rem;">
 		<div class="container">
 			<a href="/tools" class="back-link"><span aria-hidden="true">←</span> Back to Tools</a>

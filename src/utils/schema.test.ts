@@ -28,3 +28,30 @@ test('breadcrumb identity uses the page URL while preserving an explicit final i
 	assert.equal(schema['@id'], `${SITE_URL}/blog#breadcrumb`);
 	assert.equal(schema.itemListElement.at(-1)?.item, `${SITE_URL}/blog/`);
 });
+
+test('software application schema describes a free developer CLI tool', async () => {
+	const { softwareApplicationSchema } = await import('./schema.ts');
+	const schema = softwareApplicationSchema({
+		title: 'secretsweep',
+		description: 'Secret scanning.',
+		slug: 'secretsweep',
+		techStack: ['TypeScript', 'Node.js', 'CLI'],
+		githubUrl: 'https://github.com/BenihDev/secretsweep',
+		npmPackage: '@fanioz/secretsweep',
+	});
+
+	assert.equal(schema['@type'], 'SoftwareApplication');
+	assert.equal(schema['@id'], `${SITE_URL}/tools/secretsweep/#software`);
+	assert.equal(schema.applicationCategory, 'DeveloperApplication');
+	assert.deepEqual(schema.offers, { '@type': 'Offer', price: '0', priceCurrency: 'USD' });
+	assert.equal(schema.codeRepository, 'https://github.com/BenihDev/secretsweep');
+	assert.equal(schema.downloadUrl, 'https://www.npmjs.com/package/@fanioz/secretsweep');
+	assert.equal('softwareVersion' in schema, false);
+});
+
+test('software application schema omits optional links when absent', async () => {
+	const { softwareApplicationSchema } = await import('./schema.ts');
+	const schema = softwareApplicationSchema({ title: 'x', description: 'y', slug: 'x', techStack: [] });
+	assert.equal('codeRepository' in schema, false);
+	assert.equal('downloadUrl' in schema, false);
+});

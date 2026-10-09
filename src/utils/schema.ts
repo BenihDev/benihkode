@@ -117,3 +117,39 @@ export function articleSchema(post: ArticleSchemaInput) {
 		keywords: post.tags?.length ? post.tags.join(', ') : undefined,
 	};
 }
+
+export interface SoftwareApplicationInput {
+	title: string;
+	description: string;
+	slug: string;
+	techStack: string[];
+	githubUrl?: string;
+	npmPackage?: string;
+	installCommand?: string;
+}
+
+/**
+ * SoftwareApplication for CLI tools (BEN-8). Tools are free, open source
+ * (MIT per npm registry metadata), so the Offer price is 0 USD.
+ * softwareVersion is omitted on purpose: the content collection has no
+ * version field, and a guessed value would be wrong markup.
+ */
+export function softwareApplicationSchema(tool: SoftwareApplicationInput) {
+	const url = `${SITE_URL}/tools/${tool.slug}/`;
+	return {
+		'@type': 'SoftwareApplication',
+		'@id': `${url}#software`,
+		name: tool.title,
+		description: tool.description,
+		url,
+		applicationCategory: 'DeveloperApplication',
+		operatingSystem: 'Linux, macOS, Windows',
+		programmingLanguage: tool.techStack,
+		offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+		author: { '@id': ORG_ID },
+		publisher: { '@id': ORG_ID },
+		mainEntityOfPage: { '@id': `${url}#webpage` },
+		...(tool.githubUrl ? { codeRepository: tool.githubUrl } : {}),
+		...(tool.npmPackage ? { downloadUrl: `https://www.npmjs.com/package/${tool.npmPackage}` } : {}),
+	};
+}
