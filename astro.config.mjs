@@ -4,6 +4,44 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 import vercel from '@astrojs/vercel';
+import { readFileSync, existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+/**
+ * Resolve width/height for a local public image so the emitted <img> reserves
+ * layout space. Prevents CLS (Cumulative Layout Shift). Parses the PNG IHDR and
+ * JPEG SOFn headers directly to stay synchronous inside the rehype transform.
+ * @param {string} src
+ * @returns {{width:number,height:number}|null}
+ */
+const imageSizeCache = new Map();
+function localImageSize(src) {
+  if (!src || /^(https?:)?\/\//.test(src)) return null;
+  const rel = src.replace(/^\//, '');
+  const abs = fileURLToPath(new URL('./public/' + rel, import.meta.url));
+  if (!existsSync(abs)) return null;
+  if (imageSizeCache.has(abs)) return imageSizeCache.get(abs);
+  let size = null;
+  try {
+    const buf = readFileSync(abs);
+    if (buf.length > 24 && buf.readUInt32BE(0) === 0x89504e47) {
+      size = { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20) };
+    } else if (buf.length > 4 && buf[0] === 0xff && buf[1] === 0xd8) {
+      let i = 2;
+      while (i + 9 < buf.length) {
+        if (buf[i] !== 0xff) { i++; continue; }
+        const marker = buf[i + 1];
+        if (marker >= 0xc0 && marker <= 0xcf && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc) {
+          size = { height: buf.readUInt16BE(i + 5), width: buf.readUInt16BE(i + 7) };
+          break;
+        }
+        i += 2 + buf.readUInt16BE(i + 2);
+      }
+    }
+  } catch { size = null; }
+  imageSizeCache.set(abs, size);
+  return size;
+}
 
 /**
  * Rehype plugin: load the first blog image eagerly and default other
@@ -26,6 +64,13 @@ function rehypeLazyImages() {
         if (isBlog && isFirstImage) node.properties.loading = 'eager';
         else if (!node.properties.loading) node.properties.loading = 'lazy';
         if (!node.properties.decoding) node.properties.decoding = 'async';
+        if (node.properties.width == null || node.properties.height == null) {
+          const size = localImageSize(node.properties.src);
+          if (size) {
+            node.properties.width = size.width;
+            node.properties.height = size.height;
+          }
+        }
         isFirstImage = false;
       }
     });
