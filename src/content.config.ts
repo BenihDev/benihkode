@@ -18,6 +18,7 @@ const projects = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
+		summary: z.string().optional(),
 		emoji: z.string(),
 		techStack: z.array(z.string()),
 		category: z.enum(['tool', 'app']).default('app'),

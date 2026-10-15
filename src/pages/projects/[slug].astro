@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BrandSignal from '../../components/BrandSignal.astro';
 import { mapEntriesToStaticPaths } from '../../utils/routing';
 import { softwareApplicationSchema } from '../../utils/schema';
 
@@ -72,6 +73,8 @@ const jsonLd = isTool
 			<div class="project-content">
 				<Content />
 			</div>
+
+			<BrandSignal subject={project.data.title} collection="project" emitSchema={false} />
 
 			{project.data.hasPrivacyPolicy && (
 				<a href={`/projects/${project.id}/privacy-policy`} class="privacy-link">

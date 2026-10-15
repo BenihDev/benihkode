@@ -1,6 +1,7 @@
 ---
 title: mcpkit
 description: "Generate ready-to-use MCP servers from OpenAPI specs, databases, or YAML descriptions."
+summary: "mcpkit is a free CLI that generates a working Model Context Protocol (MCP) server from an OpenAPI spec, database, or YAML description."
 emoji: "🛠️"
 techStack: ["TypeScript", "Node.js", "CLI"]
 category: "tool"
@@ -104,3 +105,12 @@ Add your generated MCP server to your AI assistant's config:
 - Supports OpenAPI 3.x and Swagger 2.x
 - Works with Claude Code, Cursor, Windsurf, and other MCP-compatible assistants
 - No boilerplate — just generate and run
+
+## Related Tools
+
+- [jsonask](/tools/jsonask) — inspect the JSON fixtures you use to test a
+  generated server.
+- [envtainer](/tools/envtainer) — validate the environment variables an MCP
+  server needs.
+- [DomainForge](/tools/domainforge) — build the dataset an MCP tool might serve.
+- Browse the rest of the [developer tools collection](/tools/).

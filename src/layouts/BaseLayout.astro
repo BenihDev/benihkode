@@ -9,6 +9,7 @@ import {
 	websiteSchema,
 	webpageSchema,
 	breadcrumbSchema,
+	authorSchema,
 	type Crumb,
 } from '../utils/schema';
 
@@ -30,6 +31,7 @@ const schema = {
 	'@context': 'https://schema.org',
 	'@graph': [
 		organizationSchema(),
+		authorSchema(),
 		websiteSchema(),
 		webpageSchema(pageUrl, title, description),
 	],
