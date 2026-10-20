@@ -21,11 +21,11 @@ A product concept written as a lightweight PRD, carrying a status lifecycle of `
 _Avoid_: seed, concept, PRD (the document is the Idea's body, not the thing itself)
 
 **Graduation**:
-An Idea that ships and receives a Project card. A graduated Idea keeps its PRD; the PRD's status becomes `completed`.
+An Idea that ships and receives a Project card. The Project card reuses the Idea's content slug (an idea at `pocketbudget.md` graduates to a project at `pocketbudget.md`); the schema stores no relation field between them, so the shared slug is the link. A graduated Idea keeps its PRD; the PRD's status becomes `completed`.
 _Avoid_: harvest, promotion
 
 **Project**:
-Umbrella term for shipped work, displayed in the Portfolio.
+Umbrella term for shipped work. The `category` field splits display: Apps appear in the Portfolio, Tools appear on the Developer Tools page.
 _Avoid_: product, repo
 
 **App**:
@@ -37,7 +37,7 @@ A Project aimed at developers: CLIs and dev utilities, without store distributio
 _Avoid_: devtool, utility
 
 **Build Story**:
-A Journal post documenting how a specific Project was built.
+A Journal post documenting how a specific Project was built, linked to that Project by slug naming convention rather than a schema field.
 _Avoid_: devlog, case study
 
 **Journal**:
