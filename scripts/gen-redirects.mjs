@@ -14,6 +14,9 @@ import { fileURLToPath } from 'node:url';
 
 const contentDir = fileURLToPath(new URL('../src/content/projects/', import.meta.url));
 const configPath = fileURLToPath(new URL('../vercel.json', import.meta.url));
+// Matches the canonical host the site emits; redirecting to a relative path
+// would land on the apex host and cost an extra hop.
+const SITE_ORIGIN = 'https://www.benihkode.web.id';
 
 const redirects = [];
 for (const file of readdirSync(contentDir)) {
@@ -22,13 +25,16 @@ for (const file of readdirSync(contentDir)) {
 	const frontmatter = readFileSync(new URL(file, `file://${contentDir}`), 'utf8').split(/^---$/m)[1] ?? '';
 	if (!/^category:\s*["']?tool["']?\s*$/m.test(frontmatter)) continue;
 
-	// One entry per tool: Vercel normalizes trailing slashes on `source`,
-	// so /projects/<slug> also covers /projects/<slug>/.
-	redirects.push({ source: `/projects/${slug}`, destination: `/tools/${slug}/`, permanent: true });
+	// Both forms need their own entry: Vercel matched the slashless source
+	// exactly and returned 404 for the slashed variant, which is the form
+	// most inbound links and search results use.
+	for (const source of [`/projects/${slug}`, `/projects/${slug}/`]) {
+		redirects.push({ source, destination: `${SITE_ORIGIN}/tools/${slug}/`, permanent: true });
+	}
 }
 
 // Preserve any other Vercel settings a human added.
 const existing = existsSync(configPath) ? JSON.parse(readFileSync(configPath, 'utf8')) : {};
 writeFileSync(configPath, `${JSON.stringify({ ...existing, redirects }, null, 2)}\n`);
 
-console.log(`vercel.json: ${redirects.length} tool redirects`);
+console.log(`vercel.json: ${redirects.length} redirects (${redirects.length / 2} tools, both slash forms)`);

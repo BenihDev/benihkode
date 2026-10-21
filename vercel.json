@@ -2,47 +2,92 @@
   "redirects": [
     {
       "source": "/projects/changelog-ai",
-      "destination": "/tools/changelog-ai/",
+      "destination": "https://www.benihkode.web.id/tools/changelog-ai/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/changelog-ai/",
+      "destination": "https://www.benihkode.web.id/tools/changelog-ai/",
       "permanent": true
     },
     {
       "source": "/projects/domainforge",
-      "destination": "/tools/domainforge/",
+      "destination": "https://www.benihkode.web.id/tools/domainforge/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/domainforge/",
+      "destination": "https://www.benihkode.web.id/tools/domainforge/",
       "permanent": true
     },
     {
       "source": "/projects/envtainer",
-      "destination": "/tools/envtainer/",
+      "destination": "https://www.benihkode.web.id/tools/envtainer/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/envtainer/",
+      "destination": "https://www.benihkode.web.id/tools/envtainer/",
       "permanent": true
     },
     {
       "source": "/projects/gitcommitgen",
-      "destination": "/tools/gitcommitgen/",
+      "destination": "https://www.benihkode.web.id/tools/gitcommitgen/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/gitcommitgen/",
+      "destination": "https://www.benihkode.web.id/tools/gitcommitgen/",
       "permanent": true
     },
     {
       "source": "/projects/gitprgen",
-      "destination": "/tools/gitprgen/",
+      "destination": "https://www.benihkode.web.id/tools/gitprgen/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/gitprgen/",
+      "destination": "https://www.benihkode.web.id/tools/gitprgen/",
       "permanent": true
     },
     {
       "source": "/projects/gitprune",
-      "destination": "/tools/gitprune/",
+      "destination": "https://www.benihkode.web.id/tools/gitprune/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/gitprune/",
+      "destination": "https://www.benihkode.web.id/tools/gitprune/",
       "permanent": true
     },
     {
       "source": "/projects/jsonask",
-      "destination": "/tools/jsonask/",
+      "destination": "https://www.benihkode.web.id/tools/jsonask/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/jsonask/",
+      "destination": "https://www.benihkode.web.id/tools/jsonask/",
       "permanent": true
     },
     {
       "source": "/projects/mcpkit",
-      "destination": "/tools/mcpkit/",
+      "destination": "https://www.benihkode.web.id/tools/mcpkit/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/mcpkit/",
+      "destination": "https://www.benihkode.web.id/tools/mcpkit/",
       "permanent": true
     },
     {
       "source": "/projects/secretsweep",
-      "destination": "/tools/secretsweep/",
+      "destination": "https://www.benihkode.web.id/tools/secretsweep/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/secretsweep/",
+      "destination": "https://www.benihkode.web.id/tools/secretsweep/",
       "permanent": true
     }
   ]
