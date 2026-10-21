@@ -152,3 +152,66 @@ export function articleSchema(post: ArticleSchemaInput) {
 		keywords: post.tags?.length ? post.tags.join(', ') : undefined,
 	};
 }
+
+export interface SoftwareApplicationInput {
+	title: string;
+	description: string;
+	slug: string;
+	techStack: string[];
+	githubUrl?: string;
+	npmPackage?: string;
+	installCommand?: string;
+	/** Absolute path of the page rendering this tool, e.g. `/projects/x/`. Defaults to `/tools/<slug>/`. */
+	path?: string;
+}
+
+/**
+ * SoftwareApplication for CLI tools (BEN-8). Tools are free, open source
+ * (MIT per npm registry metadata), so the Offer price is 0 USD.
+ * softwareVersion is omitted on purpose: the content collection has no
+ * version field, and a guessed value would be wrong markup.
+ *
+ * Not eligible for Google's SoftwareApplication rich result: that requires
+ * either aggregateRating or review, and the site authenticates neither, so
+ * neither is emitted.
+ *
+ * techStack mixes languages (TypeScript, Dart) with runtimes, platforms and
+ * tooling (Node.js, CLI, Android, WS, AI). Schema.org programmingLanguage is
+ * for source-code languages only, so filter the rest out.
+ */
+const NON_LANGUAGE_TECH = new Set([
+	'cli', 'ai', 'android', 'ios', 'ws', 'web', 'node', 'node.js', 'apify',
+	'chrome extension', 'browser extension', 'npm', 'api', 'shell',
+]);
+
+function isProgrammingLanguage(tech: string): boolean {
+	return !NON_LANGUAGE_TECH.has(tech.trim().toLowerCase());
+}
+
+export function softwareApplicationSchema(tool: SoftwareApplicationInput) {
+	const url = `${SITE_URL}${tool.path ?? `/tools/${tool.slug}/`}`;
+	const sourceCode = tool.githubUrl || tool.npmPackage
+		? {
+			'@type': 'SoftwareSourceCode',
+			'@id': `${url}#sourcecode`,
+			programmingLanguage: tool.techStack.filter(isProgrammingLanguage),
+			...(tool.githubUrl ? { codeRepository: tool.githubUrl } : {}),
+			targetProduct: { '@id': `${url}#software` },
+		}
+		: undefined;
+	return {
+		'@type': 'SoftwareApplication',
+		'@id': `${url}#software`,
+		name: tool.title,
+		description: tool.description,
+		url,
+		applicationCategory: 'DeveloperApplication',
+		operatingSystem: 'Linux, macOS, Windows',
+		offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+		author: { '@id': ORG_ID },
+		publisher: { '@id': ORG_ID },
+		mainEntityOfPage: { '@id': `${url}#webpage` },
+		...(tool.npmPackage ? { sameAs: [`https://www.npmjs.com/package/${tool.npmPackage}`] } : {}),
+		...(sourceCode ? { isBasedOn: sourceCode } : {}),
+	};
+}
