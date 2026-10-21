@@ -174,8 +174,7 @@ export interface SoftwareApplicationInput {
  * Not eligible for Google's SoftwareApplication rich result: that requires
  * either aggregateRating or review, and the site authenticates neither, so
  * neither is emitted.
- */
-/**
+ *
  * techStack mixes languages (TypeScript, Dart) with runtimes, platforms and
  * tooling (Node.js, CLI, Android, WS, AI). Schema.org programmingLanguage is
  * for source-code languages only, so filter the rest out.
