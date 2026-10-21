@@ -175,14 +175,29 @@ export interface SoftwareApplicationInput {
  * either aggregateRating or review, and the site authenticates neither, so
  * neither is emitted.
  */
+/**
+ * techStack mixes languages (TypeScript, Dart) with runtimes, platforms and
+ * tooling (Node.js, CLI, Android, WS, AI). Schema.org programmingLanguage is
+ * for source-code languages only, so filter the rest out.
+ */
+const NON_LANGUAGE_TECH = new Set([
+	'cli', 'ai', 'android', 'ios', 'ws', 'web', 'node', 'node.js', 'apify',
+	'chrome extension', 'browser extension', 'npm', 'api', 'shell',
+]);
+
+function isProgrammingLanguage(tech: string): boolean {
+	return !NON_LANGUAGE_TECH.has(tech.trim().toLowerCase());
+}
+
 export function softwareApplicationSchema(tool: SoftwareApplicationInput) {
 	const url = `${SITE_URL}${tool.path ?? `/tools/${tool.slug}/`}`;
 	const sourceCode = tool.githubUrl || tool.npmPackage
 		? {
 			'@type': 'SoftwareSourceCode',
 			'@id': `${url}#sourcecode`,
-			programmingLanguage: tool.techStack,
+			programmingLanguage: tool.techStack.filter(isProgrammingLanguage),
 			...(tool.githubUrl ? { codeRepository: tool.githubUrl } : {}),
+			targetProduct: { '@id': `${url}#software` },
 		}
 		: undefined;
 	return {
@@ -198,6 +213,6 @@ export function softwareApplicationSchema(tool: SoftwareApplicationInput) {
 		publisher: { '@id': ORG_ID },
 		mainEntityOfPage: { '@id': `${url}#webpage` },
 		...(tool.npmPackage ? { sameAs: [`https://www.npmjs.com/package/${tool.npmPackage}`] } : {}),
-		...(sourceCode ? { targetProduct: sourceCode } : {}),
+		...(sourceCode ? { isBasedOn: sourceCode } : {}),
 	};
 }

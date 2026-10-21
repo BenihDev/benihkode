@@ -30,12 +30,16 @@ function localImageSize(src) {
       let i = 2;
       while (i + 9 < buf.length) {
         if (buf[i] !== 0xff) { i++; continue; }
-        const marker = buf[i + 1];
+        // A valid JPEG may pad with repeated 0xFF fill bytes before a marker.
+        let j = i + 1;
+        while (j < buf.length && buf[j] === 0xff) j++;
+        if (j >= buf.length) break;
+        const marker = buf[j];
         if (marker >= 0xc0 && marker <= 0xcf && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc) {
-          size = { height: buf.readUInt16BE(i + 5), width: buf.readUInt16BE(i + 7) };
+          size = { height: buf.readUInt16BE(j + 3), width: buf.readUInt16BE(j + 5) };
           break;
         }
-        i += 2 + buf.readUInt16BE(i + 2);
+        i = j + 1 + buf.readUInt16BE(j + 1);
       }
     }
   } catch { size = null; }
@@ -67,8 +71,14 @@ function rehypeLazyImages() {
         if (node.properties.width == null || node.properties.height == null) {
           const size = localImageSize(node.properties.src);
           if (size) {
-            node.properties.width = size.width;
-            node.properties.height = size.height;
+            if (node.properties.width == null && node.properties.height == null) {
+              node.properties.width = size.width;
+              node.properties.height = size.height;
+            } else if (node.properties.width == null) {
+              node.properties.width = Math.round(Number(node.properties.height) * size.width / size.height);
+            } else {
+              node.properties.height = Math.round(Number(node.properties.width) * size.height / size.width);
+            }
           }
         }
         isFirstImage = false;

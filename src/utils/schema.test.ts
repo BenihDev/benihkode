@@ -46,9 +46,14 @@ test('software application schema describes a free developer CLI tool', async ()
 	assert.deepEqual(schema.offers, { '@type': 'Offer', price: '0', priceCurrency: 'USD' });
 	assert.equal(schema.mainEntityOfPage['@id'], `${SITE_URL}/tools/secretsweep/#webpage`);
 	assert.deepEqual(schema.sameAs, ['https://www.npmjs.com/package/@fanioz/secretsweep']);
-	assert.equal(schema.targetProduct['@type'], 'SoftwareSourceCode');
-	assert.equal(schema.targetProduct.codeRepository, 'https://github.com/BenihDev/secretsweep');
-	assert.deepEqual(schema.targetProduct.programmingLanguage, ['TypeScript', 'Node.js', 'CLI']);
+	assert.equal(schema.isBasedOn['@type'], 'SoftwareSourceCode');
+	assert.equal(schema.isBasedOn['@id'], `${SITE_URL}/tools/secretsweep/#sourcecode`);
+	assert.equal(schema.isBasedOn.codeRepository, 'https://github.com/BenihDev/secretsweep');
+	// Non-language tech-stack entries (Node.js, CLI) are filtered out.
+	assert.deepEqual(schema.isBasedOn.programmingLanguage, ['TypeScript']);
+	// targetProduct belongs on the source-code node, pointing at the app.
+	assert.equal(schema.isBasedOn.targetProduct['@id'], `${SITE_URL}/tools/secretsweep/#software`);
+	assert.equal('targetProduct' in schema, false);
 	// npm page is a listing, not a download URL
 	assert.equal('downloadUrl' in schema, false);
 	// no fabricated rating/review data
@@ -69,7 +74,8 @@ test('software application schema honours an explicit page path', async () => {
 test('software application schema omits optional links when absent', async () => {
 	const { softwareApplicationSchema } = await import('./schema.ts');
 	const schema = softwareApplicationSchema({ title: 'x', description: 'y', slug: 'x', techStack: [] });
-	assert.equal('targetProduct' in schema, false);
+	assert.equal('isBasedOn' in schema, false);
 	assert.equal('sameAs' in schema, false);
 	assert.equal('downloadUrl' in schema, false);
+	assert.equal('targetProduct' in schema, false);
 });
