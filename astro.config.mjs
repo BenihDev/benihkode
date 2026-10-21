@@ -7,6 +7,7 @@ import vercel from '@astrojs/vercel';
 import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
+
 /**
  * Resolve width/height for a local public image so the emitted <img> reserves
  * layout space. Prevents CLS (Cumulative Layout Shift). Parses the PNG IHDR and

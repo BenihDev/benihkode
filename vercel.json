@@ -1,0 +1,49 @@
+{
+  "redirects": [
+    {
+      "source": "/projects/changelog-ai",
+      "destination": "/tools/changelog-ai/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/domainforge",
+      "destination": "/tools/domainforge/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/envtainer",
+      "destination": "/tools/envtainer/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/gitcommitgen",
+      "destination": "/tools/gitcommitgen/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/gitprgen",
+      "destination": "/tools/gitprgen/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/gitprune",
+      "destination": "/tools/gitprune/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/jsonask",
+      "destination": "/tools/jsonask/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/mcpkit",
+      "destination": "/tools/mcpkit/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/secretsweep",
+      "destination": "/tools/secretsweep/",
+      "permanent": true
+    }
+  ]
+}
