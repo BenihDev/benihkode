@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { SITE_EMAIL } from '../../../consts';
 
 const lastUpdated = "September 26, 2026";
 ---
@@ -70,7 +71,7 @@ const lastUpdated = "September 26, 2026";
 
 				<h2>9. Contact Us</h2>
 				<p>
-					If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:hello@benihkode.web.id">hello@benihkode.web.id</a>.
+					If you have any questions or concerns about this Privacy Policy, please contact us at <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.
 				</p>
 			</div>
 		</div>

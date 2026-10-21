@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { SITE_EMAIL } from '../src/consts';
 
 test('SmartStartup project page displays correctly', async ({ page }) => {
   // Visit the SmartStartup project page
@@ -52,9 +53,9 @@ test('SmartStartup privacy policy page displays correctly', async ({ page }) => 
   await expect(page.getByText('runs 100% offline')).toBeVisible();
 
   // Verify the contact link (scoped to main: the site footer repeats it)
-  const contact = page.locator('#main-content').getByRole('link', { name: 'hello@benihkode.web.id' });
+  const contact = page.locator('#main-content').getByRole('link', { name: SITE_EMAIL });
   await expect(contact).toBeVisible();
-  await expect(contact).toHaveAttribute('href', 'mailto:hello@benihkode.web.id');
+  await expect(contact).toHaveAttribute('href', `mailto:${SITE_EMAIL}`);
 
   // Verify the back link returns to the project page
   const back = page.getByRole('link', { name: '← Back to SmartStartup' });

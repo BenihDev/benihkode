@@ -8,6 +8,7 @@
  * www.benihkode.web.id, so every URL in the graph uses the www origin to
  * match what Google actually indexes.
  */
+import { SITE_EMAIL } from '../consts.ts';
 
 export const SITE_URL = 'https://www.benihkode.web.id';
 
@@ -73,7 +74,7 @@ export function organizationSchema() {
 		description:
 			'A developer\u2019s garden: where product ideas are planted, shipped projects are harvested, and the whole build journey is documented.',
 		url: SITE_URL,
-		email: 'hello@benihkode.web.id',
+		email: SITE_EMAIL,
 		// The same person owns the org on a solo studio — link them (BEN-7).
 		founder: { '@id': AUTHOR_ID },
 		logo: {
