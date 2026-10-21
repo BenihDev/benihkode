@@ -161,6 +161,8 @@ export interface SoftwareApplicationInput {
 	githubUrl?: string;
 	npmPackage?: string;
 	installCommand?: string;
+	/** Absolute path of the page rendering this tool, e.g. `/projects/x/`. Defaults to `/tools/<slug>/`. */
+	path?: string;
 }
 
 /**
@@ -168,9 +170,21 @@ export interface SoftwareApplicationInput {
  * (MIT per npm registry metadata), so the Offer price is 0 USD.
  * softwareVersion is omitted on purpose: the content collection has no
  * version field, and a guessed value would be wrong markup.
+ *
+ * Not eligible for Google's SoftwareApplication rich result: that requires
+ * either aggregateRating or review, and the site authenticates neither, so
+ * neither is emitted.
  */
 export function softwareApplicationSchema(tool: SoftwareApplicationInput) {
-	const url = `${SITE_URL}/tools/${tool.slug}/`;
+	const url = `${SITE_URL}${tool.path ?? `/tools/${tool.slug}/`}`;
+	const sourceCode = tool.githubUrl || tool.npmPackage
+		? {
+			'@type': 'SoftwareSourceCode',
+			'@id': `${url}#sourcecode`,
+			programmingLanguage: tool.techStack,
+			...(tool.githubUrl ? { codeRepository: tool.githubUrl } : {}),
+		}
+		: undefined;
 	return {
 		'@type': 'SoftwareApplication',
 		'@id': `${url}#software`,
@@ -179,12 +193,11 @@ export function softwareApplicationSchema(tool: SoftwareApplicationInput) {
 		url,
 		applicationCategory: 'DeveloperApplication',
 		operatingSystem: 'Linux, macOS, Windows',
-		programmingLanguage: tool.techStack,
 		offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
 		author: { '@id': ORG_ID },
 		publisher: { '@id': ORG_ID },
 		mainEntityOfPage: { '@id': `${url}#webpage` },
-		...(tool.githubUrl ? { codeRepository: tool.githubUrl } : {}),
-		...(tool.npmPackage ? { downloadUrl: `https://www.npmjs.com/package/${tool.npmPackage}` } : {}),
+		...(tool.npmPackage ? { sameAs: [`https://www.npmjs.com/package/${tool.npmPackage}`] } : {}),
+		...(sourceCode ? { targetProduct: sourceCode } : {}),
 	};
 }

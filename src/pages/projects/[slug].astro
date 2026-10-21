@@ -7,7 +7,9 @@ import { softwareApplicationSchema } from '../../utils/schema';
 
 export async function getStaticPaths() {
 	const projects = await getCollection('projects');
-	return mapEntriesToStaticPaths(projects);
+	// Tools render under /tools/ (tools/[slug].astro); emitting them here too
+	// publishes one record at two self-canonical URLs.
+	return mapEntriesToStaticPaths(projects.filter(p => p.data.category !== 'tool'));
 }
 
 type Props = CollectionEntry<'projects'>;

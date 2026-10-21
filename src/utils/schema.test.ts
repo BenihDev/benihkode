@@ -44,14 +44,32 @@ test('software application schema describes a free developer CLI tool', async ()
 	assert.equal(schema['@id'], `${SITE_URL}/tools/secretsweep/#software`);
 	assert.equal(schema.applicationCategory, 'DeveloperApplication');
 	assert.deepEqual(schema.offers, { '@type': 'Offer', price: '0', priceCurrency: 'USD' });
-	assert.equal(schema.codeRepository, 'https://github.com/BenihDev/secretsweep');
-	assert.equal(schema.downloadUrl, 'https://www.npmjs.com/package/@fanioz/secretsweep');
+	assert.equal(schema.mainEntityOfPage['@id'], `${SITE_URL}/tools/secretsweep/#webpage`);
+	assert.deepEqual(schema.sameAs, ['https://www.npmjs.com/package/@fanioz/secretsweep']);
+	assert.equal(schema.targetProduct['@type'], 'SoftwareSourceCode');
+	assert.equal(schema.targetProduct.codeRepository, 'https://github.com/BenihDev/secretsweep');
+	assert.deepEqual(schema.targetProduct.programmingLanguage, ['TypeScript', 'Node.js', 'CLI']);
+	// npm page is a listing, not a download URL
+	assert.equal('downloadUrl' in schema, false);
+	// no fabricated rating/review data
+	assert.equal('aggregateRating' in schema, false);
+	assert.equal('review' in schema, false);
 	assert.equal('softwareVersion' in schema, false);
+});
+
+test('software application schema honours an explicit page path', async () => {
+	const { softwareApplicationSchema } = await import('./schema.ts');
+	const schema = softwareApplicationSchema({
+		title: 'x', description: 'y', slug: 'x', techStack: [], path: '/projects/x/',
+	});
+	assert.equal(schema['@id'], `${SITE_URL}/projects/x/#software`);
+	assert.equal(schema.mainEntityOfPage['@id'], `${SITE_URL}/projects/x/#webpage`);
 });
 
 test('software application schema omits optional links when absent', async () => {
 	const { softwareApplicationSchema } = await import('./schema.ts');
 	const schema = softwareApplicationSchema({ title: 'x', description: 'y', slug: 'x', techStack: [] });
-	assert.equal('codeRepository' in schema, false);
+	assert.equal('targetProduct' in schema, false);
+	assert.equal('sameAs' in schema, false);
 	assert.equal('downloadUrl' in schema, false);
 });
