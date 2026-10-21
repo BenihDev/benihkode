@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
-const lastUpdated = "May 14, 2026";
+const lastUpdated = "October 19, 2026";
+const policyVersion = "1.1";
 ---
 
 <BaseLayout title="Privacy Policy — Gas Flow Calculator" description="Privacy policy for Gas Flow Calculator — offline engineering utility for ISO 5167 gas flow calculations.">
@@ -11,39 +12,92 @@ const lastUpdated = "May 14, 2026";
 				<a href="/projects/gas-flow-calculator" class="back-link"><span aria-hidden="true">←</span> Back to Gas Flow Calculator</a>
 				<h1>Privacy Policy</h1>
 				<p class="app-name">for <strong>Gas Flow Calculator</strong></p>
-				<p class="last-updated">Last updated: {lastUpdated}</p>
+				<p class="last-updated">Last updated: {lastUpdated} · Policy version {policyVersion}</p>
 
 				<div class="highlight-box">
-					<p>Gas Flow Calculator does not collect personal data. All calculations are performed locally on your device.</p>
+					<p>Your calculations, entered values, and saved inputs stay on your device and are never sent to us — there are no servers to receive them. To keep the app free, it shows ads from Google AdMob, which collects your device's advertising identifier and IP address to serve those ads. If you are in the UK or EEA, you are asked first and can choose non-personalized ads.</p>
 				</div>
 
-				<h2>Overview</h2>
+				<h2>1. Introduction</h2>
 				<p>
-					Gas Flow Calculator is designed to run locally on your device. We do not collect personal information, require an account, or send your calculation data to a server.
+					This Privacy Policy describes how Gas Flow Calculator ("the App"), developed by Fanioz ("we", "us", or "our"), handles information when you use our mobile application. It explains what the App collects, what our advertising partner Google collects, and how to control both. Version {policyVersion} adds advertising disclosures; earlier versions described an app that did not show ads, and this policy replaces them in full.
 				</p>
 
-				<h2>What stays on your device</h2>
+				<h2>2. Information We Collect</h2>
 				<p>
-					To make repeat use easier, the app may store your most recent calculation inputs locally using SharedPreferences. This can include values such as pipe diameter, orifice diameter, upstream pressure, differential pressure, temperature, and specific gravity.
+					<strong>We do not collect, receive, or store any of your personal information.</strong> The App has no user accounts, no registration, and no server of its own. The calculator operates entirely on your device.
 				</p>
+				<div class="highlight-box">
+					<p><strong>Advertising is an exception, and it is handled by Google, not us.</strong> To keep the App free, it displays banner ads served by <strong>Google AdMob</strong>. Google's advertising SDK may collect data such as your device's advertising identifier, IP address, device type, and information about your interactions with ads. We do not receive this data and cannot link it to you.</p>
+				</div>
+				<p>Specifically, no personal data (name, email, phone number, etc.) and no location data is collected by us:</p>
 				<ul>
-					<li>This information stays on your device</li>
-					<li>It is not transmitted to us or to third parties</li>
-					<li>You can remove it by clearing app data or uninstalling the app</li>
+					<li>No personal data (name, email, phone number, etc.) is collected by us</li>
+					<li>No location data is collected</li>
+					<li>No usage analytics or telemetry is collected by us — we have no analytics SDK</li>
+					<li><strong>Device identifiers for advertising</strong> (the Android Advertising ID) are used by Google AdMob to serve and measure ads, as described below</li>
 				</ul>
 
-				<h2>Data collection and services</h2>
+				<h2>3. Local Data Storage (your calculations)</h2>
 				<p>
-					Gas Flow Calculator does not use analytics, advertising SDKs, or social integrations. The app is intended to work offline and does not depend on internet connectivity for its core calculations.
+					The App stores your most recent calculation input parameters (pipe diameter, orifice diameter, upstream pressure, differential pressure, temperature, and specific gravity) locally on your device using SharedPreferences. This data:
+				</p>
+				<ul>
+					<li>Is stored <strong>only on your device</strong></li>
+					<li>Is <strong>never transmitted</strong> to any server or third party, including to us — there is nowhere to send it</li>
+					<li>Can be cleared by uninstalling the App or clearing App data in your device settings</li>
+					<li>Contains no personally identifiable information</li>
+				</ul>
+				<p>
+					This is unchanged by the addition of advertising and remains true: <strong>your engineering calculations never leave your device, and the calculator itself works fully offline.</strong>
 				</p>
 
-				<h2>Policy updates</h2>
+				<h2>4. Third-Party Services (advertising)</h2>
 				<p>
-					We may revise this page when the app changes. If we do, we will update the date shown above so you can see when the policy was last reviewed.
+					The App integrates with <strong>Google AdMob</strong> for advertising and with no other third-party service. There are no analytics platforms and no social media SDKs. Google's advertising SDK may collect your device's advertising identifier, IP address, and standard ad-interaction data (such as views and clicks) in order to serve and measure ads. Google's handling of this data is governed by the <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">Google Privacy &amp; Terms</a> documentation.
 				</p>
 
-				<h2>Contact</h2>
-				<p>If you have questions about this privacy policy, contact <a href="mailto:fanioz@gmail.com">fanioz@gmail.com</a>.</p>
+				<h2>5. Internet Permission</h2>
+				<p>
+					The App requests the <code>INTERNET</code> permission. This is required to fetch an advertisement from Google's ad servers. The calculator itself does not require the internet: it performs every calculation on your device, and it continues to work with no connection, in airplane mode, or on a site with no signal. Only the ad slot needs the network, and when there is no connection the App shows no ad and nothing else is affected.
+				</p>
+
+				<h2>6. Your Choices About Ads</h2>
+				<p>
+					If the App determines you are in the <strong>European Economic Area or the United Kingdom</strong>, it asks for your consent before showing personalized ads, in line with Google's User Messaging Platform:
+				</p>
+				<ul>
+					<li><strong>Consent to personalized ads</strong> lets AdMob use your advertising identifier to show ads that are more relevant to you.</li>
+					<li><strong>Decline</strong> does not remove ads. You will still see ads, but they are <strong>non-personalized</strong> — they use your advertising identifier far less, and are chosen by context rather than by you. Monetization is unaffected; the App merely cannot personalize.</li>
+					<li><strong>Outside the EEA and UK</strong>, consent is not required and the App shows contextual ads; you are not asked.</li>
+				</ul>
+				<p>
+					You can also <strong>reset or delete your Android Advertising ID</strong> at any time from your device's system settings (Settings → Google → Ads → Delete advertising ID), which applies to all apps on the device, including this one. You can change the in-app consent choice by clearing the App's data, which returns the App to its first-launch state and prompts you again.
+				</p>
+
+				<h2>7. Data Retention and Deletion</h2>
+				<p>
+					We retain none of your data, because we receive none. Google retains advertising data it collects according to its own retention schedule under its privacy policy. Uninstalling the App deletes your locally stored calculation inputs, because they live only on the device. It does not by itself delete Google's advertising records, which are held on Google's side; resetting your advertising identifier (Section 6) limits how new activity can be tied to your device going forward.
+				</p>
+
+				<h2>8. Children's Privacy</h2>
+				<p>
+					The App does not collect personal information from anyone, including children under the age of 13. The App is a general-purpose engineering calculator. Advertising shown in the App is served by Google AdMob under Google's own policies for age-appropriate and policy-compliant ads.
+				</p>
+
+				<h2>9. Data Security</h2>
+				<p>
+					Because the App neither collects nor transmits your data, there are no security risks from our handling of it. Your ability to share this Privacy Policy is limited to what our advertising partner Google collects as described in Sections 4 and 6, which is sent over secure connections to Google's servers and governed by Google's security practices.
+				</p>
+
+				<h2>10. Changes to This Privacy Policy</h2>
+				<p>
+					We may update this Privacy Policy from time to time. Any change that affects what is collected will be reflected by updating the "Last updated" date and the policy version at the top of this page, and, for material changes, in the App's release notes. We encourage you to review this policy periodically. You can always find the enforceable version at the App's Play Store listing.
+				</p>
+
+				<h2>11. Contact Us</h2>
+				<p>If you have any questions or concerns about this Privacy Policy, please contact us at:</p>
+				<p><strong>Email:</strong> <a href="mailto:fanioz@gmail.com">fanioz@gmail.com</a></p>
 			</div>
 		</div>
 	</section>
@@ -67,18 +121,24 @@ const lastUpdated = "May 14, 2026";
 	}
 	li { margin-bottom: 0.5rem; color: var(--text-secondary); }
 	a { color: var(--accent); }
+	code {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.85em;
+		background: var(--surface-2, rgba(255,255,255,0.05));
+		padding: 0.1em 0.4em; border-radius: 4px;
+	}
 	.highlight-box {
 		background: var(--surface-2, rgba(255,255,255,0.05));
 		border: 1px solid var(--border, rgba(255,255,255,0.1));
 		border-left: 3px solid var(--accent);
 		border-radius: 8px;
 		padding: 1rem 1.25rem;
-		margin-bottom: 2rem;
+		margin-bottom: 1.5rem;
 	}
 	.highlight-box p {
 		margin: 0;
 		color: var(--text-primary);
 	}
+	.highlight-box p + p { margin-top: 0.75rem; }
 	.back-link {
 		display: inline-block; margin-bottom: 2rem; color: var(--text-secondary);
 		text-decoration: none; transition: color 0.3s ease;
