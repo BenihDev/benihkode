@@ -78,3 +78,17 @@ Files are loaded from:
 ## Skills
 
 - **`.agents/skills/add-project-entry/SKILL.md`** — invoke this when adding a new project entry (post, project card, idea PRD, privacy policy, banner, homepage surfacing). It encodes the content schemas, routing rules (`/projects` vs `/tools`), homepage slice/order pitfalls, and the PR workflow.
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked in this repo's GitHub Issues (`BenihDev/benihkode`) via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default triage label vocabulary (each label string equals its canonical role name). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: one `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
