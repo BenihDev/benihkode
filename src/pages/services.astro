@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_EMAIL } from '../consts';
 
 const meta = {
   title: `Freelance Development Services — BenihKode`,
@@ -17,7 +17,7 @@ const meta = {
         From concept to launch. I turn ideas into polished digital products — web apps, mobile tools, and everything in between.
       </p>
       <div class="hero-cta">
-        <a href="mailto:hello@benihkode.web.id" class="btn-primary">
+        <a href={`mailto:${SITE_EMAIL}`} class="btn-primary">
           Start a Project <span aria-hidden="true">→</span>
         </a>
         <a href="/projects" class="btn-secondary">
@@ -111,8 +111,8 @@ const meta = {
       <div class="cta-card">
         <h2>Ready to Build?</h2>
         <p>Let's talk about your project. No pressure, just a conversation about what you need.</p>
-        <a href="mailto:hello@benihkode.web.id" class="btn-large">
-          Email Me <span aria-hidden="true">→</span> hello@benihkode.web.id
+        <a href={`mailto:${SITE_EMAIL}`} class="btn-large">
+          Email Me <span aria-hidden="true">→</span> {SITE_EMAIL}
         </a>
       </div>
     </div>
