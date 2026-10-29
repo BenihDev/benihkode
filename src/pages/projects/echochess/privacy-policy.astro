@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { SITE_EMAIL } from '../../../consts';
+
+const lastUpdated = 'October 29, 2026';
+---
+
+<BaseLayout
+	title="Privacy Policy — EchoChess"
+	description="Privacy policy for EchoChess, an offline chess sparring studio for iPhone. The app collects nothing: no accounts, no analytics, no tracking, no network requests."
+>
+	<section style="padding-top: 4rem;">
+		<div class="container">
+			<div class="privacy-content">
+				<a href="/projects/echochess" class="back-link"><span aria-hidden="true">←</span> Back to EchoChess</a>
+				<h1>Privacy Policy</h1>
+				<p class="app-name">for <strong>EchoChess</strong></p>
+				<p class="last-updated">Last updated: {lastUpdated}</p>
+
+				<div class="highlight-box">
+					<p>
+						EchoChess collects nothing. There is no account, no analytics, no advertising, no tracking,
+						and no network request of any kind. Everything the app knows stays on your iPhone, and
+						uninstalling the app removes all of it.
+					</p>
+				</div>
+
+				<h2>1. Information We Collect</h2>
+				<p>
+					None. EchoChess does not ask for your name, email address, phone number, date of birth, location,
+					or any other personal information, and it has no mechanism to receive it.
+				</p>
+
+				<h2>2. What Is Stored On Your Device</h2>
+				<p>
+					EchoChess keeps your training history locally on your device so the app can show you how far you
+					have come. That record contains:
+				</p>
+				<ul>
+					<li>Which Scenarios you have completed, and the Ghost Mode each was completed in</li>
+					<li>The star rating recorded for each completed Scenario</li>
+					<li>How many Pulses and Rewinds you used during a Sparring Session</li>
+					<li>Your Ghost Mode and display preferences</li>
+				</ul>
+				<p>
+					This record is written to a local database on your device. It is never uploaded, never sent to a
+					server of ours, and never shared with anyone. Deleting the app deletes it permanently.
+				</p>
+
+				<h2>3. Network Activity</h2>
+				<p>
+					EchoChess makes no network requests. The chess engine that evaluates your moves runs on your
+					device, the Scenario Deck ships inside the app, and the Daily Endgame is chosen from that same
+					bundled content. The app behaves identically in airplane mode.
+				</p>
+
+				<h2>4. Third Parties</h2>
+				<p>
+					EchoChess contains no advertising SDK, no analytics SDK, no crash-reporting SDK, no social login,
+					and no third-party service that receives data about you.
+				</p>
+				<p>
+					Apple may collect diagnostic information — such as crash reports — according to your device
+					settings. That collection is performed by Apple, governed by
+					<a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple's Privacy Policy</a>,
+					and is not something EchoChess participates in or can read.
+				</p>
+
+				<h2>5. Permissions</h2>
+				<p>
+					EchoChess does not request access to your photos, contacts, calendars, location, microphone,
+					camera, or health data. Haptic feedback and spoken move notation are produced by iOS on your
+					device and require neither permission nor network.
+				</p>
+
+				<h2>6. Children's Privacy</h2>
+				<p>
+					EchoChess is suitable for general audiences and is not directed at children under 13. Because the
+					app collects no personal information from anyone, it collects none from children.
+				</p>
+
+				<h2>7. Your Choices</h2>
+				<p>
+					You are in full control of the only data that exists — the training record on your device. You can
+				clear a Scenario's progress from within the app, delete the app to remove everything permanently, or
+				 turn off haptics and spoken notation in the app or in iOS Settings.
+				</p>
+				<p>
+					Because we never receive your data, there is nothing for us to export, correct, or delete on your
+					behalf.
+				</p>
+
+				<h2>8. Changes to This Policy</h2>
+				<p>
+					If a future version of EchoChess ever changes what it stores or transmits, this page will say so
+					before that version ships, and the date at the top will change. Continuing to use the app after a
+					change means you accept the updated policy.
+				</p>
+
+				<h2>9. Contact</h2>
+				<p>
+					Questions about this policy, or about privacy in EchoChess, can go to
+					<a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.
+				</p>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.privacy-content {
+		max-width: 680px;
+		line-height: 1.8;
+	}
+	h1 { margin-bottom: 0.25rem; }
+	.app-name { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+	.last-updated {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+		color: var(--text-muted); margin-bottom: 2rem;
+	}
+	h2 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.3rem; }
+	p { margin-bottom: 1rem; color: var(--text-secondary); }
+	ul {
+		list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;
+	}
+	li { margin-bottom: 0.5rem; color: var(--text-secondary); }
+	a { color: var(--accent); }
+	.highlight-box {
+		background: var(--surface-2, rgba(255,255,255,0.05));
+		border: 1px solid var(--border, rgba(255,255,255,0.1));
+		border-left: 3px solid var(--accent);
+		border-radius: 8px;
+		padding: 1rem 1.25rem;
+		margin-bottom: 2rem;
+	}
+	.highlight-box p {
+		margin: 0;
+		color: var(--text-primary);
+	}
+</style>
