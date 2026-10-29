@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_EMAIL } from '../consts';
+
+const lastUpdated = 'October 29, 2026';
+---
+
+<BaseLayout
+	title="Support — EchoChess"
+	description="Support for EchoChess, an offline chess sparring studio for iPhone. Contact, frequently asked questions, and how to report a problem."
+>
+	<section style="padding-top: 4rem;">
+		<div class="container">
+			<div class="support-content">
+				<a href="/" class="back-link"><span aria-hidden="true">←</span> Back to BenihKode</a>
+				<h1>Support</h1>
+				<p class="app-name">for <strong>EchoChess</strong></p>
+				<p class="last-updated">Last updated: {lastUpdated}</p>
+
+				<div class="highlight-box">
+					<p>
+						Email <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a> and we will get back to you.
+						EchoChess is made by one small studio, so please allow a few business days.
+					</p>
+				</div>
+
+				<h2>Reporting a problem</h2>
+				<p>To help us reproduce it quickly, please include:</p>
+				<ul>
+					<li>Your iPhone model and iOS version</li>
+					<li>The Scenario name, if the problem happened inside one</li>
+					<li>What you expected to happen, and what happened instead</li>
+					<li>A screenshot or screen recording, if you can capture one</li>
+				</ul>
+
+				<h2>Frequently asked questions</h2>
+
+				<h3>Where is my progress stored?</h3>
+				<p>
+					On your iPhone, and nowhere else. EchoChess has no account and no server, so your Scenario
+					Progress, star ratings and Pulse counts live in a local database. Deleting the app deletes them
+					permanently, and they do not move to a new device.
+				</p>
+
+				<h3>Why did the pieces fade, or disappear completely?</h3>
+				<p>
+					That is Ghost Mode, the app's training mechanism rather than a fault. <strong>Clear</strong> shows
+					every piece normally. <strong>Echo</strong> fades the pieces to a faint silhouette a few seconds
+					after each move, so you have to hold the position in memory. <strong>Blind</strong> hides them
+					entirely and leaves only the coordinates. You can change the level at any time in The Studio.
+				</p>
+
+				<h3>What is a Pulse, and why do I only get three?</h3>
+				<p>
+					Pressing and holding the board reveals the pieces for as long as you hold, and costs one Pulse.
+					Each Sparring Session gives you three, which is what keeps Blind a memory exercise rather than a
+					looking exercise. They reset when you start the next session.
+				</p>
+
+				<h3>Does EchoChess work offline?</h3>
+				<p>
+					Yes, completely. The app makes no network requests at all — the engine, the scenarios and the Daily
+					Endgame are all on your device. Airplane mode changes nothing.
+				</p>
+
+				<h3>Can I play a normal game from the first move?</h3>
+				<p>
+					No, and that is deliberate. Every session starts from a curated midgame or endgame position, so
+					your time goes into calculation and board vision rather than opening theory.
+				</p>
+
+				<h3>How do I request a refund?</h3>
+				<p>
+					Purchases are handled entirely by Apple, so refunds go through them:
+					<a href="https://support.apple.com/en-us/118223" target="_blank" rel="noopener noreferrer">request a refund from Apple</a>.
+					We cannot issue or reverse a purchase ourselves.
+				</p>
+
+				<h3>How do I reset a Scenario?</h3>
+				<p>
+					Open the Scenario from the deck and start it again; the Completion Sheet offers a retry. If you
+					want to wipe everything, delete the app — that removes the local database.
+				</p>
+
+				<h2>Accessibility</h2>
+				<p>
+					EchoChess supports Dynamic Type, VoiceOver labels on the controls, and Reduce Motion. If something
+					is hard to read, reach or hear, tell us — it counts as a bug, not a preference.
+				</p>
+
+				<h2>Privacy</h2>
+				<p>
+					The <a href="/projects/echochess/privacy-policy">privacy policy</a> is short because there is
+					nothing to disclose: the app collects no data.
+				</p>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.support-content {
+		max-width: 680px;
+		line-height: 1.8;
+	}
+	h1 { margin-bottom: 0.25rem; }
+	.app-name { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+	.last-updated {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+		color: var(--text-muted); margin-bottom: 2rem;
+	}
+	h2 { margin-top: 2.25rem; margin-bottom: 0.75rem; font-size: 1.3rem; }
+	h3 { margin-top: 1.6rem; margin-bottom: 0.4rem; font-size: 1.02rem; }
+	p { margin-bottom: 1rem; color: var(--text-secondary); }
+	ul {
+		list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;
+	}
+	li { margin-bottom: 0.5rem; color: var(--text-secondary); }
+	a { color: var(--accent); }
+	.highlight-box {
+		background: var(--surface-2, rgba(255,255,255,0.05));
+		border: 1px solid var(--border, rgba(255,255,255,0.1));
+		border-left: 3px solid var(--accent);
+		border-radius: 8px;
+		padding: 1rem 1.25rem;
+		margin-bottom: 2rem;
+	}
+	.highlight-box p {
+		margin: 0;
+		color: var(--text-primary);
+	}
+</style>
