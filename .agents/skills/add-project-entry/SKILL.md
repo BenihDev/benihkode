@@ -22,7 +22,7 @@ A shipped (or about-to-ship) project needs four artifacts plus a banner, and mus
 ## Routing and homepage rules (learned the hard way)
 
 - **Category routes the detail page**: `/projects` lists `category: "app"` only; `/tools` lists `category: "tool"` only (CLI/dev tools). A consumer app with `category: "tool"` vanishes from `/projects`.
-- **Homepage shows `slice(0, 4)` per collection**, sorted **ascending by `order`** — ties break alphabetically by filename, so a new entry at `order: 1` can still lose to four older `order: 1` files. New flagship entries belong at `order: 0` (or the lowest sensible).
+- **Homepage shows `slice(0, 4)` per collection**, sorted **ascending by `order`** — equal `order` values are broken explicitly by `title` A→Z (`orderSorter` in `src/utils/sorters.ts`), so a new entry at `order: 1` still sorts behind existing `order: 1` titles that come earlier alphabetically. New flagship entries belong at `order: 0` (or the lowest sensible).
 - Both the homepage and the collection index filter/slice independently — verify **both** in the build output.
 
 ## Icon (optional but preferred for shipped apps)
