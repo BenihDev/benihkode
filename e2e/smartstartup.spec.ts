@@ -5,8 +5,8 @@ test('SmartStartup project page displays correctly', async ({ page }) => {
   // Visit the SmartStartup project page
   await page.goto('/projects/smartstartup');
 
-  // Verify the page title
-  await expect(page).toHaveTitle(/SmartStartup — Projects/);
+  // Verify the page title (project pages suffix the site name, set in [slug].astro)
+  await expect(page).toHaveTitle(/SmartStartup — BenihKode Portfolio/);
 
   // Verify the main heading
   await expect(page.getByRole('heading', { name: 'SmartStartup', level: 1 })).toBeVisible();
