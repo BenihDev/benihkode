@@ -47,7 +47,7 @@ All collections load `.md` and `.mdx` files from `src/content/{collection}/`.
 - `src/pages/blog/[...slug].astro` generates blog post routes
 - `src/pages/ideas/[slug].astro` generates idea routes
 - `src/pages/projects/[slug].astro` generates project routes
-- `src/pages/projects/[slug]/privacy-policy.astro` is generated only when `hasPrivacyPolicy` is true
+- `src/pages/projects/[slug]/privacy-policy.astro` is generated only when `hasPrivacyPolicy` is true and the entry does not set `privacyPolicyUrl`
 
 ### Tests
 
