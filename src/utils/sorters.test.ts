@@ -43,3 +43,28 @@ test('orderSorter handles missing order by defaulting to 0', () => {
 	assert.strictEqual(sorted[1].data.order, 1);
 	assert.strictEqual(sorted[2].data.order, 3);
 });
+
+test('orderSorter breaks duplicate order ties by title', () => {
+	const mockItems = [
+		{ data: { title: 'WeatherNow', order: 2 } },
+		{ data: { title: 'ChatMini', order: 3 } },
+		{ data: { title: 'SmartStartup', order: 2 } },
+		{ data: { title: 'TaskMaster CLI', order: 1 } },
+		{ data: { title: 'EchoChess', order: 3 } },
+		{ data: { title: 'PocketBudget', order: 1 } },
+	];
+
+	const sorted = [...mockItems].sort(orderSorter);
+
+	assert.deepStrictEqual(
+		sorted.map((item) => item.data.title),
+		[
+			'PocketBudget',
+			'TaskMaster CLI',
+			'SmartStartup',
+			'WeatherNow',
+			'ChatMini',
+			'EchoChess',
+		],
+	);
+});
