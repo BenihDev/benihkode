@@ -49,12 +49,13 @@ const movedPages = [
 ];
 for (const page of movedPages) {
 	// statusCode 301 rather than permanent: `permanent: true` emits a 308, and
-	// the app's store listing promises a literal permanent redirect.
+	// this is a GET-only page move, where 301 is the conventional permanent
+	// redirect.
 	redirects.push({ ...page, statusCode: 301 });
 }
 
 writeFileSync(configPath, `${JSON.stringify({ ...existing, redirects }, null, 2)}\n`);
 
 console.log(
-	`vercel.json: ${redirects.length} redirects (${toolRedirectCount} tool URLs, ${movedPages.length} moved pages)`,
+	`vercel.json: ${redirects.length} redirects (${toolRedirectCount / 2} tools, ${movedPages.length} moved pages)`,
 );

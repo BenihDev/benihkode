@@ -43,5 +43,5 @@ holding a position in your head while you calculate. EchoChess is built around t
 away gradually, and the only thing left to lean on is your own sense of where everything is.
 
 It is also completely offline. The engine, the scenarios and the daily position all live on the device. There is no
-account, no sync, no analytics, and no subscription — EchoChess is a one-time purchase on the App Store. See the
-[privacy policy](/projects/echochess/privacy-policy) for the short version.
+account, no sync, no analytics, and no subscription — EchoChess will be a one-time purchase on the App Store when
+it ships. See the [privacy policy](/projects/echochess/privacy-policy) for the short version.

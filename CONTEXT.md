@@ -45,5 +45,5 @@ The blog section as a whole. Contains Build Stories and standalone learning note
 _Avoid_: blog (in domain talk; fine in UI copy)
 
 **Artifact Set**:
-The four documents a flagship ship receives: Idea PRD, Project card, Build Story, privacy policy page (only when the App is store-distributed). One-off experiments may skip the PRD.
+The five documents a flagship ship receives: Idea PRD, Project card, Build Story, privacy policy page (only when the App is store-distributed), and support page (only when the App needs one for store review). One-off experiments may skip the PRD.
 _Avoid_: full entry, complete set

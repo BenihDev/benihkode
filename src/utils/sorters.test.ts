@@ -44,6 +44,24 @@ test('orderSorter handles missing order by defaulting to 0', () => {
 	assert.strictEqual(sorted[2].data.order, 3);
 });
 
+test('orderSorter breaks duplicate order ties case-insensitively', () => {
+	// Regression: comparing raw titles put 'gitcommitgen' (lowercase) after
+	// 'TaskMaster CLI' (uppercase), which silently pushed it off the homepage.
+	const mockItems = [
+		{ data: { title: 'TaskMaster CLI', order: 1 } },
+		{ data: { title: 'PocketBudget', order: 1 } },
+		{ data: { title: 'gitcommitgen', order: 1 } },
+	];
+
+	const sorted = [...mockItems].sort(orderSorter);
+
+	assert.strictEqual(sorted[0].data.title, 'gitcommitgen');
+	assert.deepStrictEqual(
+		sorted.map((item) => item.data.title),
+		['gitcommitgen', 'PocketBudget', 'TaskMaster CLI'],
+	);
+});
+
 test('orderSorter breaks duplicate order ties by title', () => {
 	const mockItems = [
 		{ data: { title: 'WeatherNow', order: 2 } },
