@@ -29,6 +29,7 @@ const projects = defineCollection({
 		installCommand: z.string().optional(),
 		order: z.number().default(0),
 		hasPrivacyPolicy: z.boolean().default(false),
+		hasSupportPage: z.boolean().default(false),
 		appName: z.string().optional(),
 	}),
 });
