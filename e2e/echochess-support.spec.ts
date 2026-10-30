@@ -38,7 +38,7 @@ test('EchoChess support page renders its FAQ', async ({ page }) => {
   await expect(contact).toHaveAttribute('href', `mailto:${SITE_EMAIL}`);
 
   // Verify the back link returns to the project page
-  const back = page.getByRole('link', { name: '← Back to EchoChess' });
+  const back = page.getByRole('link', { name: 'Back to EchoChess' });
   await expect(back).toBeVisible();
   await expect(back).toHaveAttribute('href', '/projects/echochess');
 });
