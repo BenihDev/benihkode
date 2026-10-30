@@ -6,6 +6,7 @@ techStack: ["Flutter", "Dart", "Android"]
 category: "app"
 order: 7
 hasPrivacyPolicy: true
+privacyPolicyUrl: "/projects/gas-flow-calculator/privacy-policy"
 appName: "Gas Flow Calculator"
 ---
 

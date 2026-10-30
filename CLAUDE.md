@@ -32,7 +32,7 @@ pnpm run deploy
 Collection schemas live in `src/content.config.ts`.
 
 - `blog`: `title`, `description`, `pubDate`, optional `updatedDate`, optional `tags`
-- `projects`: `title`, `description`, `emoji`, `techStack`, `order`, optional `url`, optional `hasPrivacyPolicy`, optional `appName`
+- `projects`: `title`, `description`, `emoji`, `techStack`, `order`, optional `url`, optional `hasPrivacyPolicy`, optional `hasSupportPage`, optional `privacyPolicyUrl`, optional `appName`
 - `ideas`: `title`, `description`, `status`, `order`, optional `meta`
 
 Files are loaded from:
@@ -45,9 +45,15 @@ Files are loaded from:
 
 - `src/pages/blog/[...slug].astro`
 - `src/pages/ideas/[slug].astro`
-- `src/pages/projects/[slug].astro`
-- `src/pages/projects/[slug]/privacy-policy.astro`
+- `src/pages/projects/[slug].astro` — project pages; renders the Support and Privacy Policy links
+- `src/pages/projects/[slug]/privacy-policy.astro` — generated; skips entries that set `privacyPolicyUrl`
+- `src/pages/projects/<slug>/support.astro` — hand-written support page per app (currently only `echochess`)
+- `src/pages/projects/<slug>/privacy-policy.astro` — hand-written policy pages, one per app that opts out of the generated route
 - `src/pages/rss.xml.js`
+
+Support pages are bespoke: there is no generic support route, so `/projects/<slug>/support` exists only when the app ships `src/pages/projects/<slug>/support.astro`. The project page links to it when `hasSupportPage: true`, and an entry without that flag gets no Support link. The former site-level `/support` URL is not a route — `scripts/gen-redirects.mjs` writes it into `vercel.json` at prebuild as a 301 to `/projects/echochess/support/`.
+
+Privacy policy pages have two sources. The generated `src/pages/projects/[slug]/privacy-policy.astro` covers entries with `hasPrivacyPolicy: true`, and `privacyPolicyUrl` is the explicit exception to it: a hand-written policy lives at `src/pages/projects/<slug>/privacy-policy.astro`, which is the same URL the generated route would emit, so `getPrivacyPolicyStaticPaths` skips any entry that sets the field and `getPrivacyPolicyHref` (both in `src/utils/projects.ts`) sends the page link to the hand-written URL. Entries with a hand-written policy keep `hasPrivacyPolicy: true` and add `privacyPolicyUrl`.
 
 ### Layouts and components
 

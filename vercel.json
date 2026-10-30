@@ -89,6 +89,16 @@
       "source": "/projects/secretsweep/",
       "destination": "https://www.benihkode.web.id/tools/secretsweep/",
       "permanent": true
+    },
+    {
+      "source": "/support",
+      "destination": "https://www.benihkode.web.id/projects/echochess/support/",
+      "statusCode": 301
+    },
+    {
+      "source": "/support/",
+      "destination": "https://www.benihkode.web.id/projects/echochess/support/",
+      "statusCode": 301
     }
   ]
 }

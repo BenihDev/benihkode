@@ -4,7 +4,7 @@ description: Add a complete project entry to the BenihKode blog — build-story 
 disable-model-invocation: true
 ---
 
-A shipped (or about-to-ship) project needs four artifacts plus a banner, and must land correctly in the homepage sections. This skill walks the whole entry, BenihKode-flavored: English, first person "I", honest tone.
+A shipped (or about-to-ship) project needs four artifacts plus a banner — and a support page when store review expects one — and must land correctly in the homepage sections. This skill walks the whole entry, BenihKode-flavored: English, first person "I", honest tone.
 
 ## Before writing
 
@@ -15,14 +15,16 @@ A shipped (or about-to-ship) project needs four artifacts plus a banner, and mus
 ## The four artifacts
 
 1. **Build-story post** — `src/content/blog/<slug>.md`. Front-matter: `title`, `description` (≤ ~160 chars, meta/og description), `pubDate`, `tags`. Banner image directly after the front-matter: `![<alt>](/<slug>-banner.png)`.
-2. **Project card** — `src/content/projects/<slug>.md`. Front-matter: `title`, `description` (card-sized, ~140 chars — this doubles as the meta description), `emoji`, `techStack` (4 items max fits one badge row), `category`, optional `url`/`githubUrl`, `order`, optional `hasPrivacyPolicy: true` + `appName`, optional `icon`. Body: What It Does (bullets) / Tech Stack / a "why" section.
+2. **Project card** — `src/content/projects/<slug>.md`. Front-matter: `title`, `description` (card-sized, ~140 chars — this doubles as the meta description), `emoji`, `techStack` (4 items max fits one badge row), `category`, optional `url`/`githubUrl`, `order`, optional `hasPrivacyPolicy: true` + `privacyPolicyUrl` + `appName`, optional `hasSupportPage: true`, optional `icon`. Body: What It Does (bullets) / Tech Stack / a "why" section.
 3. **Idea PRD** — `src/content/ideas/<slug>.md`. Front-matter: `title`, `description`, `status` (`idea`|`in-progress`|`completed`), `meta` (shipping status line), `order`. Body: the 12-section PRD pattern (Title & One-Liner, Platform Target, Problem, Audience, User Loop, MVP + explicitly out of scope, Tech Stack table, Monetization, Privacy Design, Launch Criteria checklist, Validation Metrics, Risks — use `<div class="callout">` for callouts).
-4. **Native privacy policy** — `src/pages/projects/<slug>/privacy-policy.astro`, copied from an existing one (e.g. smartstartup) and adapted. Set `hasPrivacyPolicy: true` and `appName` on the card. This page's URL is what store listings should reference (`https://benihkode.web.id/projects/<slug>/privacy-policy`), not a GitHub link.
+4. **Native privacy policy** — `src/pages/projects/<slug>/privacy-policy.astro`, copied from an existing one (e.g. smartstartup) and adapted. Set `hasPrivacyPolicy: true`, `appName`, and `privacyPolicyUrl: "/projects/<slug>/privacy-policy"` on the card — the generated route steps aside for that URL. This page's URL is what store listings should reference (`https://benihkode.web.id/projects/<slug>/privacy-policy`), not a GitHub link.
+
+**Support page** — only when the App needs one for store review: hand-write `src/pages/projects/<slug>/support.astro` and set `hasSupportPage: true` on the card. There is no generated support route, so the flag without the page ships a 404 link.
 
 ## Routing and homepage rules (learned the hard way)
 
 - **Category routes the detail page**: `/projects` lists `category: "app"` only; `/tools` lists `category: "tool"` only (CLI/dev tools). A consumer app with `category: "tool"` vanishes from `/projects`.
-- **Homepage shows `slice(0, 4)` per collection**, sorted **ascending by `order`** — ties break alphabetically by filename, so a new entry at `order: 1` can still lose to four older `order: 1` files. New flagship entries belong at `order: 0` (or the lowest sensible).
+- **Homepage shows `slice(0, 4)` per collection**, sorted **ascending by `order`** — equal `order` values are broken explicitly by `title` A→Z, case-insensitive (`orderSorter` in `src/utils/sorters.ts`; titles are lowercased and compared by code unit, so the order does not depend on the build machine's locale), so a new entry at `order: 1` still sorts behind existing `order: 1` titles that come earlier alphabetically. New flagship entries belong at `order: 0` (or the lowest sensible).
 - Both the homepage and the collection index filter/slice independently — verify **both** in the build output.
 
 ## Icon (optional but preferred for shipped apps)
