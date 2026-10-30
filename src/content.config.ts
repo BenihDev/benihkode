@@ -30,6 +30,10 @@ const projects = defineCollection({
 		order: z.number().default(0),
 		hasPrivacyPolicy: z.boolean().default(false),
 		hasSupportPage: z.boolean().default(false),
+		// Site-relative path to a hand-written policy page. When set, the
+		// generated /projects/<slug>/privacy-policy route steps aside so the
+		// bespoke page is the only thing published at that URL.
+		privacyPolicyUrl: z.string().regex(/^\//, 'must be a site-relative path').optional(),
 		appName: z.string().optional(),
 	}),
 });

@@ -7,6 +7,7 @@ category: "app"
 order: 3
 hasPrivacyPolicy: true
 hasSupportPage: true
+privacyPolicyUrl: "/projects/echochess/privacy-policy"
 appName: "EchoChess"
 ---
 

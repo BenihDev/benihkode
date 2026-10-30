@@ -32,7 +32,7 @@ pnpm run deploy
 Collection schemas live in `src/content.config.ts`.
 
 - `blog`: `title`, `description`, `pubDate`, optional `updatedDate`, optional `tags`
-- `projects`: `title`, `description`, `emoji`, `techStack`, `order`, optional `url`, optional `hasPrivacyPolicy`, optional `hasSupportPage`, optional `appName`
+- `projects`: `title`, `description`, `emoji`, `techStack`, `order`, optional `url`, optional `hasPrivacyPolicy`, optional `hasSupportPage`, optional `privacyPolicyUrl`, optional `appName`
 - `ideas`: `title`, `description`, `status`, `order`, optional `meta`
 
 Files are loaded from:
