@@ -66,6 +66,37 @@ test('a project that sets privacyPolicyUrl does not also get a generated privacy
 	);
 });
 
+/**
+ * Hand-written policy pages, as site-relative URLs. The dynamic
+ * `[slug]/privacy-policy.astro` route is not a bespoke page: it renders whatever
+ * the collection entry asks for.
+ */
+async function bespokePrivacyPages(): Promise<string[]> {
+	const pages = await readdir(PAGES_DIR, { recursive: true });
+	return pages
+		.map((page) => page.replace(/\\/g, '/'))
+		.filter((page) => page.endsWith('/privacy-policy.astro') && !page.includes('['))
+		.map((page) => `/${page.replace(/\.astro$/, '')}`);
+}
+
+test('every bespoke privacy page is linked from a project entry', async () => {
+	const bespoke = await bespokePrivacyPages();
+	assert.ok(bespoke.length > 0, 'expected at least one bespoke privacy page');
+
+	const referenced = new Set(
+		(await projectEntries())
+			.map((entry) => entry.data.privacyPolicyUrl)
+			.filter((url): url is string => Boolean(url)),
+	);
+
+	const orphans = bespoke.filter((page) => !referenced.has(page));
+	assert.deepEqual(
+		orphans,
+		[],
+		`Bespoke privacy page no project entry points at (so it would be shadowed or unreachable):\n${orphans.join('\n')}`,
+	);
+});
+
 test('every privacyPolicyUrl points at a page that exists', async () => {
 	const entries = (await projectEntries()).filter((entry) => entry.data.privacyPolicyUrl);
 	assert.ok(entries.length > 0, 'expected at least one project to set privacyPolicyUrl');
