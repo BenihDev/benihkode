@@ -20,116 +20,73 @@ test('projectLandingHref serves tools at /tools/<slug>', () => {
 	assert.strictEqual(projectLandingHref(project), '/tools/gitprgen');
 });
 
-test('getPrivacyPolicyStaticPaths returns projects with hasPrivacyPolicy: true and preserves props', () => {
-	const mockProjects = [
+test('getPrivacyPolicyStaticPaths returns distributed apps and preserves props', () => {
+	const apps = [
 		{
-			id: 'project-1',
+			id: 'echochess',
 			data: {
-				hasPrivacyPolicy: true,
-				title: 'Project 1',
-				emoji: '🚀',
+				distributed: true,
+				title: 'EchoChess',
+				emoji: '♞',
 			},
 		},
 		{
-			id: 'project-2',
+			id: 'chatmini',
 			data: {
-				hasPrivacyPolicy: false,
-				title: 'Project 2',
+				distributed: false,
+				title: 'ChatMini',
 			},
 		},
 		{
-			id: 'project-3',
+			id: 'taskmaster-cli',
 			data: {
-				title: 'Project 3',
+				title: 'TaskMaster CLI',
 			},
 		},
 		{
-			id: 'project-4',
+			id: 'weathernow',
 			data: {
-				hasPrivacyPolicy: true,
-				title: 'Project 4',
-				techStack: ['Astro', 'TypeScript'],
+				distributed: true,
+				techStack: ['React', 'ML'],
 			},
 		},
 	];
 
-	const result = getPrivacyPolicyStaticPaths(mockProjects);
+	const result = getPrivacyPolicyStaticPaths(apps);
 
 	assert.strictEqual(result.length, 2);
-
-	// Check first item
-	assert.strictEqual(result[0].params.slug, 'project-1');
-	assert.deepStrictEqual(result[0].props, mockProjects[0]);
-
-	// Check second item
-	assert.strictEqual(result[1].params.slug, 'project-4');
-	assert.deepStrictEqual(result[1].props, mockProjects[3]);
+	assert.strictEqual(result[0].params.slug, 'echochess');
+	assert.deepStrictEqual(result[0].props, apps[0]);
+	assert.strictEqual(result[1].params.slug, 'weathernow');
+	assert.deepStrictEqual(result[1].props, apps[3]);
 });
 
-test('getPrivacyPolicyStaticPaths skips projects that publish their own policy page', () => {
-	const mockProjects = [
+test('getPrivacyPolicyStaticPaths excludes apps with a hand-written privacy page', () => {
+	const apps = [
 		{
-			id: 'bespoke',
-			data: {
-				hasPrivacyPolicy: true,
-				privacyPolicyUrl: '/legal/bespoke-privacy',
-			},
+			id: 'echochess',
+			data: { distributed: true },
 		},
 		{
-			id: 'generated',
-			data: {
-				hasPrivacyPolicy: true,
-			},
+			id: 'weathernow',
+			data: { distributed: true },
 		},
 	];
 
-	const result = getPrivacyPolicyStaticPaths(mockProjects);
+	// The escape hatch is file presence: a hand-written page at the same URL
+	// wins, so the generated route must not emit a second page there.
+	const result = getPrivacyPolicyStaticPaths(apps, new Set(['echochess']));
 
-	assert.deepStrictEqual(result.map((path) => path.params.slug), ['generated']);
+	assert.deepStrictEqual(result.map((path) => path.params.slug), ['weathernow']);
 });
 
-test('getPrivacyPolicyHref prefers a bespoke privacy page over the generated route', () => {
-	const project = {
-		id: 'echochess',
-		data: {
-			hasPrivacyPolicy: true,
-			privacyPolicyUrl: '/legal/echochess-privacy',
-		},
-	};
-
-	assert.strictEqual(getPrivacyPolicyHref(project), '/legal/echochess-privacy');
+test('getPrivacyPolicyStaticPaths handles empty input', () => {
+	assert.strictEqual(getPrivacyPolicyStaticPaths([]).length, 0);
+	assert.strictEqual(getPrivacyPolicyStaticPaths([], new Set(['echochess'])).length, 0);
 });
 
-test('getPrivacyPolicyHref falls back to the generated privacy route', () => {
-	const project = {
-		id: 'smartstartup',
-		data: {
-			hasPrivacyPolicy: true,
-		},
-	};
-
-	assert.strictEqual(getPrivacyPolicyHref(project), '/projects/smartstartup/privacy-policy');
-});
-
-test('getPrivacyPolicyStaticPaths handles empty array', () => {
-	const result = getPrivacyPolicyStaticPaths([]);
-	assert.strictEqual(result.length, 0);
-});
-
-test('getPrivacyPolicyStaticPaths returns empty array when no projects have privacy policy', () => {
-	const mockProjects = [
-		{
-			id: 'project-1',
-			data: {
-				hasPrivacyPolicy: false,
-			},
-		},
-		{
-			id: 'project-2',
-			data: {},
-		},
-	];
-
-	const result = getPrivacyPolicyStaticPaths(mockProjects);
-	assert.strictEqual(result.length, 0);
+test('getPrivacyPolicyHref returns the canonical /apps privacy URL', () => {
+	// Hand-written and generated policies share one URL under /apps, so the
+	// link does not depend on which kind of page is published.
+	assert.strictEqual(getPrivacyPolicyHref({ id: 'echochess', data: { distributed: true } }), '/apps/echochess/privacy');
 });
