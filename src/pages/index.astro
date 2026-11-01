@@ -6,6 +6,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import PortfolioCard from '../components/PortfolioCard.astro';
 import JournalEntry from '../components/JournalEntry.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { projectLandingHref } from '../utils/projects';
 
 const [ideasRaw, projectsRaw, blogRaw] = await Promise.all([
 	getSortedIdeas(),
@@ -65,7 +66,7 @@ const posts = blogRaw.slice(0, 4);
 						emoji={project.data.emoji}
 					icon={project.data.icon}
 						techStack={project.data.techStack}
-						slug={project.id}
+						href={projectLandingHref(project)}
 						index={i}
 					/>
 				))}

@@ -2,8 +2,8 @@ import { test, expect } from '@playwright/test';
 import { SITE_EMAIL } from '../src/consts';
 
 test('EchoChess project page links to the support page', async ({ page }) => {
-  // Visit the EchoChess project page
-  await page.goto('/projects/echochess');
+  // Visit the EchoChess landing at its canonical /apps URL
+  await page.goto('/apps/echochess');
 
   // Verify the Support link points at the app-owned support page
   const supportLink = page.locator('#main-content').getByRole('link', { name: 'Support' });
@@ -37,8 +37,8 @@ test('EchoChess support page renders its FAQ', async ({ page }) => {
   await expect(contact).toBeVisible();
   await expect(contact).toHaveAttribute('href', `mailto:${SITE_EMAIL}`);
 
-  // Verify the back link returns to the project page
+  // Verify the back link returns to the app landing
   const back = page.getByRole('link', { name: 'Back to EchoChess' });
   await expect(back).toBeVisible();
-  await expect(back).toHaveAttribute('href', '/projects/echochess');
+  await expect(back).toHaveAttribute('href', '/apps/echochess');
 });

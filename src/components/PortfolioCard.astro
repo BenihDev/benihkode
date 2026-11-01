@@ -5,10 +5,11 @@ interface Props {
 	emoji: string;
 	icon?: string;
 	techStack: string[];
-	slug?: string;
+	/** Canonical landing URL, e.g. from projectLandingHref(): /apps/<slug> or /tools/<slug>. */
+	href?: string;
 	index?: number;
 }
-const { title, description, emoji, icon, techStack, slug, index = 0 } = Astro.props;
+const { title, description, emoji, icon, techStack, href, index = 0 } = Astro.props;
 
 const gradients = [
 	'linear-gradient(135deg, #1a1a2e, #16213e)',
@@ -22,7 +23,7 @@ const bg = gradients[index % gradients.length];
 ---
 
 <article class="portfolio-item animate-on-scroll">
-	<a href={`/projects/${slug}`} class="portfolio-link">
+	<a href={href} class="portfolio-link">
 		<div class="portfolio-image" style={`background: ${bg};`}>
 			{icon ? <img src={icon} alt={`${title} app icon`} class="portfolio-icon" loading="lazy" width="72" height="72" /> : <span class="portfolio-emoji" aria-hidden="true">{emoji}</span>}
 			<div class="portfolio-tech">

@@ -2,6 +2,7 @@
 import { getSortedProjects } from '../../utils/collections.ts';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PortfolioCard from '../../components/PortfolioCard.astro';
+import { projectLandingHref } from '../../utils/projects';
 
 const tools = (await getSortedProjects())
 	.filter(p => p.data.category === 'tool');
@@ -23,7 +24,7 @@ const breadcrumbs = [{ label: 'Portfolio', path: '/projects/' }, { label: 'Devel
 						description={tool.data.description}
 						emoji={tool.data.emoji}
 						techStack={tool.data.techStack}
-						slug={tool.id}
+						href={projectLandingHref(tool)}
 						index={i}
 					/>
 				))}
