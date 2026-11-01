@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getSortedBlogPosts, getSortedProjects, getSortedIdeas } from '../utils/collections.ts';
+import { projectLandingHref } from '../utils/projects';
 
 export const prerender = false;
 
@@ -99,7 +100,7 @@ const totalResults = matchedPosts.length + matchedProjects.length + matchedIdeas
 					<ul class="results-list">
 						{matchedProjects.map(project => (
 							<li>
-								<a href={`/projects/${project.id}`} class="result-link">
+								<a href={projectLandingHref(project)} class="result-link">
 									<span class="result-title">{project.data.emoji} {project.data.title}</span>
 									<span class="result-desc">{project.data.description}</span>
 								</a>

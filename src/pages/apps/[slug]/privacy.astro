@@ -1,0 +1,35 @@
+---
+import { type CollectionEntry, getCollection, getEntry, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AppPageShell from '../../../components/AppPageShell.astro';
+import { getPrivacyPolicyStaticPaths, handWrittenAppPageSlugs } from '../../../utils/projects';
+
+export async function getStaticPaths() {
+	// File presence is the escape hatch: a hand-written page at
+	// src/pages/apps/<slug>/privacy.astro publishes the same URL, so the
+	// generated route must not emit a second page for that App.
+	const handWrittenSlugs = handWrittenAppPageSlugs(
+		'privacy',
+		import.meta.glob('/src/pages/apps/*/privacy.astro'),
+	);
+
+	const projects = await getCollection('projects');
+	return getPrivacyPolicyStaticPaths(projects, handWrittenSlugs);
+}
+
+type Props = CollectionEntry<'projects'>;
+
+const app = Astro.props;
+const doc = await getEntry('appPages', app.id);
+if (!doc) {
+	throw new Error(`No privacy document for distributed App '${app.id}' — expected src/content/app-pages/${app.id}.md`);
+}
+const { Content } = await render(doc);
+const appName = app.data.appName || app.data.title;
+---
+
+<BaseLayout title={`Privacy Policy — ${appName}`} description={`Privacy policy for ${appName} application.`}>
+	<AppPageShell kind="privacy" appId={app.id} appName={appName}>
+		<Content />
+	</AppPageShell>
+</BaseLayout>

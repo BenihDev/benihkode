@@ -5,7 +5,7 @@ emoji: "📊"
 techStack: ["Vue", "D3"]
 category: "app"
 order: 4
-hasPrivacyPolicy: true
+distributed: true
 appName: "HabitTracker"
 ---
 

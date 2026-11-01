@@ -7,7 +7,7 @@ techStack: ["Chrome Extension", "MV3", "JavaScript", "Alarms API"]
 category: "app"
 githubUrl: "https://github.com/fanioz/tutupen"
 order: 0
-hasPrivacyPolicy: true
+distributed: true
 appName: "Tutupen"
 ---
 

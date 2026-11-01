@@ -5,7 +5,7 @@ emoji: "🎨"
 techStack: ["Svelte", "AI"]
 category: "app"
 order: 5
-hasPrivacyPolicy: true
+distributed: true
 appName: "ColorPalette Pro"
 ---
 

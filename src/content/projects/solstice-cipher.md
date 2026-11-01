@@ -5,7 +5,7 @@ emoji: "🧩"
 techStack: ["Godot", "GDScript", "Android"]
 category: "app"
 order: 11
-hasPrivacyPolicy: true
+distributed: true
 appName: "Solstice Cipher"
 url: "https://play.google.com/store/apps/details?id=com.benihkode.solsticechiper"
 githubUrl: "https://github.com/fanioz/solstice-cipher"

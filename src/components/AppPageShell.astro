@@ -1,0 +1,77 @@
+---
+/**
+ * Shared chrome for the two GENERATED App pages (privacy / support): the
+ * section + container, back-link, heading, "Last updated" line, and the
+ * template-owned Contact section, plus the scoped styles for all of them.
+ *
+ * The shell owns every element the scoped styles target on purpose: Astro
+ * scoped selectors do not reach slotted content, so the markdown <Content />
+ * goes through the default slot untouched — exactly as it was styled (or not)
+ * when each page carried its own copy of this block. The six hand-written
+ * App pages deliberately keep their own markup and styles.
+ */
+import { SITE_EMAIL } from '../consts';
+
+interface Props {
+	/** Which generated App page this is; drives the heading and Contact copy. */
+	kind: 'privacy' | 'support';
+	appId: string;
+	appName: string;
+}
+
+const { kind, appId, appName } = Astro.props;
+const heading = kind === 'privacy' ? 'Privacy Policy' : 'Support';
+const lastUpdated = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<section style="padding-top: 4rem;">
+	<div class="container">
+		<div class="app-page-content">
+			<a href={`/apps/${appId}`} class="back-link"><span aria-hidden="true">←</span> Back to {appName}</a>
+			<h1>{heading}</h1>
+			<p class="app-name">for <strong>{appName}</strong></p>
+			<p class="last-updated">Last updated: {lastUpdated}</p>
+
+			{kind === 'support' && (
+				<Fragment>
+					<h2>Contact</h2>
+					<p>
+						Email <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a> and we will get back to you.
+						{appName} is made by one small studio, so please allow a few business days.
+					</p>
+				</Fragment>
+			)}
+
+			<slot />
+
+			{kind === 'privacy' && (
+				<Fragment>
+					<h2>Contact Us</h2>
+					<p>
+						If you have any questions or suggestions about this Privacy Policy, do not hesitate to contact us at <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.
+					</p>
+				</Fragment>
+			)}
+		</div>
+	</div>
+</section>
+
+<style>
+	.app-page-content {
+		max-width: 680px;
+		line-height: 1.8;
+	}
+	h1 { margin-bottom: 0.25rem; }
+	.app-name { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+	.last-updated {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+		color: var(--text-muted); margin-bottom: 2rem;
+	}
+	h2 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.3rem; }
+	p { margin-bottom: 1rem; color: var(--text-secondary); }
+	ul {
+		list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;
+	}
+	li { margin-bottom: 0.5rem; color: var(--text-secondary); }
+	a { color: var(--accent); }
+</style>

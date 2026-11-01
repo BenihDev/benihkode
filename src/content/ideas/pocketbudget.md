@@ -104,7 +104,7 @@ Revenue paths:
 - No user accounts, no authentication
 - No data transmitted to any server (except AdMob/RevenueCat SDKs per their own policies)
 - Uninstall = complete data deletion
-- Privacy policy hosted publicly at `/projects/pocketbudget/privacy-policy`
+- Privacy policy hosted publicly at `/apps/pocketbudget/privacy`
 
 ## 10. Launch Criteria
 

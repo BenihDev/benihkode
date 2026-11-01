@@ -71,12 +71,6 @@ const jsonLd = [softwareApplicationSchema({ title: tool.data.title, description:
 			</div>
 
 			<BrandSignal subject={tool.data.title} collection="tool" emitSchema={false} />
-
-			{tool.data.hasPrivacyPolicy && (
-				<a href={`/projects/${tool.id}/privacy-policy`} class="privacy-link">
-					Privacy Policy
-				</a>
-			)}
 		</div>
 	</article>
 </BaseLayout>
@@ -214,16 +208,6 @@ const jsonLd = [softwareApplicationSchema({ title: tool.data.title, description:
 	}
 	.project-content :global(code) {
 		font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;
-	}
-
-	.privacy-link {
-		display: inline-block; margin-top: 2rem; padding: 0.5rem 1rem;
-		background: var(--bg-card); border: 1px solid var(--border);
-		border-radius: var(--radius); color: var(--text-secondary);
-		text-decoration: none; font-size: 0.9rem; transition: all 0.3s ease;
-	}
-	.privacy-link:hover {
-		color: var(--accent); border-color: var(--accent);
 	}
 
 	@media (max-width: 768px) {

@@ -7,9 +7,9 @@ This file provides repository guidance for Claude Code and similar coding assist
 BenihKode is a public personal site built with Astro. It includes:
 
 - a blog
-- a projects section
+- a projects section (portfolio index; Apps land at `/apps/<slug>`, Tools at `/tools/<slug>`)
 - an ideas section
-- optional privacy policy pages for selected projects
+- store-facing support and privacy pages for store-distributed Apps, generated under `/apps/<slug>/`
 
 The repository is deployed on Vercel and uses Astro Content Collections for typed content.
 
@@ -32,22 +32,32 @@ pnpm run deploy
 Collection schemas live in `src/content.config.ts`.
 
 - `blog`: `title`, `description`, `pubDate`, optional `updatedDate`, optional `tags`
-- `projects`: `title`, `description`, `emoji`, `techStack`, `order`, optional `url`, optional `hasPrivacyPolicy`, optional `appName`
+- `projects`: `title`, `description`, `emoji`, `techStack`, `order`, optional `url`, optional `category` (`tool`|`app`, default `app`), optional `distributed` (the single marker for an App that ships through an app store), optional `appName`, optional `githubUrl`/`npmPackage`/`installCommand`, optional `icon`
+- `appPages`: long-form per-App page copy keyed by Project slug (`<slug>.md` for privacy clauses, `<slug>-support.md` for support copy)
 - `ideas`: `title`, `description`, `status`, `order`, optional `meta`
 
 Files are loaded from:
 
 - `src/content/blog/`
 - `src/content/projects/`
+- `src/content/app-pages/`
 - `src/content/ideas/`
 
 ### Routing
 
 - `src/pages/blog/[...slug].astro`
 - `src/pages/ideas/[slug].astro`
-- `src/pages/projects/[slug].astro`
-- `src/pages/projects/[slug]/privacy-policy.astro`
+- `src/pages/apps/[slug].astro` — App landings at `/apps/<slug>`; renders the Support and Privacy links
+- `src/pages/apps/[slug]/support.astro` and `src/pages/apps/[slug]/privacy.astro` — generated store-facing pages for Apps with `distributed: true`; they render the App's copy from the `appPages` collection and own the header and contact sections
+- `src/pages/tools/[slug].astro` — Tool pages at `/tools/<slug>`
+- `src/pages/projects/index.astro` — the portfolio index (`/projects/`); it links each card to its canonical landing through `projectLandingHref` (`src/utils/projects.ts`)
 - `src/pages/rss.xml.js`
+
+The store-facing pages hang off the single `distributed: true` frontmatter marker — there are no per-page flags. Every distributed App gets the whole trio (landing, `/apps/<slug>/support`, `/apps/<slug>/privacy`); non-distributed Apps and Tools get no subpages.
+
+File presence is the escape hatch: a hand-written page at `src/pages/apps/<slug>/support.astro` or `src/pages/apps/<slug>/privacy.astro` publishes the same URL the generated route would emit, so the generated route steps aside — each template discovers hand-written pages with `import.meta.glob` and `getSupportStaticPaths` / `getPrivacyPolicyStaticPaths` (`src/utils/projects.ts`) skip those slugs, keeping one page per URL. The Support and Privacy links on a landing are uniform (`getSupportHref` / `getPrivacyPolicyHref`) regardless of which kind of page sits behind them.
+
+The old `/projects/<slug>` URLs are not routes — `scripts/gen-redirects.mjs` (run by `pnpm build` as a prebuild) derives 301 pairs from content frontmatter into `vercel.json`: landings for every project, plus support and privacy pairs for distributed Apps, plus the moved site-level `/support` page, each in both slashless and slashed form. After editing the generator or project frontmatter, run `pnpm build` and commit the regenerated `vercel.json`; `src/utils/redirects.test.ts` fails when the committed file drifts.
 
 ### Layouts and components
 
@@ -77,7 +87,7 @@ Files are loaded from:
 
 ## Skills
 
-- **`.agents/skills/add-project-entry/SKILL.md`** — invoke this when adding a new project entry (post, project card, idea PRD, privacy policy, banner, homepage surfacing). It encodes the content schemas, routing rules (`/projects` vs `/tools`), homepage slice/order pitfalls, and the PR workflow.
+- **`.agents/skills/add-project-entry/SKILL.md`** — invoke this when adding a new project entry (post, project card, idea PRD, App support and privacy pages, banner, homepage surfacing). It encodes the content schemas, routing rules (`/apps` vs `/tools`), homepage slice/order pitfalls, and the PR workflow.
 
 ## Agent skills
 

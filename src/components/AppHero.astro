@@ -1,0 +1,177 @@
+---
+/**
+ * AppHero — the hero block every App landing opens with (pattern set by
+ * ticket #84). Driven entirely by the Project entry's fields, so each App
+ * adopts the same layout without inventing one:
+ *
+ * - identity: `icon` (image) falling back to `emoji`, `title` as the h1,
+ *   `description` beside it
+ * - actions: `url` renders the store call-to-action ("Get the App"), with
+ *   `githubUrl` / `npmPackage` as secondary links; an App without a store
+ *   URL gets no CTA, so unreleased Apps never imply a release
+ * - `installCommand` renders the install section (CLI-style Apps)
+ * - `distributed` renders the Support / Privacy Policy links, resolving to
+ *   the canonical /apps/<slug>/support and /apps/<slug>/privacy pages
+ *
+ * Class hooks for App-specific styling downstream: .app-hero,
+ * .app-hero-identity, .app-hero-heading, .app-hero-actions, .app-hero-pages.
+ */
+import type { CollectionEntry } from 'astro:content';
+import { getPrivacyPolicyHref, getSupportHref } from '../utils/projects';
+
+interface Props {
+	project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, description, emoji, icon, url, githubUrl, npmPackage, installCommand, techStack, distributed } =
+	project.data;
+---
+
+<section class="app-hero">
+	<div class="app-hero-identity">
+		{
+			icon ? (
+				<img src={icon} alt={`${title} app icon`} class="project-icon" loading="lazy" width="80" height="80" />
+			) : (
+				<div class="project-emoji">{emoji}</div>
+			)
+		}
+		<div class="app-hero-heading">
+			<h1>{title}</h1>
+			<p class="project-description">{description}</p>
+		</div>
+	</div>
+
+	<div class="tech-stack">
+		{techStack.map(tech => <span class="tech-badge">{tech}</span>)}
+		{/* apps never render the CLI badge: tools render under /tools/ */}
+	</div>
+
+	<div class="app-hero-actions">
+		{url && (
+			<a href={url} class="project-link" target="_blank" rel="noopener noreferrer">
+				Get the App <span aria-hidden="true">→</span>
+			</a>
+		)}
+		{githubUrl && (
+			<a href={githubUrl} class="project-link github-link" target="_blank" rel="noopener noreferrer">
+				GitHub
+			</a>
+		)}
+		{npmPackage && (
+			<a href={`https://www.npmjs.com/package/${npmPackage}`} class="project-link npm-link" target="_blank" rel="noopener noreferrer">
+				npm
+			</a>
+		)}
+	</div>
+
+	{installCommand && (
+		<div class="install-section">
+			<div class="install-label">Install</div>
+			<code class="install-command">{installCommand}</code>
+		</div>
+	)}
+
+	{distributed && (
+		<nav class="app-hero-pages" aria-label="Support and privacy">
+			<a href={getSupportHref(project)} class="project-page-link">Support</a>
+			<a href={getPrivacyPolicyHref(project)} class="project-page-link">Privacy Policy</a>
+		</nav>
+	)}
+</section>
+
+<style>
+	.app-hero {
+		margin-bottom: 3rem;
+	}
+	.app-hero-identity {
+		display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.25rem;
+	}
+	.project-emoji {
+		font-size: 4rem; line-height: 1;
+	}
+	.project-icon {
+		width: 64px; height: 64px; border-radius: 14px; flex-shrink: 0;
+		box-shadow: 0 6px 18px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.12);
+	}
+	.app-hero-heading h1 {
+		font-size: 2.5rem; font-weight: 800; margin-bottom: 0.25rem;
+		line-height: 1.2; color: var(--text-primary);
+	}
+	.project-description {
+		font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 0;
+		line-height: 1.6;
+	}
+	.tech-stack {
+		display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+	}
+	.tech-badge {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+		padding: 0.25rem 0.6rem; background: var(--bg-card);
+		border: 1px solid var(--border); border-radius: 4px;
+		color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.04em;
+	}
+	.app-hero-actions {
+		display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+	}
+	.project-link {
+		display: inline-block; padding: 0.75rem 1.5rem;
+		background: var(--accent); color: var(--bg-primary);
+		text-decoration: none; border-radius: var(--radius);
+		font-weight: 600; transition: all 0.3s ease; font-size: 0.9rem;
+	}
+	.project-link:hover {
+		transform: translateY(-2px); box-shadow: 0 8px 16px var(--accent-glow);
+	}
+	.npm-link {
+		background: #cb3837;
+	}
+	.npm-link:hover {
+		box-shadow: 0 8px 16px rgba(203, 56, 55, 0.3);
+	}
+	.github-link {
+		background: var(--bg-card); color: var(--text-primary);
+		border: 1px solid var(--border);
+	}
+	.github-link:hover {
+		border-color: var(--accent); color: var(--accent);
+		box-shadow: 0 8px 16px var(--accent-glow);
+	}
+
+	.install-section {
+		margin-bottom: 1.5rem; padding: 1.25rem 1.5rem;
+		background: var(--bg-card); border: 1px solid var(--border);
+		border-radius: var(--radius);
+	}
+	.install-label {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+		text-transform: uppercase; letter-spacing: 0.08em;
+		color: var(--text-muted); margin-bottom: 0.5rem;
+	}
+	.install-command {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.95rem;
+		color: var(--accent); display: block; user-select: all;
+	}
+
+	.app-hero-pages {
+		display: flex; flex-wrap: wrap; gap: 0.75rem;
+	}
+	.project-page-link {
+		display: inline-block; padding: 0.5rem 1rem;
+		background: var(--bg-card); border: 1px solid var(--border);
+		border-radius: var(--radius); color: var(--text-secondary);
+		text-decoration: none; font-size: 0.9rem; transition: all 0.3s ease;
+	}
+	.project-page-link:hover {
+		color: var(--accent); border-color: var(--accent);
+	}
+
+	@media (max-width: 768px) {
+		.app-hero-heading h1 { font-size: 2rem; }
+		.project-emoji { font-size: 3rem; }
+		.project-icon { width: 56px; height: 56px; }
+		.app-hero-actions { flex-direction: column; }
+		.project-link { text-align: center; }
+	}
+</style>

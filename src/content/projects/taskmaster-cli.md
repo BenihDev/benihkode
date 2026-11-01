@@ -5,6 +5,7 @@ emoji: "⚡"
 techStack: ["Rust", "CLI"]
 category: "app"
 order: 1
+installCommand: "cargo install taskmaster-cli"
 ---
 
 Built to scratch my own itch, TaskMaster CLI is a blazing-fast terminal task manager that keeps me focused and organized.

@@ -5,7 +5,7 @@ emoji: "🧮"
 techStack: ["Flutter", "Dart", "Android"]
 category: "app"
 order: 7
-hasPrivacyPolicy: true
+distributed: true
 appName: "Gas Flow Calculator"
 ---
 

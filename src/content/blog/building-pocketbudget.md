@@ -90,7 +90,7 @@ Play Store requires a privacy policy for apps that use AdMob. We wrote a specifi
 - User rights (delete data by uninstalling)
 - No personal financial data transmitted to any server
 
-The policy is hosted at [/projects/pocketbudget/privacy-policy](/projects/pocketbudget/privacy-policy) and linked from the Play Store listing.
+The policy is hosted at [/apps/pocketbudget/privacy](/apps/pocketbudget/privacy) and linked from the Play Store listing.
 
 ## The Numbers (Early)
 

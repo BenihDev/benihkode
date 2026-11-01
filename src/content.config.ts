@@ -28,9 +28,27 @@ const projects = defineCollection({
 		githubUrl: z.string().optional(),
 		installCommand: z.string().optional(),
 		order: z.number().default(0),
-		hasPrivacyPolicy: z.boolean().default(false),
+		// Single marker for an App that ships through an app store. The
+		// store-facing pages hang off it: support at /apps/<slug>/support, the
+		// privacy policy at /apps/<slug>/privacy, and the old /projects URLs
+		// forwarded by scripts/gen-redirects.mjs. A hand-written page at the
+		// same URL is the escape hatch — the generated route steps aside for it.
+		distributed: z.boolean().default(false),
 		appName: z.string().optional(),
 	}),
+});
+
+// Long-form per-App page content, keyed by the Project slug:
+// src/content/app-pages/<slug>.md. Short metadata stays in the projects
+// frontmatter; these documents hold the copy the generated App pages render.
+// <slug>.md is the privacy clauses for /apps/<slug>/privacy and
+// <slug>-support.md is the support copy for /apps/<slug>/support — the page
+// templates own the header and the contact sections, so documents never
+// hardcode the contact address. (A dash, not a dot, keeps the loader's
+// generated id predictable.)
+const appPages = defineCollection({
+	loader: glob({ base: './src/content/app-pages', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({}),
 });
 
 const ideas = defineCollection({
@@ -44,4 +62,4 @@ const ideas = defineCollection({
 	}),
 });
 
-export const collections = { blog, projects, ideas };
+export const collections = { blog, projects, ideas, appPages };

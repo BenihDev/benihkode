@@ -90,7 +90,7 @@ Existing fixes miss the point. Session savers add workflow (you have to *do* som
 - Settings sync via the browser's own `storage.sync` — no Tutupen server exists
 - Closed-tabs log stays in `storage.local` on the device
 - Uninstall = complete data removal
-- Privacy policy hosted at `/projects/tutupen/privacy-policy`
+- Privacy policy hosted at `/apps/tutupen/privacy`
 
 ## 10. Launch Criteria
 

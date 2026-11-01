@@ -1,0 +1,85 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AppHero from '../../components/AppHero.astro';
+import BrandSignal from '../../components/BrandSignal.astro';
+import { mapEntriesToStaticPaths } from '../../utils/routing';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	// Apps render here only: tools render under /tools/ (tools/[slug].astro),
+	// and the redirect generator forwards the old /projects/<slug> URLs so
+	// inbound links keep working.
+	return mapEntriesToStaticPaths(projects.filter(p => p.data.category === 'app'));
+}
+
+type Props = CollectionEntry<'projects'>;
+
+const project = Astro.props;
+const { Content } = await render(project);
+
+const breadcrumbs = [{ label: 'Portfolio', path: '/projects/' }, { label: project.data.title }];
+---
+
+<BaseLayout title={`${project.data.title} — BenihKode Portfolio`} description={project.data.description} breadcrumbs={breadcrumbs}>
+	<article style="padding-top: 4rem;">
+		<div class="container">
+			<a href="/projects" class="back-link"><span aria-hidden="true">←</span> Back to Portfolio</a>
+
+			<AppHero project={project} />
+
+			<div class="project-content">
+				<Content />
+			</div>
+
+			<BrandSignal subject={project.data.title} collection="project" emitSchema={false} />
+		</div>
+	</article>
+</BaseLayout>
+
+<style>
+	.back-link {
+		display: inline-block; margin-bottom: 2rem; color: var(--text-secondary);
+		text-decoration: none; transition: color 0.3s ease;
+	}
+	.back-link:hover { color: var(--accent); }
+
+	.project-content {
+		max-width: 720px; line-height: 1.8;
+	}
+	.project-content :global(h2) {
+		margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.8rem;
+		color: var(--text-primary);
+	}
+	.project-content :global(h3) {
+		margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.4rem;
+		color: var(--text-primary);
+	}
+	.project-content :global(p) {
+		margin-bottom: 1.25rem; color: var(--text-secondary);
+	}
+	.project-content :global(ul) {
+		list-style: disc; padding-left: 1.5rem; margin-bottom: 1.25rem;
+	}
+	.project-content :global(li) {
+		margin-bottom: 0.5rem; color: var(--text-secondary);
+	}
+	.project-content :global(a) {
+		color: var(--accent); text-decoration: none;
+	}
+	.project-content :global(a:hover) {
+		text-decoration: underline;
+	}
+	.project-content :global(pre) {
+		background: var(--bg-card); border: 1px solid var(--border);
+		border-radius: var(--radius); padding: 1.25rem;
+		overflow-x: auto; margin-bottom: 1.5rem;
+	}
+	.project-content :global(code) {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;
+	}
+
+	@media (max-width: 768px) {
+		.project-content { font-size: 0.95rem; }
+	}
+</style>
