@@ -1,24 +1,24 @@
 import { test, expect } from '@playwright/test';
 import { SITE_EMAIL } from '../src/consts';
 
-test('EchoChess project page links to the support page', async ({ page }) => {
+test('EchoChess landing links to the support page', async ({ page }) => {
   // Visit the EchoChess landing at its canonical /apps URL
   await page.goto('/apps/echochess');
 
   // Verify the Support link points at the app-owned support page
   const supportLink = page.locator('#main-content').getByRole('link', { name: 'Support' });
   await expect(supportLink).toBeVisible();
-  await expect(supportLink).toHaveAttribute('href', '/projects/echochess/support');
+  await expect(supportLink).toHaveAttribute('href', '/apps/echochess/support');
 
   // Follow the link: the support page must actually be reachable
   await supportLink.click();
-  await expect(page).toHaveURL('/projects/echochess/support');
+  await expect(page).toHaveURL('/apps/echochess/support');
   await expect(page.getByRole('heading', { name: 'Support', level: 1 })).toBeVisible();
 });
 
 test('EchoChess support page renders its FAQ', async ({ page }) => {
   // Visit the support page at its new app-owned URL
-  await page.goto('/projects/echochess/support');
+  await page.goto('/apps/echochess/support');
 
   // Verify the page title and description name the app
   await expect(page).toHaveTitle(/Support — EchoChess/);

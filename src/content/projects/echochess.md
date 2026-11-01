@@ -6,7 +6,6 @@ techStack: ["SwiftUI", "SwiftData", "CoreHaptics", "WidgetKit"]
 category: "app"
 order: 3
 distributed: true
-hasSupportPage: true
 appName: "EchoChess"
 ---
 

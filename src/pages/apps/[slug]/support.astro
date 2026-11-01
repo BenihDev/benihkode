@@ -1,0 +1,70 @@
+---
+import { type CollectionEntry, getCollection, getEntry, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { SITE_EMAIL } from '../../../consts';
+import { getSupportStaticPaths } from '../../../utils/projects';
+
+export async function getStaticPaths() {
+	// File presence is the escape hatch: a hand-written page at
+	// src/pages/apps/<slug>/support.astro publishes the same URL, so the
+	// generated route must not emit a second page for that App.
+	const handWrittenSlugs = Object.keys(import.meta.glob('/src/pages/apps/*/support.astro'))
+		.map((path) => path.match(/apps\/([^/]+)\/support\.astro/)?.[1])
+		.filter((slug): slug is string => Boolean(slug));
+
+	const projects = await getCollection('projects');
+	return getSupportStaticPaths(projects, new Set(handWrittenSlugs));
+}
+
+type Props = CollectionEntry<'projects'>;
+
+const app = Astro.props;
+const doc = await getEntry('appPages', `${app.id}-support`);
+if (!doc) {
+	throw new Error(`No support document for distributed App '${app.id}' — expected src/content/app-pages/${app.id}-support.md`);
+}
+const { Content } = await render(doc);
+const appName = app.data.appName || app.data.title;
+const lastUpdated = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title={`Support — ${appName}`} description={`Support for ${appName}. Contact us and learn how to report a problem.`}>
+	<section style="padding-top: 4rem;">
+		<div class="container">
+			<div class="support-content">
+				<a href={`/apps/${app.id}`} class="back-link"><span aria-hidden="true">←</span> Back to {appName}</a>
+				<h1>Support</h1>
+				<p class="app-name">for <strong>{appName}</strong></p>
+				<p class="last-updated">Last updated: {lastUpdated}</p>
+
+				<h2>Contact</h2>
+				<p>
+					Email <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a> and we will get back to you.
+					{appName} is made by one small studio, so please allow a few business days.
+				</p>
+
+				<Content />
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.support-content {
+		max-width: 680px;
+		line-height: 1.8;
+	}
+	h1 { margin-bottom: 0.25rem; }
+	.app-name { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+	.last-updated {
+		font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+		color: var(--text-muted); margin-bottom: 2rem;
+	}
+	h2 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.3rem; }
+	p { margin-bottom: 1rem; color: var(--text-secondary); }
+	ul {
+		list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;
+	}
+	li { margin-bottom: 0.5rem; color: var(--text-secondary); }
+	a { color: var(--accent); }
+</style>

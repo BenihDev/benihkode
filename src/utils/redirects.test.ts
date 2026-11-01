@@ -4,7 +4,7 @@ import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { projectRedirects } from '../../scripts/gen-redirects.mjs';
 
-test('distributed app entries emit landing and privacy pairs in both slash forms with a 301', () => {
+test('distributed app entries emit landing, support, and privacy pairs in both slash forms with a 301', () => {
 	const redirects = projectRedirects([{ slug: 'echochess', category: 'app', distributed: true }]);
 
 	// Expected values are literals from the spec, not recomputed from the code
@@ -12,6 +12,16 @@ test('distributed app entries emit landing and privacy pairs in both slash forms
 	assert.deepEqual(redirects, [
 		{ source: '/projects/echochess', destination: 'https://www.benihkode.web.id/apps/echochess/', statusCode: 301 },
 		{ source: '/projects/echochess/', destination: 'https://www.benihkode.web.id/apps/echochess/', statusCode: 301 },
+		{
+			source: '/projects/echochess/support',
+			destination: 'https://www.benihkode.web.id/apps/echochess/support/',
+			statusCode: 301,
+		},
+		{
+			source: '/projects/echochess/support/',
+			destination: 'https://www.benihkode.web.id/apps/echochess/support/',
+			statusCode: 301,
+		},
 		{
 			source: '/projects/echochess/privacy-policy',
 			destination: 'https://www.benihkode.web.id/apps/echochess/privacy/',
@@ -95,4 +105,20 @@ test('vercel.json forwards every shipped app landing, tool landing, and privacy 
 		[],
 		`vercel.json is missing or has stale redirect pairs:\n${stale.join('\n')}`,
 	);
+});
+
+test('vercel.json re-points the site-level /support pair at EchoChess support', async () => {
+	// /support was EchoChess-only and stays a redirect source, now at the
+	// app-owned URL. Literal expectations so a wrong destination fails here.
+	const vercel = JSON.parse(await readFile('vercel.json', 'utf8'));
+	const bySource = new Map<string, { destination: string; statusCode?: number }>(
+		vercel.redirects.map((redirect: { source: string; destination: string; statusCode?: number }) => [redirect.source, redirect]),
+	);
+
+	for (const source of ['/support', '/support/']) {
+		const redirect = bySource.get(source);
+		assert.ok(redirect, `expected a ${source} redirect pair in vercel.json`);
+		assert.equal(redirect.destination, 'https://www.benihkode.web.id/apps/echochess/support/');
+		assert.equal(redirect.statusCode, 301);
+	}
 });

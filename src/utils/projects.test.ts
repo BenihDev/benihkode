@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import { getPrivacyPolicyHref, getPrivacyPolicyStaticPaths, projectLandingHref } from './projects.ts';
+import { getPrivacyPolicyHref, getPrivacyPolicyStaticPaths, getSupportHref, getSupportStaticPaths, projectLandingHref } from './projects.ts';
 
 test('projectLandingHref serves apps at /apps/<slug>', () => {
 	const project = {
@@ -89,4 +89,75 @@ test('getPrivacyPolicyHref returns the canonical /apps privacy URL', () => {
 	// Hand-written and generated policies share one URL under /apps, so the
 	// link does not depend on which kind of page is published.
 	assert.strictEqual(getPrivacyPolicyHref({ id: 'echochess', data: { distributed: true } }), '/apps/echochess/privacy');
+});
+
+test('getSupportStaticPaths returns distributed apps and preserves props', () => {
+	const apps = [
+		{
+			id: 'weathernow',
+			data: {
+				distributed: true,
+				title: 'WeatherNow',
+				emoji: '🌤',
+			},
+		},
+		{
+			id: 'chatmini',
+			data: {
+				distributed: false,
+				title: 'ChatMini',
+			},
+		},
+		{
+			id: 'taskmaster-cli',
+			data: {
+				title: 'TaskMaster CLI',
+			},
+		},
+		{
+			id: 'pocketbudget',
+			data: {
+				distributed: true,
+				techStack: ['React Native', 'SQLite'],
+			},
+		},
+	];
+
+	const result = getSupportStaticPaths(apps);
+
+	assert.strictEqual(result.length, 2);
+	assert.strictEqual(result[0].params.slug, 'weathernow');
+	assert.deepStrictEqual(result[0].props, apps[0]);
+	assert.strictEqual(result[1].params.slug, 'pocketbudget');
+	assert.deepStrictEqual(result[1].props, apps[3]);
+});
+
+test('getSupportStaticPaths excludes apps with a hand-written support page', () => {
+	const apps = [
+		{
+			id: 'echochess',
+			data: { distributed: true },
+		},
+		{
+			id: 'weathernow',
+			data: { distributed: true },
+		},
+	];
+
+	// The escape hatch is file presence: a hand-written page at the same URL
+	// wins, so the generated route must not emit a second page there.
+	const result = getSupportStaticPaths(apps, new Set(['echochess']));
+
+	assert.deepStrictEqual(result.map((path) => path.params.slug), ['weathernow']);
+});
+
+test('getSupportStaticPaths handles empty input', () => {
+	assert.strictEqual(getSupportStaticPaths([]).length, 0);
+	assert.strictEqual(getSupportStaticPaths([], new Set(['echochess'])).length, 0);
+});
+
+test('getSupportHref returns the canonical /apps support URL', () => {
+	// Hand-written and generated support pages share one URL under /apps, so
+	// the link does not depend on which kind of page is published.
+	assert.strictEqual(getSupportHref({ id: 'echochess', data: { distributed: true } }), '/apps/echochess/support');
 });

@@ -45,11 +45,15 @@ async function handWrittenPrivacySlugs(): Promise<string[]> {
 
 /**
  * Privacy content documents, as App slugs. These feed the generated
- * `/apps/<slug>/privacy` route.
+ * `/apps/<slug>/privacy` route. The appPages collection also holds support
+ * documents (`<slug>-support.md`), so only the plain `<slug>.md` naming
+ * counts here.
  */
 async function privacyContentSlugs(): Promise<string[]> {
 	const docs = await readdir(APP_PAGES_DIR);
-	return docs.filter((file) => /\.mdx?$/.test(file)).map((file) => file.replace(/\.mdx?$/, ''));
+	return docs
+		.filter((file) => /\.mdx?$/.test(file) && !/-support\.mdx?$/.test(file))
+		.map((file) => file.replace(/\.mdx?$/, ''));
 }
 
 test('every distributed App has a privacy policy behind it', async () => {
