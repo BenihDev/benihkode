@@ -24,10 +24,10 @@ export const SITE_ORIGIN = 'https://www.benihkode.web.id';
 
 /**
  * Builds the /projects/<slug> forwarding pairs for the given content entries:
- * landing pages for every project, and privacy policies for the
- * store-distributed Apps. Both forms need their own entry: Vercel matched the
- * slashless source exactly and returned 404 for the slashed variant, which is
- * the form most inbound links and search results use.
+ * landing pages for every project, plus support pages and privacy policies for
+ * the store-distributed Apps. Both forms need their own entry: Vercel matched
+ * the slashless source exactly and returned 404 for the slashed variant, which
+ * is the form most inbound links and search results use.
  * @param entries Objects of { slug, category, distributed } derived from project frontmatter.
  * @returns Vercel redirect objects in content order.
  */
@@ -46,6 +46,9 @@ export function projectRedirects(entries) {
 				redirects.push({ source, destination: `${SITE_ORIGIN}/apps/${slug}/`, statusCode: 301 });
 			}
 			if (distributed) {
+				for (const source of [`/projects/${slug}/support`, `/projects/${slug}/support/`]) {
+					redirects.push({ source, destination: `${SITE_ORIGIN}/apps/${slug}/support/`, statusCode: 301 });
+				}
 				for (const source of [`/projects/${slug}/privacy-policy`, `/projects/${slug}/privacy-policy/`]) {
 					redirects.push({ source, destination: `${SITE_ORIGIN}/apps/${slug}/privacy/`, statusCode: 301 });
 				}
@@ -86,15 +89,16 @@ function main() {
 	const existing = existsSync(configPath) ? JSON.parse(readFileSync(configPath, 'utf8')) : {};
 
 	const toolRedirectCount = redirects.filter((redirect) => redirect.destination.includes('/tools/')).length;
-	const appRedirectCount = redirects.filter((redirect) => redirect.destination.includes('/apps/') && !redirect.source.includes('/privacy-policy')).length;
+	const appRedirectCount = redirects.filter((redirect) => redirect.destination.includes('/apps/') && !redirect.source.includes('/support') && !redirect.source.includes('/privacy-policy')).length;
+	const supportRedirectCount = redirects.filter((redirect) => redirect.source.includes('/support')).length;
 	const privacyRedirectCount = redirects.filter((redirect) => redirect.source.includes('/privacy-policy')).length;
 
 	// Site-level pages that moved under the app that owns them. /support was
 	// EchoChess-only, so it now lives at the app's own URL. Both slash forms are
 	// listed for the same reason as the project redirects above.
 	const movedPages = [
-		{ source: '/support', destination: `${SITE_ORIGIN}/projects/echochess/support/` },
-		{ source: '/support/', destination: `${SITE_ORIGIN}/projects/echochess/support/` },
+		{ source: '/support', destination: `${SITE_ORIGIN}/apps/echochess/support/` },
+		{ source: '/support/', destination: `${SITE_ORIGIN}/apps/echochess/support/` },
 	];
 	for (const page of movedPages) {
 		// statusCode 301 rather than permanent: `permanent: true` emits a 308, and
@@ -106,7 +110,7 @@ function main() {
 	writeFileSync(configPath, `${JSON.stringify({ ...existing, redirects }, null, 2)}\n`);
 
 	console.log(
-		`vercel.json: ${redirects.length} redirects (${toolRedirectCount / 2} tools, ${appRedirectCount / 2} app landings, ${privacyRedirectCount / 2} privacy policies, ${movedPages.length} moved pages)`,
+		`vercel.json: ${redirects.length} redirects (${toolRedirectCount / 2} tools, ${appRedirectCount / 2} app landings, ${supportRedirectCount / 2} support pages, ${privacyRedirectCount / 2} privacy policies, ${movedPages.length} moved pages)`,
 	);
 }
 

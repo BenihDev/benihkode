@@ -31,6 +31,16 @@
       "statusCode": 301
     },
     {
+      "source": "/projects/colorpalette-pro/support",
+      "destination": "https://www.benihkode.web.id/apps/colorpalette-pro/support/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/colorpalette-pro/support/",
+      "destination": "https://www.benihkode.web.id/apps/colorpalette-pro/support/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/colorpalette-pro/privacy-policy",
       "destination": "https://www.benihkode.web.id/apps/colorpalette-pro/privacy/",
       "statusCode": 301
@@ -61,6 +71,16 @@
       "statusCode": 301
     },
     {
+      "source": "/projects/echochess/support",
+      "destination": "https://www.benihkode.web.id/apps/echochess/support/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/echochess/support/",
+      "destination": "https://www.benihkode.web.id/apps/echochess/support/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/echochess/privacy-policy",
       "destination": "https://www.benihkode.web.id/apps/echochess/privacy/",
       "statusCode": 301
@@ -88,6 +108,16 @@
     {
       "source": "/projects/gas-flow-calculator/",
       "destination": "https://www.benihkode.web.id/apps/gas-flow-calculator/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/gas-flow-calculator/support",
+      "destination": "https://www.benihkode.web.id/apps/gas-flow-calculator/support/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/gas-flow-calculator/support/",
+      "destination": "https://www.benihkode.web.id/apps/gas-flow-calculator/support/",
       "statusCode": 301
     },
     {
@@ -141,6 +171,16 @@
       "statusCode": 301
     },
     {
+      "source": "/projects/habittracker/support",
+      "destination": "https://www.benihkode.web.id/apps/habittracker/support/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/habittracker/support/",
+      "destination": "https://www.benihkode.web.id/apps/habittracker/support/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/habittracker/privacy-policy",
       "destination": "https://www.benihkode.web.id/apps/habittracker/privacy/",
       "statusCode": 301
@@ -181,6 +221,16 @@
       "statusCode": 301
     },
     {
+      "source": "/projects/pocketbudget/support",
+      "destination": "https://www.benihkode.web.id/apps/pocketbudget/support/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/pocketbudget/support/",
+      "destination": "https://www.benihkode.web.id/apps/pocketbudget/support/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/pocketbudget/privacy-policy",
       "destination": "https://www.benihkode.web.id/apps/pocketbudget/privacy/",
       "statusCode": 301
@@ -211,6 +261,16 @@
       "statusCode": 301
     },
     {
+      "source": "/projects/smartstartup/support",
+      "destination": "https://www.benihkode.web.id/apps/smartstartup/support/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/smartstartup/support/",
+      "destination": "https://www.benihkode.web.id/apps/smartstartup/support/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/smartstartup/privacy-policy",
       "destination": "https://www.benihkode.web.id/apps/smartstartup/privacy/",
       "statusCode": 301
@@ -228,6 +288,16 @@
     {
       "source": "/projects/solstice-cipher/",
       "destination": "https://www.benihkode.web.id/apps/solstice-cipher/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/solstice-cipher/support",
+      "destination": "https://www.benihkode.web.id/apps/solstice-cipher/support/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/solstice-cipher/support/",
+      "destination": "https://www.benihkode.web.id/apps/solstice-cipher/support/",
       "statusCode": 301
     },
     {
@@ -261,6 +331,16 @@
       "statusCode": 301
     },
     {
+      "source": "/projects/tutupen/support",
+      "destination": "https://www.benihkode.web.id/apps/tutupen/support/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/tutupen/support/",
+      "destination": "https://www.benihkode.web.id/apps/tutupen/support/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/tutupen/privacy-policy",
       "destination": "https://www.benihkode.web.id/apps/tutupen/privacy/",
       "statusCode": 301
@@ -291,6 +371,16 @@
       "statusCode": 301
     },
     {
+      "source": "/projects/weathernow/support",
+      "destination": "https://www.benihkode.web.id/apps/weathernow/support/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/weathernow/support/",
+      "destination": "https://www.benihkode.web.id/apps/weathernow/support/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/weathernow/privacy-policy",
       "destination": "https://www.benihkode.web.id/apps/weathernow/privacy/",
       "statusCode": 301
@@ -302,12 +392,12 @@
     },
     {
       "source": "/support",
-      "destination": "https://www.benihkode.web.id/projects/echochess/support/",
+      "destination": "https://www.benihkode.web.id/apps/echochess/support/",
       "statusCode": 301
     },
     {
       "source": "/support/",
-      "destination": "https://www.benihkode.web.id/projects/echochess/support/",
+      "destination": "https://www.benihkode.web.id/apps/echochess/support/",
       "statusCode": 301
     }
   ]
