@@ -3,6 +3,7 @@ import { mapEntriesToStaticPaths } from './routing.ts';
 interface DistributedApp {
 	id: string;
 	data: {
+		category?: 'tool' | 'app';
 		distributed?: boolean;
 	};
 }
@@ -42,7 +43,9 @@ export function getPrivacyPolicyStaticPaths<T extends DistributedApp>(
 	apps: T[],
 	handWrittenSlugs: ReadonlySet<string> = new Set(),
 ) {
-	return mapEntriesToStaticPaths(apps.filter(a => a.data.distributed && !handWrittenSlugs.has(a.id)));
+	return mapEntriesToStaticPaths(
+		apps.filter(a => a.data.distributed && a.data.category === 'app' && !handWrittenSlugs.has(a.id)),
+	);
 }
 
 /**
@@ -72,7 +75,9 @@ export function getSupportStaticPaths<T extends DistributedApp>(
 	apps: T[],
 	handWrittenSlugs: ReadonlySet<string> = new Set(),
 ) {
-	return mapEntriesToStaticPaths(apps.filter(a => a.data.distributed && !handWrittenSlugs.has(a.id)));
+	return mapEntriesToStaticPaths(
+		apps.filter(a => a.data.distributed && a.data.category === 'app' && !handWrittenSlugs.has(a.id)),
+	);
 }
 
 /**

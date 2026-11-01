@@ -25,6 +25,7 @@ test('getPrivacyPolicyStaticPaths returns distributed apps and preserves props',
 		{
 			id: 'echochess',
 			data: {
+				category: 'app' as const,
 				distributed: true,
 				title: 'EchoChess',
 				emoji: '♞',
@@ -46,6 +47,7 @@ test('getPrivacyPolicyStaticPaths returns distributed apps and preserves props',
 		{
 			id: 'weathernow',
 			data: {
+				category: 'app' as const,
 				distributed: true,
 				techStack: ['React', 'ML'],
 			},
@@ -65,11 +67,11 @@ test('getPrivacyPolicyStaticPaths excludes apps with a hand-written privacy page
 	const apps = [
 		{
 			id: 'echochess',
-			data: { distributed: true },
+			data: { category: 'app' as const, distributed: true },
 		},
 		{
 			id: 'weathernow',
-			data: { distributed: true },
+			data: { category: 'app' as const, distributed: true },
 		},
 	];
 
@@ -85,6 +87,19 @@ test('getPrivacyPolicyStaticPaths handles empty input', () => {
 	assert.strictEqual(getPrivacyPolicyStaticPaths([], new Set(['echochess'])).length, 0);
 });
 
+test('getPrivacyPolicyStaticPaths excludes a distributed entry flagged as a tool', () => {
+	// Defense in depth: only Apps grow the store-facing pages, so a tool that
+	// is mis-flagged distributed by mistake must not emit a policy route.
+	const apps = [
+		{
+			id: 'misflagged-tool',
+			data: { category: 'tool' as const, distributed: true },
+		},
+	];
+
+	assert.deepStrictEqual(getPrivacyPolicyStaticPaths(apps), []);
+});
+
 test('getPrivacyPolicyHref returns the canonical /apps privacy URL', () => {
 	// Hand-written and generated policies share one URL under /apps, so the
 	// link does not depend on which kind of page is published.
@@ -96,6 +111,7 @@ test('getSupportStaticPaths returns distributed apps and preserves props', () =>
 		{
 			id: 'weathernow',
 			data: {
+				category: 'app' as const,
 				distributed: true,
 				title: 'WeatherNow',
 				emoji: '🌤',
@@ -117,6 +133,7 @@ test('getSupportStaticPaths returns distributed apps and preserves props', () =>
 		{
 			id: 'pocketbudget',
 			data: {
+				category: 'app' as const,
 				distributed: true,
 				techStack: ['React Native', 'SQLite'],
 			},
@@ -136,11 +153,11 @@ test('getSupportStaticPaths excludes apps with a hand-written support page', () 
 	const apps = [
 		{
 			id: 'echochess',
-			data: { distributed: true },
+			data: { category: 'app' as const, distributed: true },
 		},
 		{
 			id: 'weathernow',
-			data: { distributed: true },
+			data: { category: 'app' as const, distributed: true },
 		},
 	];
 
@@ -154,6 +171,19 @@ test('getSupportStaticPaths excludes apps with a hand-written support page', () 
 test('getSupportStaticPaths handles empty input', () => {
 	assert.strictEqual(getSupportStaticPaths([]).length, 0);
 	assert.strictEqual(getSupportStaticPaths([], new Set(['echochess'])).length, 0);
+});
+
+test('getSupportStaticPaths excludes a distributed entry flagged as a tool', () => {
+	// Defense in depth: only Apps grow the store-facing pages, so a tool that
+	// is mis-flagged distributed by mistake must not emit a support route.
+	const apps = [
+		{
+			id: 'misflagged-tool',
+			data: { category: 'tool' as const, distributed: true },
+		},
+	];
+
+	assert.deepStrictEqual(getSupportStaticPaths(apps), []);
 });
 
 test('getSupportHref returns the canonical /apps support URL', () => {
