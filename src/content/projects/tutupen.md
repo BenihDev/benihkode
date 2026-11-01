@@ -8,8 +8,6 @@ category: "app"
 githubUrl: "https://github.com/fanioz/tutupen"
 order: 0
 distributed: true
-hasPrivacyPolicy: true
-privacyPolicyUrl: "/projects/tutupen/privacy-policy"
 appName: "Tutupen"
 ---
 

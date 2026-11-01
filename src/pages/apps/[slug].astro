@@ -73,12 +73,12 @@ const breadcrumbs = [{ label: 'Portfolio', path: '/projects/' }, { label: projec
 
 			<BrandSignal subject={project.data.title} collection="project" emitSchema={false} />
 
-			{(project.data.hasPrivacyPolicy || project.data.hasSupportPage) && (
+			{(project.data.distributed || project.data.hasSupportPage) && (
 				<div class="project-page-links">
 					{project.data.hasSupportPage && (
 						<a href={`/projects/${project.id}/support`} class="project-page-link">Support</a>
 					)}
-					{project.data.hasPrivacyPolicy && (
+					{project.data.distributed && (
 						<a href={getPrivacyPolicyHref(project)} class="project-page-link">Privacy Policy</a>
 					)}
 				</div>

@@ -6,7 +6,6 @@ techStack: ["Vue", "D3"]
 category: "app"
 order: 4
 distributed: true
-hasPrivacyPolicy: true
 appName: "HabitTracker"
 ---
 

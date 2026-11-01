@@ -7,8 +7,6 @@ category: "app"
 url: "https://apps.microsoft.com/detail/9P0QNS4L0GG8"
 order: 2
 distributed: true
-hasPrivacyPolicy: true
-privacyPolicyUrl: "/projects/smartstartup/privacy-policy"
 appName: "SmartStartup"
 ---
 

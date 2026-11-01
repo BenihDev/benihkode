@@ -6,7 +6,6 @@ techStack: ["Svelte", "AI"]
 category: "app"
 order: 5
 distributed: true
-hasPrivacyPolicy: true
 appName: "ColorPalette Pro"
 ---
 

@@ -28,18 +28,25 @@ const projects = defineCollection({
 		githubUrl: z.string().optional(),
 		installCommand: z.string().optional(),
 		order: z.number().default(0),
-		hasPrivacyPolicy: z.boolean().default(false),
 		hasSupportPage: z.boolean().default(false),
-		// Site-relative path to a hand-written policy page. When set, the
-		// generated /projects/<slug>/privacy-policy route steps aside so the
-		// bespoke page is the only thing published at that URL.
-		privacyPolicyUrl: z.string().regex(/^\//, 'must be a site-relative path').optional(),
-		// Single marker for an App that ships through an app store. Expand half
-		// of an expand–contract: hasPrivacyPolicy/hasSupportPage keep working
-		// until every consumer has migrated to read this field instead.
+		// Single marker for an App that ships through an app store. The
+		// store-facing pages hang off it: the privacy policy at
+		// /apps/<slug>/privacy and the old /projects URLs forwarded by
+		// scripts/gen-redirects.mjs. A hand-written page at the same URL is the
+		// escape hatch — the generated route steps aside for it.
 		distributed: z.boolean().default(false),
 		appName: z.string().optional(),
 	}),
+});
+
+// Long-form per-App page content, keyed by the Project slug:
+// src/content/app-pages/<slug>.md. Short metadata stays in the projects
+// frontmatter; these documents hold the copy the generated App pages render.
+// A document's body is the privacy clauses for /apps/<slug>/privacy — the
+// page template owns the header and the contact section.
+const appPages = defineCollection({
+	loader: glob({ base: './src/content/app-pages', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({}),
 });
 
 const ideas = defineCollection({
@@ -53,4 +60,4 @@ const ideas = defineCollection({
 	}),
 });
 
-export const collections = { blog, projects, ideas };
+export const collections = { blog, projects, ideas, appPages };
