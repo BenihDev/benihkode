@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import { getPrivacyPolicyHref, getPrivacyPolicyStaticPaths, getSupportHref, getSupportStaticPaths, projectLandingHref } from './projects.ts';
+import { getPrivacyPolicyHref, getPrivacyPolicyStaticPaths, getSupportHref, getSupportStaticPaths, handWrittenAppPageSlugs, projectLandingHref } from './projects.ts';
 
 test('projectLandingHref serves apps at /apps/<slug>', () => {
 	const project = {
@@ -190,4 +190,22 @@ test('getSupportHref returns the canonical /apps support URL', () => {
 	// Hand-written and generated support pages share one URL under /apps, so
 	// the link does not depend on which kind of page is published.
 	assert.strictEqual(getSupportHref({ id: 'echochess', data: { distributed: true } }), '/apps/echochess/support');
+});
+
+test('handWrittenAppPageSlugs extracts the App slugs behind import.meta.glob keys', () => {
+	// Glob keys are root-absolute Vite paths; only the matching page kind for
+	// each App counts, and the generated [slug] route never yields a slug.
+	const paths = {
+		'/src/pages/apps/echochess/privacy.astro': {},
+		'/src/pages/apps/pocketbudget/privacy.astro': {},
+		'/src/pages/apps/[slug]/privacy.astro': {},
+		'/src/pages/apps/echochess/support.astro': {},
+	};
+
+	assert.deepStrictEqual(
+		handWrittenAppPageSlugs('privacy', paths),
+		new Set(['echochess', 'pocketbudget']),
+	);
+	assert.deepStrictEqual(handWrittenAppPageSlugs('support', paths), new Set(['echochess']));
+	assert.deepStrictEqual(handWrittenAppPageSlugs('privacy', {}), new Set());
 });

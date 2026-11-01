@@ -2,18 +2,19 @@
 import { type CollectionEntry, getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { SITE_EMAIL } from '../../../consts';
-import { getSupportStaticPaths } from '../../../utils/projects';
+import { getSupportStaticPaths, handWrittenAppPageSlugs } from '../../../utils/projects';
 
 export async function getStaticPaths() {
 	// File presence is the escape hatch: a hand-written page at
 	// src/pages/apps/<slug>/support.astro publishes the same URL, so the
 	// generated route must not emit a second page for that App.
-	const handWrittenSlugs = Object.keys(import.meta.glob('/src/pages/apps/*/support.astro'))
-		.map((path) => path.match(/apps\/([^/]+)\/support\.astro/)?.[1])
-		.filter((slug): slug is string => Boolean(slug));
+	const handWrittenSlugs = handWrittenAppPageSlugs(
+		'support',
+		import.meta.glob('/src/pages/apps/*/support.astro'),
+	);
 
 	const projects = await getCollection('projects');
-	return getSupportStaticPaths(projects, new Set(handWrittenSlugs));
+	return getSupportStaticPaths(projects, handWrittenSlugs);
 }
 
 type Props = CollectionEntry<'projects'>;

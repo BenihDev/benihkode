@@ -2,18 +2,19 @@
 import { type CollectionEntry, getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { SITE_EMAIL } from '../../../consts';
-import { getPrivacyPolicyStaticPaths } from '../../../utils/projects';
+import { getPrivacyPolicyStaticPaths, handWrittenAppPageSlugs } from '../../../utils/projects';
 
 export async function getStaticPaths() {
 	// File presence is the escape hatch: a hand-written page at
 	// src/pages/apps/<slug>/privacy.astro publishes the same URL, so the
 	// generated route must not emit a second page for that App.
-	const handWrittenSlugs = Object.keys(import.meta.glob('/src/pages/apps/*/privacy.astro'))
-		.map((path) => path.match(/apps\/([^/]+)\/privacy\.astro/)?.[1])
-		.filter((slug): slug is string => Boolean(slug));
+	const handWrittenSlugs = handWrittenAppPageSlugs(
+		'privacy',
+		import.meta.glob('/src/pages/apps/*/privacy.astro'),
+	);
 
 	const projects = await getCollection('projects');
-	return getPrivacyPolicyStaticPaths(projects, new Set(handWrittenSlugs));
+	return getPrivacyPolicyStaticPaths(projects, handWrittenSlugs);
 }
 
 type Props = CollectionEntry<'projects'>;

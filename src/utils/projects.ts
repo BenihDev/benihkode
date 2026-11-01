@@ -28,6 +28,31 @@ export function projectLandingHref(project: LandingProject) {
 }
 
 /**
+ * The entries eligible for the generated store-facing App pages: distributed
+ * AND category app. The category check is defense in depth — a tool mis-flagged
+ * `distributed` must not grow an app-only page. Hand-written pages at the same
+ * URL win: emitting the generated page too would publish a second page there
+ * and let one silently shadow the other.
+ */
+function distributedAppStaticPaths<T extends DistributedApp>(
+	apps: T[],
+	handWrittenSlugs: ReadonlySet<string>,
+) {
+	return mapEntriesToStaticPaths(
+		apps.filter(a => a.data.distributed && a.data.category === 'app' && !handWrittenSlugs.has(a.id)),
+	);
+}
+
+/**
+ * Resolves the canonical URL for an App's store-facing page. Hand-written and
+ * generated pages publish at the same URL — `/apps/<slug>/<segment>` — so the
+ * link is uniform and does not depend on which kind of page is behind it.
+ */
+function appPageHref(app: DistributedApp, segment: 'privacy' | 'support') {
+	return `/apps/${app.id}/${segment}`;
+}
+
+/**
  * Maps App collection entries to Astro static paths parameters and props for
  * the generated `/apps/<slug>/privacy` route. Only store-distributed Apps get
  * a policy. Apps that ship a hand-written page at that same URL are skipped:
@@ -43,9 +68,7 @@ export function getPrivacyPolicyStaticPaths<T extends DistributedApp>(
 	apps: T[],
 	handWrittenSlugs: ReadonlySet<string> = new Set(),
 ) {
-	return mapEntriesToStaticPaths(
-		apps.filter(a => a.data.distributed && a.data.category === 'app' && !handWrittenSlugs.has(a.id)),
-	);
+	return distributedAppStaticPaths(apps, handWrittenSlugs);
 }
 
 /**
@@ -56,7 +79,7 @@ export function getPrivacyPolicyStaticPaths<T extends DistributedApp>(
  * @returns A site-relative path to the App's privacy policy page.
  */
 export function getPrivacyPolicyHref(app: DistributedApp) {
-	return `/apps/${app.id}/privacy`;
+	return appPageHref(app, 'privacy');
 }
 
 /**
@@ -75,9 +98,7 @@ export function getSupportStaticPaths<T extends DistributedApp>(
 	apps: T[],
 	handWrittenSlugs: ReadonlySet<string> = new Set(),
 ) {
-	return mapEntriesToStaticPaths(
-		apps.filter(a => a.data.distributed && a.data.category === 'app' && !handWrittenSlugs.has(a.id)),
-	);
+	return distributedAppStaticPaths(apps, handWrittenSlugs);
 }
 
 /**
@@ -88,5 +109,29 @@ export function getSupportStaticPaths<T extends DistributedApp>(
  * @returns A site-relative path to the App's support page.
  */
 export function getSupportHref(app: DistributedApp) {
-	return `/apps/${app.id}/support`;
+	return appPageHref(app, 'support');
+}
+
+/**
+ * Slugs of Apps that ship their own hand-written page for the given kind —
+ * the file-presence escape hatch. The route templates feed this the keys of
+ * their `import.meta.glob(...)` map; the glob itself must stay at the call
+ * site because Vite needs a literal pattern, so only the key-to-slug
+ * extraction lives here (shared by the privacy and support routes).
+ * @param pageKind The generated page kind, 'privacy' or 'support'.
+ * @param pagePaths The record returned by import.meta.glob for that kind.
+ * @returns The distinct App slugs that have a hand-written page file.
+ */
+export function handWrittenAppPageSlugs(
+	pageKind: 'privacy' | 'support',
+	pagePaths: Record<string, unknown>,
+) {
+	const slugs = new Set<string>();
+	for (const path of Object.keys(pagePaths)) {
+		const slug = path.match(new RegExp(`/apps/([^/]+)/${pageKind}\\.astro$`))?.[1];
+		// The bracketed [slug] segment is the generated route's own directory,
+		// never a bespoke page.
+		if (slug && !slug.includes('[')) slugs.add(slug);
+	}
+	return slugs;
 }
