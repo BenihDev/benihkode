@@ -1,16 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { access, readdir, readFile } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { getPrivacyPolicyStaticPaths } from './projects.ts';
 
 const PROJECTS_DIR = 'src/content/projects';
-const PAGES_DIR = 'src/pages';
-
-interface ProjectEntry {
-	id: string;
-	data: { hasPrivacyPolicy?: boolean; privacyPolicyUrl?: string };
-}
+const APP_PAGES_DIR = 'src/content/app-pages';
+const APPS_PAGES_DIR = 'src/pages/apps';
 
 function frontmatterValue(frontmatter: string, key: string) {
 	const match = frontmatter.match(new RegExp(`^${key}:\\s*(.+)$`, 'm'));
@@ -21,99 +16,101 @@ function frontmatterValue(frontmatter: string, key: string) {
  * Reads the real project entries instead of fixtures: the guard has to fail on
  * the content that ships, not on a mock that agrees with the implementation.
  */
-async function projectEntries(): Promise<ProjectEntry[]> {
-	const entries: ProjectEntry[] = [];
+async function distributedApps(): Promise<string[]> {
+	const slugs: string[] = [];
 
 	for (const file of await readdir(PROJECTS_DIR)) {
 		if (!/\.mdx?$/.test(file)) continue;
 		const [, frontmatter = ''] = (await readFile(join(PROJECTS_DIR, file), 'utf8')).split(/^---$/m, 2);
-		const privacyPolicyUrl = frontmatterValue(frontmatter, 'privacyPolicyUrl');
-
-		entries.push({
-			id: file.replace(/\.mdx?$/, ''),
-			data: {
-				hasPrivacyPolicy: frontmatterValue(frontmatter, 'hasPrivacyPolicy') === 'true',
-				...(privacyPolicyUrl ? { privacyPolicyUrl } : {}),
-			},
-		});
+		if (frontmatterValue(frontmatter, 'distributed') === 'true') {
+			slugs.push(file.replace(/\.mdx?$/, ''));
+		}
 	}
 
-	return entries;
+	return slugs;
 }
 
-test('a project that sets privacyPolicyUrl does not also get a generated privacy route', async () => {
-	const entries = await projectEntries();
-	const generated = new Set(getPrivacyPolicyStaticPaths(entries).map((path) => path.params.slug));
+/**
+ * Hand-written policy pages, as App slugs. A page at
+ * `src/pages/apps/<slug>/privacy.astro` publishes `/apps/<slug>/privacy`; the
+ * dynamic `[slug]` directory is the generated route, never a bespoke page.
+ */
+async function handWrittenPrivacySlugs(): Promise<string[]> {
+	const pages = await readdir(APPS_PAGES_DIR, { recursive: true });
+	return pages
+		.map((page) => page.replace(/\\/g, '/'))
+		.filter((page) => /^([^/]+)\/privacy\.astro$/.test(page) && !page.includes('['))
+		.map((page) => page.match(/^([^/]+)\/privacy\.astro$/)![1]);
+}
 
-	const shadowed = entries
-		.filter((entry) => entry.data.privacyPolicyUrl && generated.has(entry.id))
-		.map((entry) => entry.id);
-	assert.deepEqual(
-		shadowed,
-		[],
-		`Generated privacy route collides with a bespoke page: ${shadowed.join(', ')}`,
-	);
+/**
+ * Privacy content documents, as App slugs. These feed the generated
+ * `/apps/<slug>/privacy` route.
+ */
+async function privacyContentSlugs(): Promise<string[]> {
+	const docs = await readdir(APP_PAGES_DIR);
+	return docs.filter((file) => /\.mdx?$/.test(file)).map((file) => file.replace(/\.mdx?$/, ''));
+}
 
-	// The mirror case: a policy link with no page behind it would 404. Every
-	// hasPrivacyPolicy entry needs either the generated route or its own page.
-	const unlinked = entries
-		.filter((entry) => entry.data.hasPrivacyPolicy && !entry.data.privacyPolicyUrl && !generated.has(entry.id))
-		.map((entry) => entry.id);
+test('every distributed App has a privacy policy behind it', async () => {
+	const apps = await distributedApps();
+	assert.ok(apps.length > 0, 'expected at least one distributed App');
+
+	const handWritten = new Set(await handWrittenPrivacySlugs());
+	const contentDocs = new Set(await privacyContentSlugs());
+
+	const missing = apps.filter((slug) => !handWritten.has(slug) && !contentDocs.has(slug));
 	assert.deepEqual(
-		unlinked,
+		missing,
 		[],
-		`Privacy Policy link has no page behind it: ${unlinked.join(', ')}`,
+		`Distributed App without a privacy policy behind it (needs a hand-written page at src/pages/apps/<slug>/privacy.astro or a privacy document at src/content/app-pages/<slug>.md):\n${missing.join('\n')}`,
 	);
 });
 
-/**
- * Hand-written policy pages, as site-relative URLs. The dynamic
- * `[slug]/privacy-policy.astro` route is not a bespoke page: it renders whatever
- * the collection entry asks for.
- */
-async function bespokePrivacyPages(): Promise<string[]> {
-	const pages = await readdir(PAGES_DIR, { recursive: true });
-	return pages
-		.map((page) => page.replace(/\\/g, '/'))
-		.filter((page) => page.endsWith('/privacy-policy.astro') && !page.includes('['))
-		.map((page) => `/${page.replace(/\.astro$/, '')}`);
-}
+test('every hand-written privacy page belongs to a distributed App', async () => {
+	const handWritten = await handWrittenPrivacySlugs();
+	assert.ok(handWritten.length > 0, 'expected at least one hand-written privacy page');
 
-test('every bespoke privacy page is linked from a project entry', async () => {
-	const bespoke = await bespokePrivacyPages();
-	assert.ok(bespoke.length > 0, 'expected at least one bespoke privacy page');
+	const apps = new Set(await distributedApps());
 
-	const referenced = new Set(
-		(await projectEntries())
-			.map((entry) => entry.data.privacyPolicyUrl)
-			.filter((url): url is string => Boolean(url)),
-	);
-
-	const orphans = bespoke.filter((page) => !referenced.has(page));
+	const orphans = handWritten.filter((slug) => !apps.has(slug));
 	assert.deepEqual(
 		orphans,
 		[],
-		`Bespoke privacy page no project entry points at (so it would be shadowed or unreachable):\n${orphans.join('\n')}`,
+		`Hand-written privacy page for a slug that is not a distributed App (so it is unreachable):\n${orphans.join('\n')}`,
 	);
 });
 
-test('every privacyPolicyUrl points at a page that exists', async () => {
-	const entries = (await projectEntries()).filter((entry) => entry.data.privacyPolicyUrl);
-	assert.ok(entries.length > 0, 'expected at least one project to set privacyPolicyUrl');
+test('every privacy content document belongs to a distributed App', async () => {
+	const docs = await privacyContentSlugs();
+	assert.ok(docs.length > 0, 'expected at least one privacy content document');
 
-	const missing: string[] = [];
-	for (const entry of entries) {
-		const page = join(PAGES_DIR, `${entry.data.privacyPolicyUrl}.astro`);
-		try {
-			await access(page);
-		} catch {
-			missing.push(`${entry.id} -> ${entry.data.privacyPolicyUrl} (${page})`);
+	const apps = new Set(await distributedApps());
+
+	const orphans = docs.filter((slug) => !apps.has(slug));
+	assert.deepEqual(
+		orphans,
+		[],
+		`Privacy content document for a slug that is not a distributed App (so it never renders):\n${orphans.join('\n')}`,
+	);
+});
+
+test('the retired privacy fields are gone from every project entry', async () => {
+	// The schema no longer knows these fields, and Astro's zod schemas strip
+	// unknown keys silently — so only a guard catches a leftover in the copy.
+	const leftovers: string[] = [];
+
+	for (const file of await readdir(PROJECTS_DIR)) {
+		if (!/\.mdx?$/.test(file)) continue;
+		const [, frontmatter = ''] = (await readFile(join(PROJECTS_DIR, file), 'utf8')).split(/^---$/m, 2);
+		for (const field of ['hasPrivacyPolicy', 'privacyPolicyUrl']) {
+			if (frontmatterValue(frontmatter, field) !== undefined) leftovers.push(`${file}: ${field}`);
 		}
 	}
 
 	assert.deepEqual(
-		missing,
+		leftovers,
 		[],
-		`privacyPolicyUrl points at a page that does not exist:\n${missing.join('\n')}`,
+		`Retired privacy fields still set — the distributed marker replaced hasPrivacyPolicy, and file presence replaced privacyPolicyUrl:\n${leftovers.join('\n')}`,
 	);
 });

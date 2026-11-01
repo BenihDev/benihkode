@@ -20,7 +20,7 @@ test('SmartStartup app landing displays correctly', async ({ page }) => {
   // Verify the Privacy Policy link points at the policy page
   const privacyLink = page.getByRole('link', { name: 'Privacy Policy' });
   await expect(privacyLink).toBeVisible();
-  await expect(privacyLink).toHaveAttribute('href', '/projects/smartstartup/privacy-policy');
+  await expect(privacyLink).toHaveAttribute('href', '/apps/smartstartup/privacy');
 });
 
 test('SmartStartup landing is not published under /projects', async ({ page }) => {
@@ -42,8 +42,8 @@ test('Portfolio index links SmartStartup at its /apps URL', async ({ page }) => 
 });
 
 test('SmartStartup privacy policy page displays correctly', async ({ page }) => {
-  // Visit the privacy policy page
-  await page.goto('/projects/smartstartup/privacy-policy');
+  // Visit the hand-written privacy policy page at its canonical /apps URL
+  await page.goto('/apps/smartstartup/privacy');
 
   // Verify the page title
   await expect(page).toHaveTitle(/Privacy Policy — SmartStartup/);

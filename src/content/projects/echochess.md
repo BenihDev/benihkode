@@ -6,9 +6,7 @@ techStack: ["SwiftUI", "SwiftData", "CoreHaptics", "WidgetKit"]
 category: "app"
 order: 3
 distributed: true
-hasPrivacyPolicy: true
 hasSupportPage: true
-privacyPolicyUrl: "/projects/echochess/privacy-policy"
 appName: "EchoChess"
 ---
 
@@ -45,4 +43,4 @@ away gradually, and the only thing left to lean on is your own sense of where ev
 
 It is also completely offline. The engine, the scenarios and the daily position all live on the device. There is no
 account, no sync, no analytics, and no subscription — EchoChess will be a one-time purchase on the App Store when
-it ships. See the [privacy policy](/projects/echochess/privacy-policy) for the short version.
+it ships. See the [privacy policy](/apps/echochess/privacy) for the short version.

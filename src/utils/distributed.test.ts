@@ -24,7 +24,7 @@ const DISTRIBUTED_APPS = [
 
 interface ProjectEntry {
 	id: string;
-	data: { distributed?: boolean; hasPrivacyPolicy?: boolean };
+	data: { distributed?: boolean };
 }
 
 function frontmatterValue(frontmatter: string, key: string) {
@@ -47,7 +47,6 @@ async function projectEntries(): Promise<ProjectEntry[]> {
 			id: file.replace(/\.mdx?$/, ''),
 			data: {
 				distributed: frontmatterValue(frontmatter, 'distributed') === 'true',
-				hasPrivacyPolicy: frontmatterValue(frontmatter, 'hasPrivacyPolicy') === 'true',
 			},
 		});
 	}
@@ -60,13 +59,4 @@ test('the distributed marker is set on exactly the nine store-distributed Apps',
 	const distributed = entries.filter((entry) => entry.data.distributed).map((entry) => entry.id);
 
 	assert.deepEqual(distributed.sort(), [...DISTRIBUTED_APPS].sort());
-});
-
-test('while no consumer has migrated, the marker stays in sync with hasPrivacyPolicy', async () => {
-	const entries = await projectEntries();
-
-	const distributed = entries.filter((entry) => entry.data.distributed).map((entry) => entry.id);
-	const flagged = entries.filter((entry) => entry.data.hasPrivacyPolicy).map((entry) => entry.id);
-
-	assert.deepEqual(distributed.sort(), flagged.sort());
 });
