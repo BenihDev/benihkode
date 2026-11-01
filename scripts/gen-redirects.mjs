@@ -63,11 +63,38 @@ export function projectRedirects(entries) {
 /**
  * Reads a raw value from a frontmatter block, unquoted. The generator cannot
  * use the content schema (it runs before Astro), so it parses frontmatter
- * directly.
+ * directly. Exported so the guard tests parse frontmatter exactly like the
+ * generator does instead of carrying their own copies.
  */
-function frontmatterValue(frontmatter, key) {
+export function frontmatterValue(frontmatter, key) {
 	const match = frontmatter.match(new RegExp(`^${key}:\\s*(.+)$`, 'm'));
 	return match?.[1].trim().replace(/^["']|["']$/g, '') ?? '';
+}
+
+/**
+ * Parses a frontmatter boolean the way Astro's YAML loader accepts it:
+ * case-insensitive true/yes. Anything else — including the key being absent —
+ * is not distributed.
+ */
+export function frontmatterBoolean(frontmatter, key) {
+	return /^(true|yes)$/i.test(frontmatterValue(frontmatter, key));
+}
+
+/**
+ * Parses one project entry from raw frontmatter the way the content schema
+ * would: category falls back to 'app' when the frontmatter omits it (the zod
+ * schema is z.enum(['tool', 'app']).default('app')), and distributed is a
+ * YAML boolean, not a bare 'true' string compare.
+ * @param slug The entry slug (the content file name without extension).
+ * @param frontmatter The raw frontmatter block of the content file.
+ * @returns An entry of { slug, category, distributed } for projectRedirects().
+ */
+export function projectEntry(slug, frontmatter) {
+	return {
+		slug,
+		category: frontmatterValue(frontmatter, 'category') || 'app',
+		distributed: frontmatterBoolean(frontmatter, 'distributed'),
+	};
 }
 
 function main() {
@@ -76,11 +103,7 @@ function main() {
 		if (!/\.mdx?$/.test(file)) continue;
 		const slug = file.replace(/\.mdx?$/, '');
 		const frontmatter = readFileSync(new URL(file, `file://${contentDir}`), 'utf8').split(/^---$/m)[1] ?? '';
-		entries.push({
-			slug,
-			category: frontmatterValue(frontmatter, 'category'),
-			distributed: frontmatterValue(frontmatter, 'distributed') === 'true',
-		});
+		entries.push(projectEntry(slug, frontmatter));
 	}
 
 	const redirects = projectRedirects(entries);

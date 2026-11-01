@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
-import { projectRedirects } from '../../scripts/gen-redirects.mjs';
+import { projectEntry, projectRedirects } from '../../scripts/gen-redirects.mjs';
 
 test('distributed app entries emit landing, support, and privacy pairs in both slash forms with a 301', () => {
 	const redirects = projectRedirects([{ slug: 'echochess', category: 'app', distributed: true }]);
@@ -56,6 +56,29 @@ test('tool entries keep their existing pairs pointing at /tools/<slug>', () => {
 test('entries with a category outside tool/app emit no redirect', () => {
 	assert.deepEqual(projectRedirects([{ slug: 'mystery', category: 'widget', distributed: true }]), []);
 	assert.deepEqual(projectRedirects([{ slug: 'mystery', category: '', distributed: false }]), []);
+});
+
+test('a missing category falls back to app, matching the content schema default', () => {
+	// The zod schema is z.enum(['tool', 'app']).default('app'), so an entry
+	// without a category line IS an app — the generator must treat it the same
+	// way instead of silently emitting no redirects for it.
+	assert.deepEqual(projectEntry('chatmini', 'title: ChatMini\n'), {
+		slug: 'chatmini',
+		category: 'app',
+		distributed: false,
+	});
+	assert.equal(projectEntry('gitprgen', 'category: tool\ndistributed: false\n').category, 'tool');
+});
+
+test('distributed parses the YAML boolean spellings Astro accepts, case-insensitively', () => {
+	for (const variant of ['true', 'True', 'TRUE', 'yes', 'Yes', 'YES']) {
+		assert.equal(projectEntry('x', `distributed: ${variant}\n`).distributed, true, variant);
+	}
+	for (const variant of ['false', 'False', 'no', 'No', '0', '']) {
+		assert.equal(projectEntry('x', `distributed: ${variant}\n`).distributed, false, variant);
+	}
+	// Absent key is not distributed.
+	assert.equal(projectEntry('x', 'title: x\n').distributed, false);
 });
 
 /**
