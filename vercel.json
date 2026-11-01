@@ -11,6 +11,26 @@
       "permanent": true
     },
     {
+      "source": "/projects/chatmini",
+      "destination": "https://www.benihkode.web.id/apps/chatmini/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/chatmini/",
+      "destination": "https://www.benihkode.web.id/apps/chatmini/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/colorpalette-pro",
+      "destination": "https://www.benihkode.web.id/apps/colorpalette-pro/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/colorpalette-pro/",
+      "destination": "https://www.benihkode.web.id/apps/colorpalette-pro/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/domainforge",
       "destination": "https://www.benihkode.web.id/tools/domainforge/",
       "permanent": true
@@ -21,6 +41,16 @@
       "permanent": true
     },
     {
+      "source": "/projects/echochess",
+      "destination": "https://www.benihkode.web.id/apps/echochess/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/echochess/",
+      "destination": "https://www.benihkode.web.id/apps/echochess/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/envtainer",
       "destination": "https://www.benihkode.web.id/tools/envtainer/",
       "permanent": true
@@ -29,6 +59,16 @@
       "source": "/projects/envtainer/",
       "destination": "https://www.benihkode.web.id/tools/envtainer/",
       "permanent": true
+    },
+    {
+      "source": "/projects/gas-flow-calculator",
+      "destination": "https://www.benihkode.web.id/apps/gas-flow-calculator/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/gas-flow-calculator/",
+      "destination": "https://www.benihkode.web.id/apps/gas-flow-calculator/",
+      "statusCode": 301
     },
     {
       "source": "/projects/gitcommitgen",
@@ -61,6 +101,16 @@
       "permanent": true
     },
     {
+      "source": "/projects/habittracker",
+      "destination": "https://www.benihkode.web.id/apps/habittracker/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/habittracker/",
+      "destination": "https://www.benihkode.web.id/apps/habittracker/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/jsonask",
       "destination": "https://www.benihkode.web.id/tools/jsonask/",
       "permanent": true
@@ -81,6 +131,16 @@
       "permanent": true
     },
     {
+      "source": "/projects/pocketbudget",
+      "destination": "https://www.benihkode.web.id/apps/pocketbudget/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/pocketbudget/",
+      "destination": "https://www.benihkode.web.id/apps/pocketbudget/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/secretsweep",
       "destination": "https://www.benihkode.web.id/tools/secretsweep/",
       "permanent": true
@@ -89,6 +149,66 @@
       "source": "/projects/secretsweep/",
       "destination": "https://www.benihkode.web.id/tools/secretsweep/",
       "permanent": true
+    },
+    {
+      "source": "/projects/smartstartup",
+      "destination": "https://www.benihkode.web.id/apps/smartstartup/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/smartstartup/",
+      "destination": "https://www.benihkode.web.id/apps/smartstartup/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/solstice-cipher",
+      "destination": "https://www.benihkode.web.id/apps/solstice-cipher/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/solstice-cipher/",
+      "destination": "https://www.benihkode.web.id/apps/solstice-cipher/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/taskmaster-cli",
+      "destination": "https://www.benihkode.web.id/apps/taskmaster-cli/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/taskmaster-cli/",
+      "destination": "https://www.benihkode.web.id/apps/taskmaster-cli/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/tutupen",
+      "destination": "https://www.benihkode.web.id/apps/tutupen/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/tutupen/",
+      "destination": "https://www.benihkode.web.id/apps/tutupen/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/typingspeed",
+      "destination": "https://www.benihkode.web.id/apps/typingspeed/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/typingspeed/",
+      "destination": "https://www.benihkode.web.id/apps/typingspeed/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/weathernow",
+      "destination": "https://www.benihkode.web.id/apps/weathernow/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/weathernow/",
+      "destination": "https://www.benihkode.web.id/apps/weathernow/",
+      "statusCode": 301
     },
     {
       "source": "/support",
