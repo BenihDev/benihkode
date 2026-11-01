@@ -3,7 +3,7 @@ import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BrandSignal from '../../components/BrandSignal.astro';
 import { mapEntriesToStaticPaths } from '../../utils/routing';
-import { getPrivacyPolicyHref } from '../../utils/projects';
+import { getPrivacyPolicyHref, getSupportHref } from '../../utils/projects';
 
 export async function getStaticPaths() {
 	const projects = await getCollection('projects');
@@ -73,14 +73,10 @@ const breadcrumbs = [{ label: 'Portfolio', path: '/projects/' }, { label: projec
 
 			<BrandSignal subject={project.data.title} collection="project" emitSchema={false} />
 
-			{(project.data.distributed || project.data.hasSupportPage) && (
+			{project.data.distributed && (
 				<div class="project-page-links">
-					{project.data.hasSupportPage && (
-						<a href={`/projects/${project.id}/support`} class="project-page-link">Support</a>
-					)}
-					{project.data.distributed && (
-						<a href={getPrivacyPolicyHref(project)} class="project-page-link">Privacy Policy</a>
-					)}
+					<a href={getSupportHref(project)} class="project-page-link">Support</a>
+					<a href={getPrivacyPolicyHref(project)} class="project-page-link">Privacy Policy</a>
 				</div>
 			)}
 		</div>

@@ -2,20 +2,21 @@ import test from 'node:test';
 import assert from 'node:assert';
 import { readdir, readFile } from 'node:fs/promises';
 
-// Privacy policy page sources (src/pages/apps/<slug>/privacy.astro) and the
-// content documents that feed the generated policy
-// (src/content/app-pages/<slug>.md). A hardcoded address in any of them would
-// drift from src/consts.ts, so they all get scanned.
-const PRIVACY_SOURCE_DIRS = ['src/pages/apps', 'src/content/app-pages'];
+// Privacy policy and support page sources (src/pages/apps/<slug>/{privacy,
+// support}.astro) plus the content documents that feed the generated routes
+// (src/content/app-pages/<slug>.md and <slug>-support.md). A hardcoded
+// address in any of them would drift from src/consts.ts, so they all get
+// scanned.
+const PAGE_SOURCE_DIRS = ['src/pages/apps', 'src/content/app-pages'];
 const EMAIL_LITERAL = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
 
-async function privacyPolicySources() {
+async function contactPageSources() {
 	const files: string[] = [];
 
-	for (const dir of PRIVACY_SOURCE_DIRS) {
+	for (const dir of PAGE_SOURCE_DIRS) {
 		for (const entry of await readdir(dir, { recursive: true })) {
 			const path = `${dir}/${entry.replace(/\\/g, '/')}`;
-			if (/\/privacy\.astro$/.test(path) || /\.mdx?$/.test(path)) {
+			if (/\/(privacy|support)\.astro$/.test(path) || /\.mdx?$/.test(path)) {
 				files.push(path);
 			}
 		}
@@ -24,8 +25,8 @@ async function privacyPolicySources() {
 	return files;
 }
 
-test('privacy policies read the contact address from SITE_EMAIL', async () => {
-	const files = await privacyPolicySources();
+test('privacy policies and support pages read the contact address from SITE_EMAIL', async () => {
+	const files = await contactPageSources();
 	assert.ok(files.length > 0, 'expected at least one privacy policy page or document');
 
 	const offenders: string[] = [];
