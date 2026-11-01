@@ -5,6 +5,7 @@ emoji: "♞"
 techStack: ["SwiftUI", "SwiftData", "CoreHaptics", "WidgetKit"]
 category: "app"
 order: 3
+distributed: true
 hasPrivacyPolicy: true
 hasSupportPage: true
 privacyPolicyUrl: "/projects/echochess/privacy-policy"

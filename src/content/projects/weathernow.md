@@ -5,6 +5,7 @@ emoji: "🌤"
 techStack: ["React", "ML"]
 category: "app"
 order: 2
+distributed: true
 hasPrivacyPolicy: true
 appName: "WeatherNow"
 ---
