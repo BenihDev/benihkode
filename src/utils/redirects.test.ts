@@ -4,6 +4,9 @@ import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { projectEntry, projectRedirects } from '../../scripts/gen-redirects.mjs';
 
+// The guard parses the real entries with the generator's own parser, so this
+// check can never drift from what the prebuild actually derived.
+
 test('distributed app entries emit landing, support, and privacy pairs in both slash forms with a 301', () => {
 	const redirects = projectRedirects([{ slug: 'echochess', category: 'app', distributed: true }]);
 
@@ -85,20 +88,14 @@ test('distributed parses the YAML boolean spellings Astro accepts, case-insensit
  * Reads the real project entries instead of fixtures: the guard has to fail on
  * the content that ships, not on a mock that agrees with the implementation.
  */
-async function contentEntries(): Promise<Map<string, { category: string; distributed: boolean }>> {
-	const entries = new Map<string, { category: string; distributed: boolean }>();
+async function contentEntries(): Promise<Map<string, { slug: string; category: string; distributed: boolean }>> {
+	const entries = new Map<string, { slug: string; category: string; distributed: boolean }>();
 
 	for (const file of await readdir('src/content/projects')) {
 		if (!/\.mdx?$/.test(file)) continue;
 		const [, frontmatter = ''] = (await readFile(join('src/content/projects', file), 'utf8')).split(/^---$/m, 2);
-		const frontmatterValue = (key: string) => {
-			const match = frontmatter.match(new RegExp(`^${key}:\\s*(.+)$`, 'm'));
-			return match?.[1].trim().replace(/^["']|["']$/g, '') ?? '';
-		};
-		entries.set(file.replace(/\.mdx?$/, ''), {
-			category: frontmatterValue('category'),
-			distributed: frontmatterValue('distributed') === 'true',
-		});
+		const entry = projectEntry(file.replace(/\.mdx?$/, ''), frontmatter);
+		entries.set(entry.slug, entry);
 	}
 
 	return entries;
@@ -114,8 +111,8 @@ test('vercel.json forwards every shipped app landing, tool landing, and privacy 
 	);
 
 	const stale: string[] = [];
-	for (const [slug, entry] of entries) {
-		for (const expected of projectRedirects([{ slug, ...entry }])) {
+	for (const entry of entries.values()) {
+		for (const expected of projectRedirects([entry])) {
 			const actual = emitted.get(expected.source);
 			if (!actual || actual.destination !== expected.destination) {
 				stale.push(`${expected.source} -> ${expected.destination} (missing or stale; run pnpm build)`);
