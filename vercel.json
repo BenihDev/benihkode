@@ -31,6 +31,16 @@
       "statusCode": 301
     },
     {
+      "source": "/projects/colorpalette-pro/privacy-policy",
+      "destination": "https://www.benihkode.web.id/apps/colorpalette-pro/privacy/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/colorpalette-pro/privacy-policy/",
+      "destination": "https://www.benihkode.web.id/apps/colorpalette-pro/privacy/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/domainforge",
       "destination": "https://www.benihkode.web.id/tools/domainforge/",
       "permanent": true
@@ -51,6 +61,16 @@
       "statusCode": 301
     },
     {
+      "source": "/projects/echochess/privacy-policy",
+      "destination": "https://www.benihkode.web.id/apps/echochess/privacy/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/echochess/privacy-policy/",
+      "destination": "https://www.benihkode.web.id/apps/echochess/privacy/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/envtainer",
       "destination": "https://www.benihkode.web.id/tools/envtainer/",
       "permanent": true
@@ -68,6 +88,16 @@
     {
       "source": "/projects/gas-flow-calculator/",
       "destination": "https://www.benihkode.web.id/apps/gas-flow-calculator/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/gas-flow-calculator/privacy-policy",
+      "destination": "https://www.benihkode.web.id/apps/gas-flow-calculator/privacy/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/gas-flow-calculator/privacy-policy/",
+      "destination": "https://www.benihkode.web.id/apps/gas-flow-calculator/privacy/",
       "statusCode": 301
     },
     {
@@ -111,6 +141,16 @@
       "statusCode": 301
     },
     {
+      "source": "/projects/habittracker/privacy-policy",
+      "destination": "https://www.benihkode.web.id/apps/habittracker/privacy/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/habittracker/privacy-policy/",
+      "destination": "https://www.benihkode.web.id/apps/habittracker/privacy/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/jsonask",
       "destination": "https://www.benihkode.web.id/tools/jsonask/",
       "permanent": true
@@ -141,6 +181,16 @@
       "statusCode": 301
     },
     {
+      "source": "/projects/pocketbudget/privacy-policy",
+      "destination": "https://www.benihkode.web.id/apps/pocketbudget/privacy/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/pocketbudget/privacy-policy/",
+      "destination": "https://www.benihkode.web.id/apps/pocketbudget/privacy/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/secretsweep",
       "destination": "https://www.benihkode.web.id/tools/secretsweep/",
       "permanent": true
@@ -161,6 +211,16 @@
       "statusCode": 301
     },
     {
+      "source": "/projects/smartstartup/privacy-policy",
+      "destination": "https://www.benihkode.web.id/apps/smartstartup/privacy/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/smartstartup/privacy-policy/",
+      "destination": "https://www.benihkode.web.id/apps/smartstartup/privacy/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/solstice-cipher",
       "destination": "https://www.benihkode.web.id/apps/solstice-cipher/",
       "statusCode": 301
@@ -168,6 +228,16 @@
     {
       "source": "/projects/solstice-cipher/",
       "destination": "https://www.benihkode.web.id/apps/solstice-cipher/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/solstice-cipher/privacy-policy",
+      "destination": "https://www.benihkode.web.id/apps/solstice-cipher/privacy/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/solstice-cipher/privacy-policy/",
+      "destination": "https://www.benihkode.web.id/apps/solstice-cipher/privacy/",
       "statusCode": 301
     },
     {
@@ -191,6 +261,16 @@
       "statusCode": 301
     },
     {
+      "source": "/projects/tutupen/privacy-policy",
+      "destination": "https://www.benihkode.web.id/apps/tutupen/privacy/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/tutupen/privacy-policy/",
+      "destination": "https://www.benihkode.web.id/apps/tutupen/privacy/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/typingspeed",
       "destination": "https://www.benihkode.web.id/apps/typingspeed/",
       "statusCode": 301
@@ -208,6 +288,16 @@
     {
       "source": "/projects/weathernow/",
       "destination": "https://www.benihkode.web.id/apps/weathernow/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/weathernow/privacy-policy",
+      "destination": "https://www.benihkode.web.id/apps/weathernow/privacy/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/weathernow/privacy-policy/",
+      "destination": "https://www.benihkode.web.id/apps/weathernow/privacy/",
       "statusCode": 301
     },
     {
