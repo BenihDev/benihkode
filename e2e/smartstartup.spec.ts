@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { SITE_EMAIL } from '../src/consts';
 
-test('SmartStartup project page displays correctly', async ({ page }) => {
-  // Visit the SmartStartup project page
-  await page.goto('/projects/smartstartup');
+test('SmartStartup app landing displays correctly', async ({ page }) => {
+  // Visit the SmartStartup landing at its canonical /apps URL
+  await page.goto('/apps/smartstartup');
 
   // Verify the page title
-  await expect(page).toHaveTitle(/SmartStartup — Projects/);
+  await expect(page).toHaveTitle(/SmartStartup — BenihKode Portfolio/);
 
   // Verify the main heading
   await expect(page.getByRole('heading', { name: 'SmartStartup', level: 1 })).toBeVisible();
@@ -21,6 +21,24 @@ test('SmartStartup project page displays correctly', async ({ page }) => {
   const privacyLink = page.getByRole('link', { name: 'Privacy Policy' });
   await expect(privacyLink).toBeVisible();
   await expect(privacyLink).toHaveAttribute('href', '/projects/smartstartup/privacy-policy');
+});
+
+test('SmartStartup landing is not published under /projects', async ({ page }) => {
+  // Apps moved to /apps/<slug>: the old path must not render a second copy of
+  // the landing. In production Vercel 301s it (see vercel.json); the dev
+  // server does not serve vercel.json, so it answers with the 404 page.
+  await page.goto('/projects/smartstartup');
+
+  await expect(page).toHaveTitle(/404 — Lost in the Garden/);
+  await expect(page.getByRole('heading', { name: "This Seed Hasn't Sprouted Yet" })).toBeVisible();
+});
+
+test('Portfolio index links SmartStartup at its /apps URL', async ({ page }) => {
+  await page.goto('/projects');
+
+  const cardLink = page.locator('#main-content').getByRole('link', { name: /SmartStartup/ }).first();
+  await expect(cardLink).toBeVisible();
+  await expect(cardLink).toHaveAttribute('href', '/apps/smartstartup');
 });
 
 test('SmartStartup privacy policy page displays correctly', async ({ page }) => {
@@ -57,8 +75,8 @@ test('SmartStartup privacy policy page displays correctly', async ({ page }) => 
   await expect(contact).toBeVisible();
   await expect(contact).toHaveAttribute('href', `mailto:${SITE_EMAIL}`);
 
-  // Verify the back link returns to the project page
+  // Verify the back link returns to the app landing
   const back = page.getByRole('link', { name: '← Back to SmartStartup' });
   await expect(back).toBeVisible();
-  await expect(back).toHaveAttribute('href', '/projects/smartstartup');
+  await expect(back).toHaveAttribute('href', '/apps/smartstartup');
 });

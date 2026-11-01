@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { projectLandingHref } from '../utils/projects';
 
 export async function GET(context) {
   const siteUrl = (context.site?.toString() || 'https://benihkode.web.id').replace(/\/$/, '');
@@ -39,7 +40,7 @@ export async function GET(context) {
 
   lines.push('## Projects', '');
   for (const project of projects) {
-    const url = `${siteUrl}/projects/${project.id}/`;
+    const url = `${siteUrl}${projectLandingHref(project)}/`;
     lines.push(`### ${project.data.emoji} ${project.data.title}`, '', project.data.description, '');
     lines.push(`URL: ${url}`);
     lines.push(`Category: ${project.data.category}`);

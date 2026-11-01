@@ -1,6 +1,24 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import { getPrivacyPolicyHref, getPrivacyPolicyStaticPaths } from './projects.ts';
+import { getPrivacyPolicyHref, getPrivacyPolicyStaticPaths, projectLandingHref } from './projects.ts';
+
+test('projectLandingHref serves apps at /apps/<slug>', () => {
+	const project = {
+		id: 'smartstartup',
+		data: { category: 'app' as const },
+	};
+
+	assert.strictEqual(projectLandingHref(project), '/apps/smartstartup');
+});
+
+test('projectLandingHref serves tools at /tools/<slug>', () => {
+	const project = {
+		id: 'gitprgen',
+		data: { category: 'tool' as const },
+	};
+
+	assert.strictEqual(projectLandingHref(project), '/tools/gitprgen');
+});
 
 test('getPrivacyPolicyStaticPaths returns projects with hasPrivacyPolicy: true and preserves props', () => {
 	const mockProjects = [

@@ -7,9 +7,10 @@ import { getPrivacyPolicyHref } from '../../utils/projects';
 
 export async function getStaticPaths() {
 	const projects = await getCollection('projects');
-	// Tools render under /tools/ (tools/[slug].astro); emitting them here too
-	// publishes one record at two self-canonical URLs.
-	return mapEntriesToStaticPaths(projects.filter(p => p.data.category !== 'tool'));
+	// Apps render here only: tools render under /tools/ (tools/[slug].astro),
+	// and the redirect generator forwards the old /projects/<slug> URLs so
+	// inbound links keep working.
+	return mapEntriesToStaticPaths(projects.filter(p => p.data.category === 'app'));
 }
 
 type Props = CollectionEntry<'projects'>;
