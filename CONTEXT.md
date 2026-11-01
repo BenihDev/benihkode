@@ -29,7 +29,7 @@ Umbrella term for shipped work. The `category` field splits display: Apps appear
 _Avoid_: product, repo
 
 **App**:
-A Project aimed at end users, often store-distributed with its own privacy policy page.
+A Project aimed at end users. Store-distributed Apps (marked `distributed`) ship the store-facing pages by default: support and privacy hang off the landing at `/apps/<slug>`.
 _Avoid_: consumer app, mobile app (Apps are not necessarily mobile)
 
 **Tool**:
@@ -45,5 +45,5 @@ The blog section as a whole. Contains Build Stories and standalone learning note
 _Avoid_: blog (in domain talk; fine in UI copy)
 
 **Artifact Set**:
-The five documents a flagship ship receives: Idea PRD, Project card, Build Story, privacy policy page (only when the App is store-distributed), and support page (only when the App needs one for store review). One-off experiments may skip the PRD.
+The five documents a flagship ship receives: Idea PRD, Project card, Build Story, support page, and privacy policy page. The last two come as the default set for a store-distributed App, published at `/apps/<slug>/support` and `/apps/<slug>/privacy` — not an opt-in for when store review asks. One-off experiments may skip the PRD.
 _Avoid_: full entry, complete set
