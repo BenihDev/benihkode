@@ -9,7 +9,7 @@ BenihKode is a personal site built with [Astro](https://astro.build). It combine
 - Blog posts about building, debugging, and shipping software
 - Project pages for completed work
 - Product idea pages written as lightweight PRDs
-- Project-specific privacy policy pages when needed
+- Support and privacy pages for store-distributed apps
 
 ## Stack
 
@@ -60,6 +60,7 @@ The site uses Astro Content Collections defined in `src/content.config.ts`:
 
 - `blog`: posts with `title`, `description`, and `pubDate`
 - `projects`: portfolio entries with metadata such as `emoji`, `techStack`, and `order`
+- `appPages`: long-form support and privacy copy for store-distributed apps
 - `ideas`: product idea entries with `status` and ordering metadata
 
 Content files live under `src/content/{collection}/` and can be written in Markdown or MDX.
