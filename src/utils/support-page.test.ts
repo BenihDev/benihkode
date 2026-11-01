@@ -65,7 +65,7 @@ test('every distributed App has a support page behind it', async () => {
 	assert.deepEqual(
 		missing,
 		[],
-		`Distributed App without a support page behind it (needs a hand-written page at src/pages/apps/<slug>/support.astro or a support document at src/content/app-pages/<slug>.support.md):\n${missing.join('\n')}`,
+		`Distributed App without a support page behind it (needs a hand-written page at src/pages/apps/<slug>/support.astro or a support document at src/content/app-pages/<slug>-support.md):\n${missing.join('\n')}`,
 	);
 });
 
