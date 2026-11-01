@@ -6,6 +6,7 @@ techStack: ["React Native", "Expo", "SQLite", "AdMob"]
 category: "app"
 url: "https://play.google.com/store/apps/details?id=com.benihkode.pocketbudget"
 order: 1
+distributed: true
 hasPrivacyPolicy: true
 privacyPolicyUrl: "/projects/pocketbudget/privacy-policy"
 appName: "PocketBudget"

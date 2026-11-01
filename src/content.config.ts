@@ -34,6 +34,10 @@ const projects = defineCollection({
 		// generated /projects/<slug>/privacy-policy route steps aside so the
 		// bespoke page is the only thing published at that URL.
 		privacyPolicyUrl: z.string().regex(/^\//, 'must be a site-relative path').optional(),
+		// Single marker for an App that ships through an app store. Expand half
+		// of an expand–contract: hasPrivacyPolicy/hasSupportPage keep working
+		// until every consumer has migrated to read this field instead.
+		distributed: z.boolean().default(false),
 		appName: z.string().optional(),
 	}),
 });

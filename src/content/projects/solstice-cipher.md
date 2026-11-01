@@ -5,6 +5,7 @@ emoji: "🧩"
 techStack: ["Godot", "GDScript", "Android"]
 category: "app"
 order: 11
+distributed: true
 hasPrivacyPolicy: true
 privacyPolicyUrl: "/projects/solstice-cipher/privacy-policy"
 appName: "Solstice Cipher"
