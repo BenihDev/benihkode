@@ -1,9 +1,9 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AppHero from '../../components/AppHero.astro';
 import BrandSignal from '../../components/BrandSignal.astro';
 import { mapEntriesToStaticPaths } from '../../utils/routing';
-import { getPrivacyPolicyHref, getSupportHref } from '../../utils/projects';
 
 export async function getStaticPaths() {
 	const projects = await getCollection('projects');
@@ -18,67 +18,21 @@ type Props = CollectionEntry<'projects'>;
 const project = Astro.props;
 const { Content } = await render(project);
 
-const backLink = '/projects';
-const backLabelText = 'Back to Portfolio';
 const breadcrumbs = [{ label: 'Portfolio', path: '/projects/' }, { label: project.data.title }];
 ---
 
 <BaseLayout title={`${project.data.title} — BenihKode Portfolio`} description={project.data.description} breadcrumbs={breadcrumbs}>
 	<article style="padding-top: 4rem;">
 		<div class="container">
-			<a href={backLink} class="back-link"><span aria-hidden="true">←</span> {backLabelText}</a>
+			<a href="/projects" class="back-link"><span aria-hidden="true">←</span> Back to Portfolio</a>
 
-			<div class="project-header">
-				<div class="project-meta">
-					{project.data.icon ? <img src={project.data.icon} alt={`${project.data.title} app icon`} class="project-icon" loading="lazy" width="80" height="80" /> : <div class="project-emoji">{project.data.emoji}</div>}
-					<div class="tech-stack">
-						{project.data.techStack.map(tech => (
-							<span class="tech-badge">{tech}</span>
-						))}
-						{/* tools render under /tools/, so no CLI badge is needed here */}
-					</div>
-				</div>
-				<h1>{project.data.title}</h1>
-				<p class="project-description">{project.data.description}</p>
-
-				<div class="project-links">
-					{project.data.url && (
-						<a href={project.data.url} class="project-link" target="_blank" rel="noopener noreferrer">
-							View Project <span aria-hidden="true">→</span>
-						</a>
-					)}
-					{project.data.npmPackage && (
-						<a href={`https://www.npmjs.com/package/${project.data.npmPackage}`} class="project-link npm-link" target="_blank" rel="noopener noreferrer">
-							npm
-						</a>
-					)}
-					{project.data.githubUrl && (
-						<a href={project.data.githubUrl} class="project-link github-link" target="_blank" rel="noopener noreferrer">
-							GitHub
-						</a>
-					)}
-				</div>
-
-				{project.data.installCommand && (
-					<div class="install-section">
-						<div class="install-label">Install</div>
-						<code class="install-command">{project.data.installCommand}</code>
-					</div>
-				)}
-			</div>
+			<AppHero project={project} />
 
 			<div class="project-content">
 				<Content />
 			</div>
 
 			<BrandSignal subject={project.data.title} collection="project" emitSchema={false} />
-
-			{project.data.distributed && (
-				<div class="project-page-links">
-					<a href={getSupportHref(project)} class="project-page-link">Support</a>
-					<a href={getPrivacyPolicyHref(project)} class="project-page-link">Privacy Policy</a>
-				</div>
-			)}
 		</div>
 	</article>
 </BaseLayout>
@@ -89,85 +43,6 @@ const breadcrumbs = [{ label: 'Portfolio', path: '/projects/' }, { label: projec
 		text-decoration: none; transition: color 0.3s ease;
 	}
 	.back-link:hover { color: var(--accent); }
-
-	.project-header {
-		margin-bottom: 3rem;
-	}
-	.project-meta {
-		display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
-	}
-	.project-emoji {
-		font-size: 4rem;
-	}
-	.project-icon {
-		width: 64px; height: 64px; border-radius: 14px;
-		box-shadow: 0 6px 18px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.12);
-	}
-	.tech-stack {
-		display: flex; gap: 0.5rem; flex-wrap: wrap;
-	}
-	.tech-badge {
-		font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
-		padding: 0.25rem 0.6rem; background: var(--bg-card);
-		border: 1px solid var(--border); border-radius: 4px;
-		color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.04em;
-	}
-	.category-badge {
-		font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
-		padding: 0.25rem 0.6rem; background: var(--accent);
-		border: 1px solid transparent; border-radius: 4px;
-		color: var(--bg-primary); text-transform: uppercase; letter-spacing: 0.04em;
-		font-weight: 600;
-	}
-	h1 {
-		font-size: 2.5rem; font-weight: 800; margin-bottom: 0.75rem;
-		line-height: 1.2; color: var(--text-primary);
-	}
-	.project-description {
-		font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 1.5rem;
-		line-height: 1.6;
-	}
-	.project-links {
-		display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem;
-	}
-	.project-link {
-		display: inline-block; padding: 0.75rem 1.5rem;
-		background: var(--accent); color: var(--bg-primary);
-		text-decoration: none; border-radius: var(--radius);
-		font-weight: 600; transition: all 0.3s ease; font-size: 0.9rem;
-	}
-	.project-link:hover {
-		transform: translateY(-2px); box-shadow: 0 8px 16px var(--accent-glow);
-	}
-	.npm-link {
-		background: #cb3837;
-	}
-	.npm-link:hover {
-		box-shadow: 0 8px 16px rgba(203, 56, 55, 0.3);
-	}
-	.github-link {
-		background: var(--bg-card); color: var(--text-primary);
-		border: 1px solid var(--border);
-	}
-	.github-link:hover {
-		border-color: var(--accent); color: var(--accent);
-		box-shadow: 0 8px 16px var(--accent-glow);
-	}
-
-	.install-section {
-		margin-bottom: 2rem; padding: 1.25rem 1.5rem;
-		background: var(--bg-card); border: 1px solid var(--border);
-		border-radius: var(--radius);
-	}
-	.install-label {
-		font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
-		text-transform: uppercase; letter-spacing: 0.08em;
-		color: var(--text-muted); margin-bottom: 0.5rem;
-	}
-	.install-command {
-		font-family: 'JetBrains Mono', monospace; font-size: 0.95rem;
-		color: var(--accent); display: block; user-select: all;
-	}
 
 	.project-content {
 		max-width: 720px; line-height: 1.8;
@@ -204,25 +79,7 @@ const breadcrumbs = [{ label: 'Portfolio', path: '/projects/' }, { label: projec
 		font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;
 	}
 
-	.project-page-links {
-		display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem;
-	}
-	.project-page-link {
-		display: inline-block; padding: 0.5rem 1rem;
-		background: var(--bg-card); border: 1px solid var(--border);
-		border-radius: var(--radius); color: var(--text-secondary);
-		text-decoration: none; font-size: 0.9rem; transition: all 0.3s ease;
-	}
-	.project-page-link:hover {
-		color: var(--accent); border-color: var(--accent);
-	}
-
 	@media (max-width: 768px) {
-		h1 { font-size: 2rem; }
-		.project-emoji { font-size: 3rem; }
-		.project-icon { width: 56px; height: 56px; }
 		.project-content { font-size: 0.95rem; }
-		.project-links { flex-direction: column; }
-		.project-link { text-align: center; }
 	}
 </style>
