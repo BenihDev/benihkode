@@ -9,15 +9,16 @@ import { frontmatterBoolean } from '../../scripts/gen-redirects.mjs';
 const PROJECTS_DIR = 'src/content/projects';
 
 /**
- * The nine Apps that ship a privacy policy today — the store-distributed set
- * per spec #79. Listed explicitly so this guard fails on the content that
- * ships, not on a value recomputed from the flags it is supposed to track.
+ * The ten Apps that ship a privacy policy today — the store-distributed set.
+ * Listed explicitly so this guard fails on the content that ships, not on a
+ * value recomputed from the flags it is supposed to track.
  */
 const DISTRIBUTED_APPS = [
 	'colorpalette-pro',
 	'echochess',
 	'gas-flow-calculator',
 	'habittracker',
+	'onething',
 	'pocketbudget',
 	'smartstartup',
 	'solstice-cipher',
