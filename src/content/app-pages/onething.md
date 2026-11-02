@@ -19,7 +19,7 @@ None of this is transmitted to us. Deleting the App deletes all of it.
 
 ## Third-Party Services
 
-The App itself sends nothing anywhere. Two features rely on third parties whose own policies apply when they are active:
+OneThing has no server and no analytics of its own. The only network traffic the App generates goes directly to the two services below — Google, when an ad is requested, and Apple, for purchases — never to us, and nothing about you passes through any other party.
 
 - **Google AdMob** — the free version shows banner ads served by Google (AdMob) on the Settings and History screens only, never inside Today. Google may collect device identifiers and usage data to serve and measure ads, subject to your consent choices: where required by law, the App shows Google's consent form before any ad is requested, and you can revisit that choice anytime via **Settings → Privacy options**. Google's own privacy policy explains what it collects: [policies.google.com/privacy](https://policies.google.com/privacy).
 - **Apple payments (StoreKit)** — the *Remove ads* purchase is processed entirely by Apple. We never see your name, payment method or any payment detail; the App only learns from Apple whether the purchase is owned, and keeps that fact on your device. Apple's privacy policy covers the transaction: [apple.com/legal/privacy](https://www.apple.com/legal/privacy/).
