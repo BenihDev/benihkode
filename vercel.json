@@ -211,6 +211,36 @@
       "permanent": true
     },
     {
+      "source": "/projects/onething",
+      "destination": "https://www.benihkode.web.id/apps/onething/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/onething/",
+      "destination": "https://www.benihkode.web.id/apps/onething/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/onething/support",
+      "destination": "https://www.benihkode.web.id/apps/onething/support/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/onething/support/",
+      "destination": "https://www.benihkode.web.id/apps/onething/support/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/onething/privacy-policy",
+      "destination": "https://www.benihkode.web.id/apps/onething/privacy/",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/onething/privacy-policy/",
+      "destination": "https://www.benihkode.web.id/apps/onething/privacy/",
+      "statusCode": 301
+    },
+    {
       "source": "/projects/pocketbudget",
       "destination": "https://www.benihkode.web.id/apps/pocketbudget/",
       "statusCode": 301
