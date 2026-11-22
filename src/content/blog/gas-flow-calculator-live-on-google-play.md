@@ -5,6 +5,8 @@ pubDate: 2026-11-21
 tags: ["flutter", "android", "google play", "build story"]
 ---
 
+![The Gas Flow Calculator listing on Google Play — BenihKode, the 10+ downloads badge highlighted, and the app icon](/gasflow-banner.png)
+
 In May I wrote about [building the Gas Flow Calculator app](/blog/building-field-ready-engineering-tools-with-flutter-gas-flow-calculator-story) — a Flutter utility for ISO 5167 gas flow calculations, made for field engineers who need precision on a small screen. That post ended at a tidy milestone: a signed App Bundle, version 1.0.1+3, uploaded to Play's internal testing track. Tidy, and incomplete. An app on an internal track is invisible; nobody can search Google Play for it, nobody can install it, and months of work sit behind a dashboard only I can open.
 
 That gap is closed now. The Gas Flow Calculator app is public on Google Play, listed under Tools, installable on any phone running Android 7.0 or newer. The calculator itself works fully offline, and inputs and saved values never leave the device.
