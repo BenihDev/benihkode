@@ -341,16 +341,6 @@
       "statusCode": 301
     },
     {
-      "source": "/projects/taskmaster-cli",
-      "destination": "https://www.benihkode.web.id/apps/taskmaster-cli/",
-      "statusCode": 301
-    },
-    {
-      "source": "/projects/taskmaster-cli/",
-      "destination": "https://www.benihkode.web.id/apps/taskmaster-cli/",
-      "statusCode": 301
-    },
-    {
       "source": "/projects/tutupen",
       "destination": "https://www.benihkode.web.id/apps/tutupen/",
       "statusCode": 301
