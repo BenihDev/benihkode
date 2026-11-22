@@ -9,7 +9,7 @@ import { frontmatterBoolean } from '../../scripts/gen-redirects.mjs';
 const PROJECTS_DIR = 'src/content/projects';
 
 /**
- * The ten Apps that ship a privacy policy today — the store-distributed set.
+ * The nine Apps that ship a privacy policy today — the store-distributed set.
  * Listed explicitly so this guard fails on the content that ships, not on a
  * value recomputed from the flags it is supposed to track.
  */
@@ -23,7 +23,6 @@ const DISTRIBUTED_APPS = [
 	'smartstartup',
 	'solstice-cipher',
 	'tutupen',
-	'weathernow',
 ];
 
 interface ProjectEntry {

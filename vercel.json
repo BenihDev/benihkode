@@ -381,36 +381,6 @@
       "statusCode": 301
     },
     {
-      "source": "/projects/weathernow",
-      "destination": "https://www.benihkode.web.id/apps/weathernow/",
-      "statusCode": 301
-    },
-    {
-      "source": "/projects/weathernow/",
-      "destination": "https://www.benihkode.web.id/apps/weathernow/",
-      "statusCode": 301
-    },
-    {
-      "source": "/projects/weathernow/support",
-      "destination": "https://www.benihkode.web.id/apps/weathernow/support/",
-      "statusCode": 301
-    },
-    {
-      "source": "/projects/weathernow/support/",
-      "destination": "https://www.benihkode.web.id/apps/weathernow/support/",
-      "statusCode": 301
-    },
-    {
-      "source": "/projects/weathernow/privacy-policy",
-      "destination": "https://www.benihkode.web.id/apps/weathernow/privacy/",
-      "statusCode": 301
-    },
-    {
-      "source": "/projects/weathernow/privacy-policy/",
-      "destination": "https://www.benihkode.web.id/apps/weathernow/privacy/",
-      "statusCode": 301
-    },
-    {
       "source": "/support",
       "destination": "https://www.benihkode.web.id/apps/echochess/support/",
       "statusCode": 301
