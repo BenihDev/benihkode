@@ -4,6 +4,7 @@ description: "Field-ready Flutter utility for ISO 5167 gas flow calculations, pr
 emoji: "🧮"
 techStack: ["Flutter", "Dart", "Android"]
 category: "app"
+url: "https://play.google.com/store/apps/details?id=id.fanioz.gasflowcalc"
 order: 7
 distributed: true
 appName: "Gas Flow Calculator"
