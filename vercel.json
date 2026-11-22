@@ -1,6 +1,16 @@
 {
   "redirects": [
     {
+      "source": "/projects/branchprune",
+      "destination": "https://www.benihkode.web.id/tools/branchprune/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/branchprune/",
+      "destination": "https://www.benihkode.web.id/tools/branchprune/",
+      "permanent": true
+    },
+    {
       "source": "/projects/changelog-ai",
       "destination": "https://www.benihkode.web.id/tools/changelog-ai/",
       "permanent": true
@@ -108,16 +118,6 @@
     {
       "source": "/projects/gitprgen/",
       "destination": "https://www.benihkode.web.id/tools/gitprgen/",
-      "permanent": true
-    },
-    {
-      "source": "/projects/gitprune",
-      "destination": "https://www.benihkode.web.id/tools/gitprune/",
-      "permanent": true
-    },
-    {
-      "source": "/projects/gitprune/",
-      "destination": "https://www.benihkode.web.id/tools/gitprune/",
       "permanent": true
     },
     {

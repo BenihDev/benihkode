@@ -20,7 +20,7 @@ BenihKode builds small, opinionated developer tools and ships them — CLIs, npm
 
 - [gitcommitgen](https://www.benihkode.web.id/tools/gitcommitgen/) — AI-powered conventional commit messages from staged changes
 - [gitprgen](https://www.benihkode.web.id/tools/gitprgen/) — AI-powered PR description generator
-- [gitprune](https://www.benihkode.web.id/tools/gitprune/) — safe git branch cleanup
+- [branchprune](https://www.benihkode.web.id/tools/branchprune/) — safe git branch cleanup
 - [secretsweep](https://www.benihkode.web.id/tools/secretsweep/) — zero-config secret scanning for staged files
 - [jsonask](https://www.benihkode.web.id/tools/jsonask/) — query JSON in natural language instead of jq
 - [envtainer](https://www.benihkode.web.id/tools/envtainer/) — environment-variable management for .env files

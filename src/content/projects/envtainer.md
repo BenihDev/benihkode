@@ -5,7 +5,7 @@ summary: "envtainer is a small CLI that keeps .env files organized, validated, a
 emoji: "📦"
 techStack: ["TypeScript", "Node.js", "CLI"]
 category: "tool"
-githubUrl: "https://github.com/BenihDev/envtainer"
+githubUrl: "https://github.com/fanioz/envtainer"
 order: 5
 ---
 

@@ -6,7 +6,7 @@ emoji: "❓"
 techStack: ["TypeScript", "Node.js", "CLI"]
 category: "tool"
 npmPackage: "@fanioz/jsonask"
-githubUrl: "https://github.com/BenihDev/jsonask"
+githubUrl: "https://github.com/fanioz/jsonask"
 installCommand: "npm install -g @fanioz/jsonask"
 order: 10
 ---

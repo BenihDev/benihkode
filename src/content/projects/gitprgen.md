@@ -76,7 +76,7 @@ gitprgen -p anthropic -m claude-sonnet-4-20250514
 
 - [gitcommitgen](/tools/gitcommitgen) — write the commit messages the PR summary
   is built from.
-- [gitprune](/tools/gitprune) — clean up the branch once the PR is merged.
+- [branchprune](/tools/branchprune) — clean up the branch once the PR is merged.
 - [secretsweep](/tools/secretsweep) — scan the diff before it reaches a reviewer.
 - Read the build story in [Building gitprgen](/blog/building-gitprgen) and browse
   the [developer tools collection](/tools/).
