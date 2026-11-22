@@ -67,12 +67,12 @@ Generate ready-to-use MCP servers from OpenAPI specs, SQLite databases, or YAML 
 npx @fanioz/mcpkit from openapi.yaml
 ```
 
-### gitprune
+### branchprune
 
-Safe git branch cleanup. Identify and remove merged and stale branches without losing work.
+Zero-config safe git branch cleanup. Review and remove merged branches without losing work.
 
 ```bash
-gitprune --delete
+npx branchprune
 ```
 
 ### envtainer

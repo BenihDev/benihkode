@@ -13,7 +13,7 @@ Every pull request I open starts the same way: I finish the work, push the branc
 
 I already automated commit messages with [gitcommitgen](/blog/shipped-first-npm-package). But commit messages are one-liners; PR descriptions are documents. They need context ("why does this change exist?"), structure ("what changed?"), and a testing section that reviewers actually read.
 
-Writing those by hand cost me ten to fifteen minutes per PR. Multiply that by the branch-heavy workflow I keep — I had [a whole cleanup tool](/tools/gitprune) precisely because I open so many branches — and the tax adds up fast. When a chore has a mechanical half, I turn it into a tool. That's the whole ethos of this garden: [from script to tool](/blog/from-script-to-tool), every time.
+Writing those by hand cost me ten to fifteen minutes per PR. Multiply that by the branch-heavy workflow I keep — I had [a whole cleanup tool](/tools/branchprune) precisely because I open so many branches — and the tax adds up fast. When a chore has a mechanical half, I turn it into a tool. That's the whole ethos of this garden: [from script to tool](/blog/from-script-to-tool), every time.
 
 ## How the AI pull request description generator works
 

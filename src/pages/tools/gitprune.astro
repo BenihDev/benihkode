@@ -1,0 +1,19 @@
+---
+// gitprune was renamed to branchprune upstream; keep the old URL alive.
+// A file route beats the generated /tools/[slug] route, so this stub owns
+// the old path and forwards visitors to the renamed tool page.
+const canonical = 'https://www.benihkode.web.id/tools/branchprune/';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="refresh" content="0; url=/tools/branchprune/" />
+		<link rel="canonical" href={canonical} />
+		<title>gitprune is now branchprune — BenihKode</title>
+	</head>
+	<body>
+		<p>gitprune was renamed. Continue to <a href="/tools/branchprune/">branchprune</a>.</p>
+	</body>
+</html>

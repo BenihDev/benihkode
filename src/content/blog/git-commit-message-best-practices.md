@@ -117,7 +117,7 @@ npx --no -- commitlint --edit "$1"
 Generation plus enforcement means the format is right by default and impossible
 to break silently. For the sibling workflow, [gitprgen](/tools/gitprgen) drafts
 the pull request description from the same diff, and
-[gitprune](/tools/gitprune) cleans up branches once the work is merged.
+[branchprune](/tools/branchprune) cleans up branches once the work is merged.
 
 ## Commit hygiene beyond the message
 

@@ -183,7 +183,7 @@ tool never commits in dry-run or plain generate mode.
 
 - [gitprgen](/tools/gitprgen) — generate the pull request description from the
   same staged diff.
-- [gitprune](/tools/gitprune) — clean up branches once the work is merged.
+- [branchprune](/tools/branchprune) — clean up branches once the work is merged.
 - [secretsweep](/tools/secretsweep) — scan the staged files for secrets before
   you commit them.
 - Read the build story in [Building gitprgen](/blog/building-gitprgen) and the

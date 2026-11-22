@@ -77,6 +77,6 @@ Without an API key, changelog-ai automatically falls back to heuristic-based com
   in conventional shape.
 - [gitprgen](/tools/gitprgen) — draft the pull request description from the same
   git history.
-- [gitprune](/tools/gitprune) — tidy up branches once a release is tagged.
+- [branchprune](/tools/branchprune) — tidy up branches once a release is tagged.
 - Browse the rest of the [developer tools collection](/tools/) and the
   [collection announcement](/blog/introducing-benihkode-dev-tools).
