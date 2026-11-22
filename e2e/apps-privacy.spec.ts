@@ -1,23 +1,25 @@
 import { test, expect } from '@playwright/test';
 import { SITE_EMAIL } from '../src/consts';
 
-test('ColorPalette Pro serves the generated privacy policy at /apps/<slug>/privacy', async ({ page }) => {
+test('OneThing serves the generated privacy policy at /apps/<slug>/privacy', async ({ page }) => {
   // The generated route renders from the App's own document in
   // src/content/app-pages; the template owns the header and contact section
-  await page.goto('/apps/colorpalette-pro/privacy');
+  await page.goto('/apps/onething/privacy');
 
-  await expect(page).toHaveTitle(/Privacy Policy — ColorPalette Pro/);
+  await expect(page).toHaveTitle(/Privacy Policy — OneThing/);
   await expect(page.getByRole('heading', { name: 'Privacy Policy', level: 1 })).toBeVisible();
-  await expect(page.getByText('for ColorPalette Pro')).toBeVisible();
+  await expect(page.getByText('for OneThing')).toBeVisible();
 
   for (const section of [
     'Introduction',
-    'Information Collection and Use',
-    'Data Storage',
+    'The Short Version',
+    'Information the App Keeps on Your Device',
     'Third-Party Services',
+    'Notifications',
+    'Live Activities',
     // The document is markdown, so Astro's smartypants renders the apostrophe
     // typographically (unlike the hand-written .astro pages).
-    'Children\u2019s Privacy',
+    'Children’s Privacy',
     'Changes to This Privacy Policy',
   ]) {
     await expect(page.getByRole('heading', { name: section, level: 2 })).toBeVisible();
@@ -29,21 +31,21 @@ test('ColorPalette Pro serves the generated privacy policy at /apps/<slug>/priva
   await expect(contact).toHaveAttribute('href', `mailto:${SITE_EMAIL}`);
 
   // Verify the back link returns to the app landing
-  const back = page.getByRole('link', { name: 'Back to ColorPalette Pro' });
+  const back = page.getByRole('link', { name: 'Back to OneThing' });
   await expect(back).toBeVisible();
-  await expect(back).toHaveAttribute('href', '/apps/colorpalette-pro');
+  await expect(back).toHaveAttribute('href', '/apps/onething');
 });
 
-test('the ColorPalette Pro landing cross-links its privacy policy', async ({ page }) => {
-  await page.goto('/apps/colorpalette-pro');
+test('the OneThing landing cross-links its privacy policy', async ({ page }) => {
+  await page.goto('/apps/onething');
 
   const privacyLink = page.locator('#main-content').getByRole('link', { name: 'Privacy Policy' });
   await expect(privacyLink).toBeVisible();
-  await expect(privacyLink).toHaveAttribute('href', '/apps/colorpalette-pro/privacy');
+  await expect(privacyLink).toHaveAttribute('href', '/apps/onething/privacy');
 
   // Follow the link: the policy page must actually be reachable
   await privacyLink.click();
-  await expect(page).toHaveURL('/apps/colorpalette-pro/privacy');
+  await expect(page).toHaveURL('/apps/onething/privacy');
   await expect(page.getByRole('heading', { name: 'Privacy Policy', level: 1 })).toBeVisible();
 });
 
